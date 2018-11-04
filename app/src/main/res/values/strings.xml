@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">FirebaseBlog</string>
     <string name="del">DEL</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="authorization">Authorization</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="registration">Registration</string>
 </resources>
