@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.android.evgeniy.firebaseblog.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,14 +56,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         editText = findViewById(R.id.et_password);
         password = editText.getText().toString();
 
-        switch (v.getId()) {
-            case R.id.btn_sign_in:
-                SignIn();
-                break;
-            case R.id.btn_registration:
-                startSignUpActivity();
-                break;
-        }
+        if (!email.isEmpty() && !password.isEmpty())
+            switch (v.getId()) {
+                case R.id.btn_sign_in:
+                    SignIn();
+                    break;
+                case R.id.btn_registration:
+                    startSignUpActivity();
+                    break;
+            }
     }
 
     public void SignIn() {
@@ -81,20 +83,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
     }
 
 
-
-    private void startUserNotesActivity(){
+    private void startUserNotesActivity() {
         Intent intent = new Intent(this, UserNotesActivity.class);
         startActivity(intent);
     }
 
-    private void startSignUpActivity(){
+    private void startSignUpActivity() {
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
