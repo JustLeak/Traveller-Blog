@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="400dp"
+    android:orientation="horizontal">
 
-    <ListView android:layout_width="0dp"
+    <ListView
+        android:id="@+id/note_text"
+        android:layout_width="0dp"
+        android:layout_height="203dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_del"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/note_text"/>
-    <Button android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:text="@string/del"
-        android:id="@+id/btn_del"/>
+        android:text="@string/del" />
 </LinearLayout>
