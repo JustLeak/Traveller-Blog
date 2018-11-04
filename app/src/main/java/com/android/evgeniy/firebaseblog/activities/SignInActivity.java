@@ -1,13 +1,14 @@
-package com.android.evgeniy.firebaseblog;
+package com.android.evgeniy.firebaseblog.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.evgeniy.firebaseblog.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListner;
 
     private String email;
     private String password;
@@ -33,22 +33,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mAuth = FirebaseAuth.getInstance();
 
 
-        mAuthListner = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null) {
-
-                } else {
-
-                }
-            }
-        };
-
-        EditText editText = (EditText) findViewById(R.id.et_email);
-        email = editText.getText().toString();
-        editText = (EditText) findViewById(R.id.et_password);
-        password = editText.getText().toString();
     }
 
     @Override
@@ -57,7 +41,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-
+            Intent intent = new Intent(this, UserNotesActivity.class);
+            startActivity(intent);
         } else {
 
         }

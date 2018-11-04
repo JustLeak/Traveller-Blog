@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_800"
-    tools:context=".SignInActivity">
+    tools:context=".activities.SignInActivity">
 
 
     <EditText android:layout_width="250dp"
