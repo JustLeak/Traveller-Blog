@@ -139,13 +139,14 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/et_age_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number" />
 
             <RadioGroup
+                android:id="@+id/rg_gender_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkedButton="@+id/rb_male_reg"
@@ -169,7 +170,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_create_acc_"
+            android:id="@+id/btn_create_acc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="80sp"
