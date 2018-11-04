@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -43,12 +42,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            updateUi();
-        } else {
-
+            startUserNotesActivity();
         }
     }
 
@@ -64,7 +60,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 SignIn();
                 break;
             case R.id.btn_registration:
-                Registration();
+                startSignUpActivity();
                 break;
         }
     }
@@ -78,9 +74,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(SignInActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                            updateUi();
+                            startUserNotesActivity();
                         } else {
                             // If sign in fails, display a message to the user.
 
@@ -92,29 +87,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }
 
-    public void Registration() {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignInActivity.this, "Registration success.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUi();
-                        } else {
-                            // If sign in fails, display a message to the user.
 
-                            Toast.makeText(SignInActivity.this, "Registration failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // ...
-                    }
-                });
+
+    private void startUserNotesActivity(){
+        Intent intent = new Intent(this, UserNotesActivity.class);
+        startActivity(intent);
     }
 
-    private void updateUi(){
-        Intent intent = new Intent(this , UserNotesActivity.class);
+    private void startSignUpActivity(){
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }
