@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +20,7 @@ import java.util.List;
 
 public class UserNotesActivity extends AppCompatActivity {
 
+    UserDetails userDetails;
     private FirebaseAuth mAuth;
     DatabaseReference myRef;
 
@@ -36,18 +37,19 @@ public class UserNotesActivity extends AppCompatActivity {
 
         myRef = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = mAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         myRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {
                 };
-                noteTextList = dataSnapshot.child("User notes").getValue(t);
+                noteTextList = dataSnapshot.child("Notes").getValue(t);
 
+                UserDetails userDetails = dataSnapshot.child("Details").getValue(UserDetails.class);
+                System.out.println(userDetails.toString());
                 updateUI();
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
