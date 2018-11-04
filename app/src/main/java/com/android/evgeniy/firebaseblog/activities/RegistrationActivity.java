@@ -12,7 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignUpActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private String email;
     private String password;
@@ -22,11 +22,10 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_registration);
 
 
     }
-
 
     public void Registration() {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -35,13 +34,13 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignUpActivity.this, "Registration success.",
+                            Toast.makeText(RegistrationActivity.this, "Registration success.",
                                     Toast.LENGTH_SHORT).show();
                             startUserNotesActivity();
                         } else {
                             // If sign in fails, display a message to the user.
 
-                            Toast.makeText(SignUpActivity.this, "Registration failed.",
+                            Toast.makeText(RegistrationActivity.this, "Registration failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                         // ...

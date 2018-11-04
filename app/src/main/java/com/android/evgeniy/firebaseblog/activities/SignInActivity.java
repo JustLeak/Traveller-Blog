@@ -56,15 +56,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         editText = findViewById(R.id.et_password);
         password = editText.getText().toString();
 
-        if (!email.isEmpty() && !password.isEmpty())
-            switch (v.getId()) {
-                case R.id.btn_sign_in:
+
+        switch (v.getId()) {
+            case R.id.btn_sign_in:
+                if (!email.isEmpty() && !password.isEmpty())
                     SignIn();
-                    break;
-                case R.id.btn_registration:
-                    startSignUpActivity();
-                    break;
-            }
+                break;
+            case R.id.btn_registration:
+                startRegistrationActivity();
+                break;
+        }
     }
 
     public void SignIn() {
@@ -94,8 +95,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
-    private void startSignUpActivity() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+    private void startRegistrationActivity() {
+        Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 }

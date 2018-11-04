@@ -51,6 +51,7 @@
                     android:layout_marginStart="5sp"
                     android:ems="5"
                     android:hint="@string/email"
+                    android:inputType="textEmailAddress"
                     android:textColorHint="@color/grey_50"
                     android:textSize="25sp" />
             </LinearLayout>
