@@ -1,5 +1,9 @@
 package com.android.evgeniy.firebaseblog.models;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,11 +17,8 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @ToString
-public class UserDetails {
-    private String email;
-    private String password;
-    private String name;
-    private String surname;
-    private Integer age;
-    private String gender;
+public class User {
+    String uid;
+    UserDetails userDetails;
+    ArrayList<UserNote> userNotes;
 }
