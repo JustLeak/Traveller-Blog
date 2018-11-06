@@ -1,4 +1,4 @@
-package com.android.evgeniy.firebaseblog.repositories;
+package com.android.evgeniy.firebaseblog.repositories.interfaces;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;
 

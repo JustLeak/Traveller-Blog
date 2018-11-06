@@ -1,6 +1,7 @@
 package com.android.evgeniy.firebaseblog.repositories;
 
 import com.android.evgeniy.firebaseblog.models.UserDetails;
+import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserDetailsDao;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserDetails;
+import com.android.evgeniy.firebaseblog.repositories.UserDetailsDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +48,13 @@ public class UserNotesActivity extends AppCompatActivity {
                 };
                 noteTextList = dataSnapshot.child("Notes").getValue(t);
 
+                UserDetailsDao detailsDao = new UserDetailsDao();
+
+
                 UserDetails userDetails = dataSnapshot.child("Details").getValue(UserDetails.class);
+
+                detailsDao.setOneByUid(userDetails, user.getUid());
+
                 System.out.println(userDetails.toString());
                 updateUI();
             }

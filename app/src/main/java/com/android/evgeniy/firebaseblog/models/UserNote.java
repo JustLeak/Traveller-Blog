@@ -14,6 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UserNote {
-    String date;
-    String text;
+    private String id;
+    private String date;
+    private String text;
 }

@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.models.UserDetails;
+import com.android.evgeniy.firebaseblog.repositories.UserDetailsDao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
