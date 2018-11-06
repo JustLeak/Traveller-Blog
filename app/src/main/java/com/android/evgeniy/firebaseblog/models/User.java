@@ -1,6 +1,5 @@
 package com.android.evgeniy.firebaseblog.models;
 
-
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

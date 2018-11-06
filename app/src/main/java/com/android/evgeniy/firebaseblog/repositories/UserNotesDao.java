@@ -13,7 +13,7 @@ public class UserNotesDao implements IUserNotesDao {
     public void addOneByUid(UserNote userNote, String uid) {
         if (userNote != null || !uid.isEmpty()) {
             mRef = FirebaseDatabase.getInstance().getReference().child(uid + childName);
-            mRef.setValue(userNote);
+            mRef.push().setValue(userNote);
         }
     }
 }

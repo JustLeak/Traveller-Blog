@@ -8,10 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.models.UserDetails;
-import com.android.evgeniy.firebaseblog.repositories.UserDetailsDao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,7 +30,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        /*mAuth.signOut();*/
 
         signInButton = findViewById(R.id.btn_sign_in);
         signInButton.setOnClickListener(this);

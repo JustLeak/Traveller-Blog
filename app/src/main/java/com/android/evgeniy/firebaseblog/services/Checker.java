@@ -1,7 +1,6 @@
 package com.android.evgeniy.firebaseblog.services;
 
 import com.android.evgeniy.firebaseblog.models.UserDetails;
-
 import java.util.HashMap;
 
 public class Checker implements IUserDetailsChecker {
