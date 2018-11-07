@@ -39,7 +39,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
-        /*mAuth.signOut();*/
+        mAuth.signOut();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mUsernameLayout = findViewById(R.id.login_layout);
@@ -136,6 +136,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             mUsernameLayout.setErrorEnabled(false);
             mPasswordLayout.setErrorEnabled(true);
             mPasswordLayout.setError(getResources().getString(R.string.password_error));
+        }else {
+            mUsernameLayout.setErrorEnabled(false);
+            mPasswordLayout.setErrorEnabled(false);
         }
     }
 }

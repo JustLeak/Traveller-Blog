@@ -18,5 +18,4 @@
     <string name="firstName_error">Name can not be empty</string>
     <string name="lastName_error">Surname can not be empty</string>
     <string name="age_error">Age can not be empty</string>
-
 </resources>
