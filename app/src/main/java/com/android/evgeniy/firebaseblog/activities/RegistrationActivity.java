@@ -99,7 +99,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(RegistrationActivity.this, "Please, fill in all fields.", Toast.LENGTH_SHORT).show();
             addErrorsToFields(checker.getResultMap());
         }
-
     }
 
     private HashMap<String, String> getInputs() {

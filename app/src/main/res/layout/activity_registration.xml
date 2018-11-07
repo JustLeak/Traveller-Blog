@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
         <TextView
@@ -37,7 +38,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="40sp"
                     android:layout_height="40sp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="4sp"
                     android:textAlignment="center"
                     app:srcCompat="@drawable/email" />
 
@@ -65,7 +66,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -96,7 +97,6 @@
                         android:textColorHint="@color/colorText"
                         android:textSize="20sp" />
                 </android.support.design.widget.TextInputLayout>
-
             </LinearLayout>
 
         </LinearLayout>

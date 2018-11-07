@@ -6,5 +6,7 @@
     <color name="orange">#FEC130</color>
     <color name="red">#FA7955</color>
     <color name="colorText">#ffffff</color>
+    <color name="colorNote">#f8fcc4</color>
+    <color name="colorDate">#f2f993</color>
 
 </resources>

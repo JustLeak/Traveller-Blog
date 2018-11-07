@@ -39,7 +39,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        /*mAuth.signOut();*/
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mUsernameLayout = findViewById(R.id.login_layout);

@@ -55,15 +55,6 @@ public class UserNotesActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-
-
-
-
-
-
-
 /*                     Date date = new Date();
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -97,6 +88,7 @@ public class UserNotesActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            @SuppressLint({"ViewHolder", "InflateParams"})
             final View view = getLayoutInflater().inflate(R.layout.item, null);
             final UserNote item = getItem(position);
             ((TextView) view.findViewById(R.id.note)).setText(item.getText());
