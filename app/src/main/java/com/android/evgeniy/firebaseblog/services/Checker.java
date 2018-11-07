@@ -1,9 +1,15 @@
 package com.android.evgeniy.firebaseblog.services;
 
 import com.android.evgeniy.firebaseblog.models.UserDetails;
+
 import java.util.HashMap;
 
+import lombok.Getter;
+
+@Getter
 public class Checker implements IUserDetailsChecker {
+    private HashMap<String, Boolean> resultMap = new HashMap<>();
+
     @Override
     public boolean isCorrectUserDetails(UserDetails userDetails) {
         if (userDetails.getAge() == null)
@@ -19,12 +25,17 @@ public class Checker implements IUserDetailsChecker {
 
     @Override
     public boolean isCorrectInputs(HashMap<String, String> inputs) {
-
+        resultMap.clear();
         for (String key : inputs.keySet()) {
             if (inputs.get(key).equals("")) {
-                return false;
-            }
+                resultMap.put(key, false);
+            } else
+                resultMap.put(key, true);
         }
-        return true;
+        return !resultMap.containsValue(false);
+    }
+
+    public boolean isEmptyResult() {
+        return resultMap.isEmpty();
     }
 }

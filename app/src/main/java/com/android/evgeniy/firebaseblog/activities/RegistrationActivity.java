@@ -1,7 +1,9 @@
 package com.android.evgeniy.firebaseblog.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +16,12 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.android.evgeniy.firebaseblog.repositories.UserDetailsDao;
 import com.android.evgeniy.firebaseblog.services.Checker;
+import com.android.evgeniy.firebaseblog.services.UserDetailsSetter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,10 +30,23 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private FirebaseAuth mAuth;
     private String password;
 
+    EditText mUsername;
+    EditText mPassword;
+    EditText firstName;
+    EditText lastName;
+    EditText age;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        mUsername = findViewById(R.id.et_email_reg);
+        mPassword = findViewById(R.id.et_password_reg);
+        firstName = findViewById(R.id.et_name_reg);
+        lastName = findViewById(R.id.et_surname_reg);
+        age = findViewById(R.id.et_age_reg);
+
         userDetails = new UserDetails();
 
         createAccountButton = findViewById(R.id.btn_create_acc);
@@ -73,34 +90,26 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         Checker checker = new Checker();
         HashMap<String, String> inputs = getInputs();
-        password = inputs.get("password");
 
         if (checker.isCorrectInputs(inputs)) {
-            userDetails = UserDetails.builder().email(inputs.get("email"))
-                    .firstName(inputs.get("firstName"))
-                    .lastName(inputs.get("lastName"))
-                    .age(Integer.valueOf(inputs.get("age")))
-                    .gender(inputs.get("gender")).build();
-
+            password = inputs.get("password");
+            userDetails = UserDetailsSetter.set(inputs);
             Registration();
         } else {
-            Toast.makeText(RegistrationActivity.this, "Registration failed. Empty input.",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this, "Please, fill in all fields.", Toast.LENGTH_SHORT).show();
+            addErrorsToFields(checker.getResultMap());
         }
+
     }
 
     private HashMap<String, String> getInputs() {
         HashMap<String, String> inputs = new HashMap<>();
-        EditText editText = findViewById(R.id.et_email_reg);
-        inputs.put("email", editText.getText().toString().trim());
-        editText = findViewById(R.id.et_password_reg);
-        inputs.put("password", editText.getText().toString().trim());
-        editText = findViewById(R.id.et_name_reg);
-        inputs.put("firstName", editText.getText().toString().trim());
-        editText = findViewById(R.id.et_surname_reg);
-        inputs.put("lastName", editText.getText().toString().trim());
-        editText = findViewById(R.id.et_age_reg);
-        inputs.put("age", editText.getText().toString().trim());
+
+        inputs.put("email", mUsername.getText().toString().trim());
+        inputs.put("password", mPassword.getText().toString().trim());
+        inputs.put("firstName", firstName.getText().toString().trim());
+        inputs.put("lastName", lastName.getText().toString().trim());
+        inputs.put("age", age.getText().toString().trim());
 
         RadioButton maleRadio = findViewById(R.id.rb_male_reg);
         if (maleRadio.isChecked())
@@ -108,5 +117,31 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         else inputs.put("gender", "Female");
 
         return inputs;
+    }
+
+    private void addErrorsToFields(HashMap<String, Boolean> inputResults) {
+        for (String key : inputResults.keySet()) {
+            if (!inputResults.get(key)) {
+                {
+                    switch (key) {
+                        case "email": {
+                            mUsername.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        case "password": {
+                            mPassword.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        case "firstName": {
+                            firstName.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        case "lastName": {
+                            lastName.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        case "age": {
+                            age.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
