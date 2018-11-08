@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mUsernameLayout = findViewById(R.id.login_layout);
@@ -116,7 +117,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startUserNotesActivity() {
-        Intent intent = new Intent(this, UserNotesActivity.class);
+        Intent intent = new Intent(this, NotesActivity.class);
         startActivity(intent);
     }
 

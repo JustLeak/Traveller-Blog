@@ -24,6 +24,13 @@
         <activity
             android:name=".activities.RegistrationActivity"
             android:screenOrientation="portrait" />
+
+
+
+        <activity android:name=".activities.NotesActivity">
+
+
+        </activity>
     </application>
 
 </manifest>
