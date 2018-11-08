@@ -117,7 +117,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startUserNotesActivity() {
-        Intent intent = new Intent(this, UserNotesActivity.class);
+        Intent intent = new Intent(this, NotesActivity.class);
         startActivity(intent);
     }
 
