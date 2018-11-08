@@ -11,8 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.SignInActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,16 +20,10 @@
         </activity>
         <activity
             android:name=".activities.UserNotesActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.RegistrationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activities.NotesActivity"
-            android:label="@string/title_activity_notes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
