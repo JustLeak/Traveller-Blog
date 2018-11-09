@@ -25,7 +25,6 @@
             android:fontFamily="@font/acme"
             android:gravity="center_vertical"
             android:maxLength="100"
-            android:maxLines="4"
             android:padding="@dimen/padding_small"
             android:textColor="@android:color/black"
             android:textSize="20sp" />

@@ -13,17 +13,81 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.activities.UserNotesActivity;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class NotesFragment extends Fragment {
+
+    private View view;
+    private ListView items;
+    private ItemsAdapter adapter;
+    private DatabaseReference myRef;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_notes, container, false);
+        view = inflater.inflate(R.layout.fragment_notes, container, false);
+
+        items = view.findViewById(R.id.items);
+
+        adapter = new ItemsAdapter();
+        items.setAdapter(adapter);
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*notesView = findViewById(R.id.lw_notes);*/
+
+        myRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+/*                     Date date = new Date();
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+                UserNote userNote = UserNote.builder().date(simpleDateFormat.format(date)).text("First note").build();
+                UserNotesDao userNotesDao = new UserNotesDao();
+                userNotesDao.addOneByUid(userNote, user.getUid());*/
+
+
+                for (DataSnapshot dataS : dataSnapshot.getChildren()) {
+                    /*notesView.setText(notesView.getText() + "\n" + dataS.getKey());
+                    notesView.setText(notesView.getText() + "\n" + dataS.getValue(UserNote.class).toString());*/
+                    adapter.add(dataS.getValue(UserNote.class));
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return view;
     }
 
+
+    private class ItemsAdapter extends ArrayAdapter<UserNote> {
+        ItemsAdapter() {
+            super(view.getContext(), R.layout.item);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            @SuppressLint({"ViewHolder", "InflateParams"}) final View view = getLayoutInflater().inflate(R.layout.item, null);
+            final UserNote item = getItem(position);
+            ((TextView) view.findViewById(R.id.note)).setText(item.getText());
+            ((TextView) view.findViewById(R.id.date)).setText(item.getDate());
+            return view;
+        }
+    }
 }

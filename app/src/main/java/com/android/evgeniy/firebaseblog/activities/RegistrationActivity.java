@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void startUserNotesActivity() {
-        Intent intent = new Intent(this, UserNotesActivity.class);
+        Intent intent = new Intent(this, NotesActivity.class);
         startActivity(intent);
     }
 
