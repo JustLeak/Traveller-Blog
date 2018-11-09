@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class NotesFragment extends Fragment {
 
     private View view;
@@ -47,8 +50,15 @@ public class NotesFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<UserNote> notes = new ArrayList<>();
                 for (DataSnapshot dataS : dataSnapshot.getChildren()) {
-                    adapter.add(dataS.getValue(UserNote.class));
+                    notes.add(dataS.getValue(UserNote.class));
+                }
+
+                Collections.reverse(notes);
+
+                for (UserNote note : notes) {
+                    adapter.add(note);
                 }
             }
 

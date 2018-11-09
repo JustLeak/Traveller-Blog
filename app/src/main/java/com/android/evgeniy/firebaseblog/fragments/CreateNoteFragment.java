@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserNote;
@@ -20,14 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateNoteFragment extends Fragment {
-
+    private View view;
     private Button button;
     private EditText noteText;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_note, container, false);
+        view = inflater.inflate(R.layout.fragment_create_note, container, false);
         button = view.findViewById(R.id.btn_add_note);
         noteText = view.findViewById(R.id.et_new_note);
 
@@ -45,9 +46,15 @@ public class CreateNoteFragment extends Fragment {
                         .text(noteText.getText().toString()).build();
                 UserNotesDao userNotesDao = new UserNotesDao();
                 userNotesDao.addOneByUid(userNote, user.getUid());
+
+                showToast("Record added");
             }
         });
-
         return view;
+    }
+
+    private void showToast(String s) {
+        Toast.makeText(view.getContext(), s,
+                Toast.LENGTH_SHORT).show();
     }
 }
