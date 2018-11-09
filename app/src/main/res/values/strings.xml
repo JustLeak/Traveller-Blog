@@ -19,7 +19,6 @@
     <string name="lastName_error">Surname can not be empty</string>
     <string name="age_error">Age can not be empty</string>
     <string name="title_activity_notes">NotesActivity</string>
-
     <string name="nav_header_title">Menu</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -30,6 +29,4 @@
     <string name="logout">Logout</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="textview">TextView</string>
-
 </resources>

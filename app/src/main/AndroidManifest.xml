@@ -22,10 +22,8 @@
             android:name=".activities.RegistrationActivity"
             android:screenOrientation="portrait" />
 
-
-
-        <activity android:name=".activities.NotesActivity">
-
+        <activity android:name=".activities.NotesActivity"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>

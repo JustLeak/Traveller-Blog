@@ -21,8 +21,8 @@ import java.util.Date;
 
 public class CreateNoteFragment extends Fragment {
 
-    Button button;
-    EditText noteText;
+    private Button button;
+    private EditText noteText;
 
     @Nullable
     @Override

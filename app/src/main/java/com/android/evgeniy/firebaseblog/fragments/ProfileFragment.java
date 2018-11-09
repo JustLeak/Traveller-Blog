@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserDetails;
@@ -29,7 +28,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
     private UserDetails userDetails;
-
 
     @Nullable
     @Override
@@ -59,7 +57,6 @@ public class ProfileFragment extends Fragment {
         }
         return view;
     }
-
 
     public void updateUi() {
         textGender.setText(userDetails.getGender());

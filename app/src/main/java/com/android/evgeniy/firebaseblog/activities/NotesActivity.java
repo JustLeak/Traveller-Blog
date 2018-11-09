@@ -1,9 +1,7 @@
 package com.android.evgeniy.firebaseblog.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,11 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.fragments.CreateNoteFragment;
@@ -63,7 +56,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         }
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -74,15 +66,16 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).commit();
                 break;
+
             case R.id.nav_logout:
                 mAuth.signOut();
                 Intent intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.nav_add:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).commit();
                 break;
-
         }
 
         drawer.closeDrawer(GravityCompat.START);

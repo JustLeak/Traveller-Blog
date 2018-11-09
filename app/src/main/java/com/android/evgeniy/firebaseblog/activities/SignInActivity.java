@@ -16,19 +16,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private FirebaseAuth mAuth;
 
-    TextInputLayout mUsernameLayout;
-    TextInputLayout mPasswordLayout;
-
-    Button signInButton;
-    Button registrationButton;
-
-    EditText mUsername;
-    EditText mPassword;
+    private TextInputLayout mUsernameLayout;
+    private TextInputLayout mPasswordLayout;
+    private Button signInButton;
+    private Button registrationButton;
+    private EditText mUsername;
+    private EditText mPassword;
 
     private String email;
     private String password;
@@ -99,14 +96,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(SignInActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
 
                             startUserNotesActivity();
                         } else {
-                            // If sign in fails, display a message to the user.
-
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

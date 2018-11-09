@@ -3,7 +3,6 @@ package com.android.evgeniy.firebaseblog.activities;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,16 +24,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+
     private UserDetails userDetails;
     private Button createAccountButton;
     private FirebaseAuth mAuth;
     private String password;
 
-    EditText mUsername;
-    EditText mPassword;
-    EditText firstName;
-    EditText lastName;
-    EditText age;
+    private EditText mUsername;
+    private EditText mPassword;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             UserDetailsDao detailsDao = new UserDetailsDao();
                             detailsDao.setOneByUid(userDetails, mAuth.getUid());
 
@@ -71,12 +70,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             mAuth.signInWithEmailAndPassword(userDetails.getEmail(), password);
                             startUserNotesActivity();
                         } else {
-                            // If sign in fails, display a message to the user.
-
                             Toast.makeText(RegistrationActivity.this, "Registration failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        // ...
                     }
                 });
     }

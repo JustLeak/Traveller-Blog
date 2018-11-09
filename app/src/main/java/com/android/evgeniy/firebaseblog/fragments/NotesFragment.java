@@ -35,34 +35,18 @@ public class NotesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_notes, container, false);
 
         items = view.findViewById(R.id.items);
-
         adapter = new ItemsAdapter();
         items.setAdapter(adapter);
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        /*notesView = findViewById(R.id.lw_notes);*/
-
         myRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-/*                     Date date = new Date();
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-                UserNote userNote = UserNote.builder().date(simpleDateFormat.format(date)).text("First note").build();
-                UserNotesDao userNotesDao = new UserNotesDao();
-                userNotesDao.addOneByUid(userNote, user.getUid());*/
-
-
                 for (DataSnapshot dataS : dataSnapshot.getChildren()) {
-                    /*notesView.setText(notesView.getText() + "\n" + dataS.getKey());
-                    notesView.setText(notesView.getText() + "\n" + dataS.getValue(UserNote.class).toString());*/
                     adapter.add(dataS.getValue(UserNote.class));
                 }
-
-
             }
 
             @Override
@@ -83,7 +67,8 @@ public class NotesFragment extends Fragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            @SuppressLint({"ViewHolder", "InflateParams"}) final View view = getLayoutInflater().inflate(R.layout.item, null);
+            @SuppressLint({"ViewHolder", "InflateParams"})
+            final View view = getLayoutInflater().inflate(R.layout.item, null);
             final UserNote item = getItem(position);
             ((TextView) view.findViewById(R.id.note)).setText(item.getText());
             ((TextView) view.findViewById(R.id.date)).setText(item.getDate());
