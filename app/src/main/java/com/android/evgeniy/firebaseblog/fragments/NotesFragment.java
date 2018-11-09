@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class NotesFragment extends Fragment {
 
     private View view;
     private ListView items;
+    private Button button;
     private ItemsAdapter adapter;
     private DatabaseReference myRef;
 
@@ -35,6 +37,7 @@ public class NotesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_notes, container, false);
 
         items = view.findViewById(R.id.items);
+        button = view.findViewById(R.id.btn_new_record);
         adapter = new ItemsAdapter();
         items.setAdapter(adapter);
 
@@ -55,6 +58,12 @@ public class NotesFragment extends Fragment {
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).commit();
+            }
+        });
         return view;
     }
 
@@ -67,8 +76,7 @@ public class NotesFragment extends Fragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            @SuppressLint({"ViewHolder", "InflateParams"})
-            final View view = getLayoutInflater().inflate(R.layout.item, null);
+            @SuppressLint({"ViewHolder", "InflateParams"}) final View view = getLayoutInflater().inflate(R.layout.item, null);
             final UserNote item = getItem(position);
             ((TextView) view.findViewById(R.id.note)).setText(item.getText());
             ((TextView) view.findViewById(R.id.date)).setText(item.getDate());
