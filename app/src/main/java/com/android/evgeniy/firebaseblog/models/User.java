@@ -19,4 +19,6 @@ public class User {
     UserDetails userDetails;
     ArrayList<UserNote> userNotes;
     //todo
+    //sadas
+    
 }
