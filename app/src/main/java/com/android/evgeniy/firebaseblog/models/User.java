@@ -18,4 +18,5 @@ public class User {
     String uid;
     UserDetails userDetails;
     ArrayList<UserNote> userNotes;
+    //todo
 }
