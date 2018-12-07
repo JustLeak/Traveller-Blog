@@ -17,6 +17,7 @@ import lombok.ToString;
 public class User {
     String uid;
     UserDetails userDetails;
+    String a;
     ArrayList<UserNote> userNotes;
     //todo
 }
