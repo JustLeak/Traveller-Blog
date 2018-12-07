@@ -30,6 +30,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private FirebaseAuth mAuth;
     private String password;
 
+    
     private EditText mUsername;
     private EditText mPassword;
     private EditText firstName;
