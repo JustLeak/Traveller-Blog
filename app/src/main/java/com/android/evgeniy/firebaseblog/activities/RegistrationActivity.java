@@ -100,7 +100,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private HashMap<String, String> getInputs() {
         HashMap<String, String> inputs = new HashMap<>();
-
         inputs.put("email", mUsername.getText().toString().trim());
         inputs.put("password", mPassword.getText().toString().trim());
         inputs.put("firstName", firstName.getText().toString().trim());

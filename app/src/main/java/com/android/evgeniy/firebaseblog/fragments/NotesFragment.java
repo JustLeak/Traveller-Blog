@@ -46,7 +46,6 @@ public class NotesFragment extends Fragment {
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes");
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
