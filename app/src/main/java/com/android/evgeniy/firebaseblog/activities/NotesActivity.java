@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.fragments.CreateNoteFragment;
+import com.android.evgeniy.firebaseblog.fragments.MapFragment;
 import com.android.evgeniy.firebaseblog.fragments.NotesFragment;
 import com.android.evgeniy.firebaseblog.fragments.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +76,10 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
             case R.id.nav_add:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).commit();
+                break;
+
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
                 break;
         }
 
