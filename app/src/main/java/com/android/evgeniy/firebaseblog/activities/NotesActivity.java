@@ -16,12 +16,13 @@ import com.android.evgeniy.firebaseblog.fragments.CreateNoteFragment;
 import com.android.evgeniy.firebaseblog.fragments.MapFragment;
 import com.android.evgeniy.firebaseblog.fragments.NotesFragment;
 import com.android.evgeniy.firebaseblog.fragments.ProfileFragment;
+import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout drawer;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).commit();
-
     }
 
     @Override

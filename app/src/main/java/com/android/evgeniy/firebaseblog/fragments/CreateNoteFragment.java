@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,8 @@ public class CreateNoteFragment extends Fragment {
     private View view;
     private Button button;
     private EditText noteText;
+    private UserNotesDao userNotesDao;
+    private UserNotesAdapter userNotesAdapter;
 
     @Nullable
     @Override
@@ -33,6 +36,7 @@ public class CreateNoteFragment extends Fragment {
         noteText = view.findViewById(R.id.et_new_note);
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userNotesAdapter = new UserNotesAdapter(inflater);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,9 +48,8 @@ public class CreateNoteFragment extends Fragment {
                 UserNote userNote = UserNote.builder()
                         .date(simpleDateFormat.format(date))
                         .text(noteText.getText().toString()).build();
-                UserNotesDao userNotesDao = new UserNotesDao();
-                userNotesDao.addOneByUid(userNote, user.getUid());
 
+                userNotesAdapter.getUserNotesDao().addOneByUid(userNote, user.getUid());
                 showToast("Record added");
             }
         });
