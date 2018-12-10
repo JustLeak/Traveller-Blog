@@ -26,7 +26,7 @@ public class UserNotesDao implements IUserNotesDao {
         this.user = FirebaseAuth.getInstance().getCurrentUser();
         this.mRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + childName);
         userNotes = new ArrayList<>();
-        mRef.addValueEventListener(new ValueEventListener() {
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userNotes.clear();
