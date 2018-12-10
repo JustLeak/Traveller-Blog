@@ -25,7 +25,6 @@ public class CreateNoteFragment extends Fragment {
     private View view;
     private Button button;
     private EditText noteText;
-    private UserNotesDao userNotesDao;
     private UserNotesAdapter userNotesAdapter;
 
     @Nullable
