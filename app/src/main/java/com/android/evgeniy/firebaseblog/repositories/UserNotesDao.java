@@ -1,6 +1,8 @@
 package com.android.evgeniy.firebaseblog.repositories;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
@@ -29,13 +31,10 @@ public class UserNotesDao implements IUserNotesDao {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userNotes.clear();
-                for (DataSnapshot dataS : dataSnapshot.getChildren()) {
-                    userNotes.add(dataS.getValue(UserNote.class));
-                }
-                Collections.reverse(userNotes);
-                userNotesAdapter.notifyDataSetChanged();
+                GetUserNotesTask task = new GetUserNotesTask(dataSnapshot, userNotesAdapter);
+                task.execute();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -63,5 +62,38 @@ public class UserNotesDao implements IUserNotesDao {
     @Override
     public int getCount() {
         return userNotes.size();
+    }
+
+    private class GetUserNotesTask extends AsyncTask<Void, Integer, Void> {
+        private DataSnapshot snapshot;
+        private UserNotesAdapter adapter;
+
+        GetUserNotesTask(DataSnapshot snapshot, UserNotesAdapter adapter) {
+            this.snapshot = snapshot;
+            this.adapter = adapter;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            userNotes.clear();
+            for (DataSnapshot dataS : snapshot.getChildren()) {
+                userNotes.add(dataS.getValue(UserNote.class));
+            }
+            Collections.reverse(userNotes);
+            return null;
+        }
+
+        protected void onPostExecute(Void voids) {
+            adapter.notifyDataSetChanged();
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+        }
     }
 }
