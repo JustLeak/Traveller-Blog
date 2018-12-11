@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class CreateNoteFragment extends Fragment {
@@ -41,11 +42,12 @@ public class CreateNoteFragment extends Fragment {
             public void onClick(View v) {
                 Date date = new Date();
                 @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                 UserNote userNote = UserNote.builder()
-                        .date(simpleDateFormat.format(date))
+                        .date(dateFormat.format(date))
                         .ownerId(user.getUid())
+                        .time(timeFormat.format(date))
                         .text(noteText.getText().toString())
                         .location(Location.builder().lat("LAT").lng("LNG").build()).
                                 build();

@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class UserNote {
     private String date;
+    private String time;
     private String text;
     private Location location;
     private String ownerId;

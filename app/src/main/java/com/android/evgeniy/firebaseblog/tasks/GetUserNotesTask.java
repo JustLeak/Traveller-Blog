@@ -21,12 +21,7 @@ public class GetUserNotesTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         ArrayList<UserNote> notesList = adapter.getUserNotesDao().getUserNotes();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        
         notesList.clear();
         for (DataSnapshot dataS : snapshot.getChildren()) {
             notesList.add(dataS.getValue(UserNote.class));
