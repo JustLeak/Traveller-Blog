@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
 
@@ -26,7 +25,7 @@ public class UserNotesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return userNotesDao.getCount();
+        return userNotesDao.getUserNotesCount();
     }
 
     @Override
@@ -50,9 +49,9 @@ public class UserNotesAdapter extends BaseAdapter {
             holder.date = (TextView) convertView.findViewById(R.id.date);
             holder.note = (TextView) convertView.findViewById(R.id.note);
             convertView.setTag(holder);
-        } else {
+        } else
             holder = (ViewHolder) convertView.getTag();
-        }
+
         holder.date.setText(userNotesDao.getOneById(position).getDate());
         holder.note.setText(userNotesDao.getOneById(position).getText());
         return convertView;

@@ -60,4 +60,6 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         Toast.makeText(view.getContext(), s,
                 Toast.LENGTH_SHORT).show();
     }
+
+
 }

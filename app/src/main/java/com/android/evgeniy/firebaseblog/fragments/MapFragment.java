@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.android.evgeniy.firebaseblog.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -33,27 +32,21 @@ public class MapFragment extends Fragment implements
         OnMapReadyCallback {
 
     private View view;
-
     private GoogleMap mMap;
-
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     public static final float DEFAULT_ZOOM = 15F;
     private FusedLocationProviderClient mFusedLocationClient;
     private boolean mLocationPermissionGranted = false;
-
     private LocationCallback mLocationCallback;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_map, container, false);
-
         initMap();
-
         getLocationPermission();
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         mLocationCallback = new LocationCallback() {
@@ -73,8 +66,6 @@ public class MapFragment extends Fragment implements
         Toast.makeText(view.getContext(), "Created", Toast.LENGTH_LONG).show();
         return view;
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
