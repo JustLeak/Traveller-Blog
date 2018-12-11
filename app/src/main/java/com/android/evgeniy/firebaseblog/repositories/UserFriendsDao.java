@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.android.evgeniy.firebaseblog.adapters.FriendsAdapter;
 import com.android.evgeniy.firebaseblog.models.Friend;
-import com.android.evgeniy.firebaseblog.models.User;
-import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserFriendsDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

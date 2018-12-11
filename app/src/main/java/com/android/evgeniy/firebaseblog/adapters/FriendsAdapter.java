@@ -48,18 +48,15 @@ public class FriendsAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.friend_item, null);
             holder = new ViewHolder();
             holder.email = (TextView) convertView.findViewById(R.id.email);
-            //holder.id = (TextView) convertView.findViewById(R.id.friend_id);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.email.setText(userFriendsDao.getOneById(position).getEmail());
-        //holder.id.setText(userFriendsDao.getOneById(position).getId());
         return convertView;
     }
 
     private static class ViewHolder {
         TextView email;
-        //TextView id;
     }
 }

@@ -37,7 +37,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView email = (TextView)view.findViewById(R.id.email);
-                String friendId = friendsAdapter.getUserFriendsDao().getFriendIdByEmail(email.toString());
+                String friendId = friendsAdapter.getUserFriendsDao().getFriendIdByEmail(email.getText().toString());
                 showToast(email.getText().toString()+ " " + friendId);
             }
         });
@@ -60,6 +60,5 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         Toast.makeText(view.getContext(), s,
                 Toast.LENGTH_SHORT).show();
     }
-
 
 }
