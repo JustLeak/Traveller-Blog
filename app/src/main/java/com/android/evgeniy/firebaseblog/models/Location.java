@@ -13,9 +13,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @ToString
-public class UserNote {
-    private String date;
-    private String text;
-    private Location location;
-    private String ownerId;
+public class Location {
+    String lat;
+    String lng;
 }
