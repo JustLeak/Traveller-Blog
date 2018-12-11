@@ -25,7 +25,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_friends, container, false);
         button = view.findViewById(R.id.add_friend_btn);
 
@@ -37,8 +37,8 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView email = (TextView)view.findViewById(R.id.email);
-                TextView id = (TextView)view.findViewById(R.id.friend_id);
-                showToast(email.getText().toString()+ " " + id.getText().toString());
+                String friendId = friendsAdapter.getUserFriendsDao().getFriendIdByEmail(email.toString());
+                showToast(email.getText().toString()+ " " + friendId);
             }
         });
 

@@ -67,4 +67,11 @@ public class UserFriendsDao implements IUserFriendsDao {
     public int getCount() {
         return friends.size();
     }
+
+    public String getFriendIdByEmail(String email){
+        for (Friend friend :friends) {
+            if (friend.getEmail().equals(email)) return friend.getId();
+        }
+        return null;
+    }
 }
