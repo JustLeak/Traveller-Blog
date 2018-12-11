@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
+import com.android.evgeniy.firebaseblog.models.Location;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +45,10 @@ public class CreateNoteFragment extends Fragment {
 
                 UserNote userNote = UserNote.builder()
                         .date(simpleDateFormat.format(date))
-                        .text(noteText.getText().toString()).build();
+                        .ownerId(user.getUid())
+                        .text(noteText.getText().toString())
+                        .location(Location.builder().lat("LAT").lng("LNG").build()).
+                                build();
 
                 userNotesAdapter.getUserNotesDao().addOneByUid(userNote, user.getUid());
                 showToast("Record added");
