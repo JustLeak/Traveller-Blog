@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.google.firebase.auth.FirebaseAuth;

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserNotesDao;
+import com.android.evgeniy.firebaseblog.tasks.GetUserNotesTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class UserNotesDao implements IUserNotesDao {
     private final DatabaseReference mRef;
@@ -50,7 +52,7 @@ public class UserNotesDao implements IUserNotesDao {
     }
 
     @Override
-    public ArrayList<UserNote> getAll() {
+    public List<UserNote> getAll() {
         return userNotes;
     }
 
@@ -59,41 +61,15 @@ public class UserNotesDao implements IUserNotesDao {
         return userNotes.get(id);
     }
 
-    @Override
-    public int getCount() {
+    public int getUserNotesCount() {
         return userNotes.size();
     }
 
-    private class GetUserNotesTask extends AsyncTask<Void, Integer, Void> {
-        private DataSnapshot snapshot;
-        private UserNotesAdapter adapter;
+    public ArrayList<UserNote> getUserNotes() {
+        return userNotes;
+    }
 
-        GetUserNotesTask(DataSnapshot snapshot, UserNotesAdapter adapter) {
-            this.snapshot = snapshot;
-            this.adapter = adapter;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            userNotes.clear();
-            for (DataSnapshot dataS : snapshot.getChildren()) {
-                userNotes.add(dataS.getValue(UserNote.class));
-            }
-            Collections.reverse(userNotes);
-            return null;
-        }
-
-        protected void onPostExecute(Void voids) {
-            adapter.notifyDataSetChanged();
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-
-        }
+    public void setUserNotes(ArrayList<UserNote> userNotes) {
+        this.userNotes = userNotes;
     }
 }
