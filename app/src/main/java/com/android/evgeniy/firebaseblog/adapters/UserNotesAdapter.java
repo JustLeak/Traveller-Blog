@@ -7,30 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
+import com.android.evgeniy.firebaseblog.models.UserNote;
+
+import java.util.ArrayList;
 
 public class UserNotesAdapter extends BaseAdapter {
-    private UserNotesDao userNotesDao;
     private LayoutInflater inflater;
-
-    public UserNotesDao getUserNotesDao() {
-        return userNotesDao;
-    }
+    private ArrayList<UserNote> userNotes;
 
     public UserNotesAdapter(LayoutInflater inflater) {
         this.inflater = inflater;
-        this.userNotesDao = new UserNotesDao(this);
+        userNotes = new ArrayList<>();
+    }
+
+    public void setUserNotes(ArrayList<UserNote> userNotes) {
+        this.userNotes = userNotes;
     }
 
     @Override
     public int getCount() {
-        return userNotesDao.getUserNotesCount();
+        return userNotes.size();
+
     }
 
     @Override
     public Object getItem(int position) {
-        return userNotesDao.getOneById(position);
+        return userNotes.get(position);
     }
 
     @Override
@@ -52,8 +56,8 @@ public class UserNotesAdapter extends BaseAdapter {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.date.setText(userNotesDao.getOneById(position).getDate());
-        holder.note.setText(userNotesDao.getOneById(position).getText());
+        holder.date.setText(userNotes.get(position).getDate());
+        holder.note.setText(userNotes.get(position).getText());
         return convertView;
     }
 

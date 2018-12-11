@@ -1,42 +1,42 @@
 package com.android.evgeniy.firebaseblog.tasks;
 
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 
-import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
+import com.android.evgeniy.firebaseblog.fragments.NotesFragment;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GetUserNotesTask extends AsyncTask<Void, Integer, Void> {
-    private DataSnapshot snapshot;
-    private UserNotesAdapter adapter;
+public class GetUserNotesTask extends AsyncTask<DataSnapshot, Integer, ArrayList<UserNote>> {
+    private Fragment fragment;
 
-    public GetUserNotesTask(DataSnapshot snapshot, UserNotesAdapter adapter) {
-        this.snapshot = snapshot;
-        this.adapter = adapter;
+    public GetUserNotesTask(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
-        ArrayList<UserNote> notesList = adapter.getUserNotesDao().getUserNotes();
-        
-        notesList.clear();
-        for (DataSnapshot dataS : snapshot.getChildren()) {
+    protected ArrayList<UserNote> doInBackground(DataSnapshot... snapshots) {
+        ArrayList<UserNote> notesList = new ArrayList<>();
+
+        for (DataSnapshot dataS : snapshots[0].getChildren()) {
             notesList.add(dataS.getValue(UserNote.class));
         }
         Collections.reverse(notesList);
 
-        adapter.getUserNotesDao().setUserNotes(notesList);
-        return null;
+        return notesList;
     }
 
-    protected void onPostExecute(Void voids) {
-        adapter.notifyDataSetChanged();
-    }
+    @Override
+    protected void onPostExecute(ArrayList<UserNote> resultNotesList) {
+        super.onPostExecute(resultNotesList);
 
-    protected void onProgressUpdate(Integer... progress) {
+        if (fragment instanceof NotesFragment) {
+            NotesFragment notesFragment = (NotesFragment) fragment;
+            notesFragment.updateUserNotesAdapter(resultNotesList);
+        }
 
     }
 }

@@ -1,11 +1,10 @@
 package com.android.evgeniy.firebaseblog.repositories.interfaces;
 
-import com.android.evgeniy.firebaseblog.models.UserNote;
+import android.support.v4.app.Fragment;
 
-import java.util.List;
+import com.android.evgeniy.firebaseblog.models.UserNote;
 
 public interface IUserNotesDao {
     void  addOneByUid(UserNote userNote, String uid);
-    List<UserNote> getAll();
-    UserNote getOneById(int id);
+    void getAll(Fragment fragment);
 }
