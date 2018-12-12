@@ -23,7 +23,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawer;
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
