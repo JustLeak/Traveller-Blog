@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserNotesDao;
 import com.android.evgeniy.firebaseblog.tasks.GetUserNotesTask;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

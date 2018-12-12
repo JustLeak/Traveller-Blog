@@ -1,6 +1,5 @@
 package com.android.evgeniy.firebaseblog.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,10 +13,8 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.UserNotesAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class NotesFragment extends Fragment {
     private View view;
