@@ -35,7 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapFragment extends Fragment implements
         OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
-    
+
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
