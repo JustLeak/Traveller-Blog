@@ -12,7 +12,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
-
     private ArrayList<UserNote> userNotes;
     private final WeakReference<LayoutInflater> inflater;
 
@@ -31,7 +30,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
         if (inflater != null) {
             return new NoteViewHolder(inflater.inflate(R.layout.note_item, parent, false));
-        } else throw new RuntimeException("Activity died");
+        } else throw new RuntimeException("Activity died.");
     }
 
     @Override
@@ -48,5 +47,10 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
+    }
+
+    public void update(ArrayList<UserNote> userNotes){
+        this.userNotes = userNotes;
+        this.notifyDataSetChanged();
     }
 }

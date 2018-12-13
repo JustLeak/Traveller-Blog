@@ -1,20 +1,20 @@
 package com.android.evgeniy.firebaseblog.tasks;
 
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 
-import com.android.evgeniy.firebaseblog.fragments.NotesFragment;
+import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GetUserNotesTask extends AsyncTask<DataSnapshot, Integer, ArrayList<UserNote>> {
-    private Fragment fragment;
+public class GetNotesTask extends AsyncTask<DataSnapshot, Integer, ArrayList<UserNote>> {
+    private RecyclerView.Adapter adapter;
 
-    public GetUserNotesTask(Fragment fragment) {
-        this.fragment = fragment;
+    public GetNotesTask(RecyclerView.Adapter adapter) {
+        this.adapter = adapter;
     }
 
     @Override
@@ -33,10 +33,9 @@ public class GetUserNotesTask extends AsyncTask<DataSnapshot, Integer, ArrayList
     protected void onPostExecute(ArrayList<UserNote> resultNotesList) {
         super.onPostExecute(resultNotesList);
 
-        if (fragment instanceof NotesFragment) {
-            NotesFragment notesFragment = (NotesFragment) fragment;
-            notesFragment.updateUserNotesAdapter(resultNotesList);
+        if (adapter instanceof NotesRecyclerAdapter) {
+            NotesRecyclerAdapter notesRecyclerAdapter = (NotesRecyclerAdapter) adapter;
+            notesRecyclerAdapter.update(resultNotesList);
         }
-
     }
 }

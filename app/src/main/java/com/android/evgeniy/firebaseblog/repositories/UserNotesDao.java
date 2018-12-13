@@ -2,10 +2,11 @@ package com.android.evgeniy.firebaseblog.repositories;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserNotesDao;
-import com.android.evgeniy.firebaseblog.tasks.GetUserNotesTask;
+import com.android.evgeniy.firebaseblog.tasks.GetNotesTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,11 +21,11 @@ public class UserNotesDao implements IUserNotesDao {
     private final FirebaseUser user;
 
     @Override
-    public void getAll(final Fragment fragment) {
+    public void getAll(final RecyclerView.Adapter adapter) {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GetUserNotesTask task = new GetUserNotesTask(fragment);
+                GetNotesTask task = new GetNotesTask(adapter);
                 task.execute(dataSnapshot);
             }
 
@@ -46,6 +47,4 @@ public class UserNotesDao implements IUserNotesDao {
             mRef.push().setValue(userNote);
         }
     }
-
-
 }

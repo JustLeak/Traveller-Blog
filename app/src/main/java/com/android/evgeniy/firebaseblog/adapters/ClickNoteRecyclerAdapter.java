@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 
 public class ClickNoteRecyclerAdapter extends NotesRecyclerAdapter implements View.OnClickListener {
+    private final OnItemClickListener noteClickListener;
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
-
-    private final OnItemClickListener noteClickListener;
 
     public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener) {
         super(inflater);

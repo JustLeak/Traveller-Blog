@@ -13,10 +13,7 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
-
-import java.util.ArrayList;
 
 public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.OnItemClickListener{
     private View view;
@@ -33,12 +30,11 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         items = view.findViewById(R.id.items);
         button = view.findViewById(R.id.btn_new_record);
 
-        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
         items.setAdapter(clickNoteRecyclerAdapter);
         items.setLayoutManager(new LinearLayoutManager(view.getContext()));
         items.setHasFixedSize(true);
 
-        userNotesDao.getAll(this);
+        userNotesDao.getAll(clickNoteRecyclerAdapter);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,21 +50,12 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userNotesDao = new UserNotesDao();
+        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    public void updateUserNotesAdapter(ArrayList<UserNote> userNotes) {
-        clickNoteRecyclerAdapter.setUserNotes(userNotes);
-        clickNoteRecyclerAdapter.notifyDataSetChanged();
-    }
+    
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(view.getContext(),"aaa", Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
     }
 }
