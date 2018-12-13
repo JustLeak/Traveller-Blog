@@ -15,7 +15,7 @@
         android:layout_marginRight="5dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
-        tools:listitem="@layout/item" />
+        tools:listitem="@layout/note_item" />
 
 
     <Button

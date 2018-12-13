@@ -30,7 +30,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         LayoutInflater inflater = this.inflater.get();
 
         if (inflater != null) {
-            return new NoteViewHolder(inflater.inflate(R.layout.item, parent, false));
+            return new NoteViewHolder(inflater.inflate(R.layout.note_item, parent, false));
         } else throw new RuntimeException("Activity died");
     }
 
