@@ -18,6 +18,19 @@
         tools:listitem="@layout/note_item" />
 
 
+    <TextView
+        android:id="@+id/noDataTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:fontFamily="@font/acme"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="@string/no_data"
+        android:layout_centerInParent="true"/>
+
+
     <Button
         android:id="@+id/btn_new_record"
         android:layout_width="wrap_content"

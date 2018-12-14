@@ -1,7 +1,6 @@
 package com.android.evgeniy.firebaseblog.repositories;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;

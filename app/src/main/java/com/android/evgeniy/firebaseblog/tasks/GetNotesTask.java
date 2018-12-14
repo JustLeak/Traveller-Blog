@@ -3,7 +3,6 @@ package com.android.evgeniy.firebaseblog.tasks;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.database.DataSnapshot;
 
@@ -33,9 +32,9 @@ public class GetNotesTask extends AsyncTask<DataSnapshot, Integer, ArrayList<Use
     protected void onPostExecute(ArrayList<UserNote> resultNotesList) {
         super.onPostExecute(resultNotesList);
 
-        if (adapter instanceof NotesRecyclerAdapter) {
+        /*if (adapter instanceof NotesRecyclerAdapter) {
             NotesRecyclerAdapter notesRecyclerAdapter = (NotesRecyclerAdapter) adapter;
             notesRecyclerAdapter.update(resultNotesList);
-        }
+        }*/
     }
 }

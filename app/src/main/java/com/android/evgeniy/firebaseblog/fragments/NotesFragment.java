@@ -15,9 +15,11 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
 import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
 
-public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.OnItemClickListener{
+public class NotesFragment extends Fragment implements
+        ClickNoteRecyclerAdapter.OnItemClickListener {
+
     private View view;
-    private RecyclerView items;
+    private RecyclerView notesRecyclerView;
     private Button button;
 
     private UserNotesDao userNotesDao;
@@ -27,14 +29,14 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_notes, container, false);
-        items = view.findViewById(R.id.items);
+        notesRecyclerView = view.findViewById(R.id.items);
         button = view.findViewById(R.id.btn_new_record);
 
-        items.setAdapter(clickNoteRecyclerAdapter);
-        items.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        items.setHasFixedSize(true);
+        notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
+        notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        notesRecyclerView.setHasFixedSize(true);
 
-        userNotesDao.getAll(clickNoteRecyclerAdapter);
+        /*userNotesDao.getAll(clickNoteRecyclerAdapter);*/
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,13 +51,13 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userNotesDao = new UserNotesDao();
+        /*userNotesDao = new UserNotesDao();*/
         clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
     }
-    
+
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), clickNoteRecyclerAdapter.getAllNotes().get(position).getOwnerId(), Toast.LENGTH_SHORT).show();
     }
 }

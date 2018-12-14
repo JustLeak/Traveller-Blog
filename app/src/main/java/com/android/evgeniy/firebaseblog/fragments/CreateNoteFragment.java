@@ -46,13 +46,14 @@ public class CreateNoteFragment extends Fragment {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
                 UserNote userNote = UserNote.builder()
                         .date(dateFormat.format(date))
                         .ownerId(user.getUid())
                         .time(timeFormat.format(date))
                         .text(noteText.getText().toString())
-                        .location(Location.builder().lat("LAT").lng("LNG").build()).
-                                build();
+                        .location(Location.builder().lat("LAT").lng("LNG").build())
+                        .build();
 
                 userNotesDao.addOneByUid(userNote, user.getUid());
 
