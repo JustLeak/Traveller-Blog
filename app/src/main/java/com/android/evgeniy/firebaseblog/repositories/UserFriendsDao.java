@@ -1,40 +1,29 @@
 package com.android.evgeniy.firebaseblog.repositories;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 
-import com.android.evgeniy.firebaseblog.adapters.FriendsAdapter;
 import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserFriendsDao;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.android.evgeniy.firebaseblog.tasks.GetFriendsTask;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class UserFriendsDao implements IUserFriendsDao {
     private final DatabaseReference mRef;
     private final String childName = "/Friends";
-    private final FirebaseUser user;
-    private ArrayList<Friend> friends;
+    private final String userId;
 
-    public UserFriendsDao(final FriendsAdapter adapter) {
-        this.user = FirebaseAuth.getInstance().getCurrentUser();
-        this.mRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + childName);
-        friends = new ArrayList<>();
-        mRef.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void getAll(final RecyclerView.Adapter adapter) {
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                friends.clear();
-                for (DataSnapshot dataS : dataSnapshot.getChildren()) {
-                    friends.add(dataS.getValue(Friend.class));
-                }
-                Collections.reverse(friends);
-                adapter.notifyDataSetChanged();
+                GetFriendsTask task = new GetFriendsTask(adapter);
+                task.execute(dataSnapshot);
             }
 
             @Override
@@ -44,32 +33,15 @@ public class UserFriendsDao implements IUserFriendsDao {
         });
     }
 
+    public UserFriendsDao(String userId) {
+        this.userId = userId;
+        this.mRef = FirebaseDatabase.getInstance().getReference().child(userId + childName);
+    }
+
     @Override
-    public void addOneByUid(Friend friend) {
-        if (friend != null) {
+    public void addOneByUid(Friend friend, String uid) {
+        if (friend != null || !uid.isEmpty()) {
             mRef.push().setValue(friend);
         }
-    }
-
-    @Override
-    public ArrayList<Friend> getAll() {
-        return friends;
-    }
-
-    @Override
-    public Friend getOneById(int id) {
-        return friends.get(id);
-    }
-
-    @Override
-    public int getCount() {
-        return friends.size();
-    }
-
-    public String getFriendIdByEmail(String email){
-        for (Friend friend :friends) {
-            if (friend.getEmail().equals(email)) return friend.getId();
-        }
-        return null;
     }
 }
