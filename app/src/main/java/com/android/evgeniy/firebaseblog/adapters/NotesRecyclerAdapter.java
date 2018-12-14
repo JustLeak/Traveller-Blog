@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 import com.android.evgeniy.firebaseblog.models.UserNote;
+import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -27,6 +28,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<NotesChildEventListener> listeners;
     private final WeakReference<LayoutInflater> inflater;
     private final FirebaseUser user;
+    private UserFriendsDao userFriendsDao;
 
     public List<UserNote> getAllNotes() {
         return allNotes;
@@ -38,8 +40,19 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         listeners = new ArrayList<>();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        userFriendsDao = new UserFriendsDao(user.getUid());
+        userFriendsDao.getAllFriendsId(this);
+
         listeners.add(new NotesChildEventListener(user.getUid()));
-        listeners.add(new NotesChildEventListener("iny0Ts79aOORxE61sw3CLTWxlI72"));
+        listeners.add(new NotesChildEventListener("XC7IjAGf4haoTIgoVI3X4XP7b0s1"));
+    }
+
+    public void setListeners(ArrayList<String> friendsId) {
+        for (String id: friendsId) {
+            System.out.println(id);
+            //listeners.add(new NotesChildEventListener(id));
+        }
     }
 
     @Override

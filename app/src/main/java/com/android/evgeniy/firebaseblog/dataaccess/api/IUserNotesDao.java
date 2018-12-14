@@ -1,4 +1,4 @@
-package com.android.evgeniy.firebaseblog.repositories.interfaces;
+package com.android.evgeniy.firebaseblog.dataaccess.api;
 
 import android.support.v7.widget.RecyclerView;
 

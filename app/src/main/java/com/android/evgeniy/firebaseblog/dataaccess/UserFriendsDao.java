@@ -1,11 +1,12 @@
-package com.android.evgeniy.firebaseblog.repositories;
+package com.android.evgeniy.firebaseblog.dataaccess;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.models.Friend;
-import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserFriendsDao;
+import com.android.evgeniy.firebaseblog.dataaccess.api.IUserFriendsDao;
 import com.android.evgeniy.firebaseblog.tasks.GenericTask;
+import com.android.evgeniy.firebaseblog.tasks.GetFriendsIdTask;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,13 +18,19 @@ public class UserFriendsDao implements IUserFriendsDao {
     private final String childName = "/Friends";
     private final String userId;
 
+
+    public UserFriendsDao(String userId) {
+        this.userId = userId;
+        this.mRef = FirebaseDatabase.getInstance().getReference().child(userId + childName);
+    }
+
     @Override
     public void getAll(final RecyclerView.Adapter adapter) {
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTask<Friend> task1 = new GenericTask<>(adapter, Friend.class);
-                task1.execute(dataSnapshot);
+                GenericTask<Friend> task = new GenericTask<>(adapter, Friend.class);
+                task.execute(dataSnapshot);
             }
 
             @Override
@@ -33,9 +40,19 @@ public class UserFriendsDao implements IUserFriendsDao {
         });
     }
 
-    public UserFriendsDao(String userId) {
-        this.userId = userId;
-        this.mRef = FirebaseDatabase.getInstance().getReference().child(userId + childName);
+    public void getAllFriendsId(final RecyclerView.Adapter adapter){
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GetFriendsIdTask task = new GetFriendsIdTask(adapter);
+                task.execute(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

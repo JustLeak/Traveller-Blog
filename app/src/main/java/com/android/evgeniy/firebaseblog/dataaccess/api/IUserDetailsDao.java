@@ -1,4 +1,4 @@
-package com.android.evgeniy.firebaseblog.repositories.interfaces;
+package com.android.evgeniy.firebaseblog.dataaccess.api;
 
 import com.android.evgeniy.firebaseblog.models.UserDetails;
 

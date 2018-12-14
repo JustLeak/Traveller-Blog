@@ -1,10 +1,10 @@
-package com.android.evgeniy.firebaseblog.repositories;
+package com.android.evgeniy.firebaseblog.dataaccess;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;
-import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserNotesDao;
+import com.android.evgeniy.firebaseblog.dataaccess.api.IUserNotesDao;
 import com.android.evgeniy.firebaseblog.tasks.GetNotesTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
