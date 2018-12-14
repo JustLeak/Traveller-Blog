@@ -6,9 +6,17 @@ import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
 
-public class NoteViewHolder extends RecyclerView.ViewHolder{
+public class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView note;
     private TextView date;
+
+    public TextView getNote() {
+        return note;
+    }
+
+    public TextView getDate() {
+        return date;
+    }
 
     public void setNote(String note) {
         this.note.setText(note);

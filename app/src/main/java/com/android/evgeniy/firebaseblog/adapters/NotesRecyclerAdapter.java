@@ -1,5 +1,6 @@
 package com.android.evgeniy.firebaseblog.adapters;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<UserNote> allNotes;
     private List<ChildEventListener> listeners;
     private final WeakReference<LayoutInflater> inflater;
+    private final FirebaseUser user;
 
     public List<UserNote> getAllNotes() {
         return allNotes;
@@ -35,7 +37,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         allNotes = new ArrayList<>();
         listeners = new ArrayList<>();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         listeners.add(new NotesChildEventListener(user.getUid()));
         listeners.add(new NotesChildEventListener("iny0Ts79aOORxE61sw3CLTWxlI72"));
     }
@@ -53,6 +55,14 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         holder.setNote(allNotes.get(position).getText());
         holder.setDate(allNotes.get(position).getDate());
+
+        if (allNotes.get(position).getOwnerId().equals(user.getUid())) {
+            holder.getDate().setBackgroundColor(Color.GRAY);
+            holder.getNote().setBackgroundColor(Color.WHITE);
+        }else {
+            holder.getDate().setBackgroundColor(Color.YELLOW);
+            holder.getNote().setBackgroundColor(Color.BLUE);
+        }
     }
 
     @Override

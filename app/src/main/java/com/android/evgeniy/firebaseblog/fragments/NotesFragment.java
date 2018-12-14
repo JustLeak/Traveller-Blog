@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
 
 public class NotesFragment extends Fragment implements
         ClickNoteRecyclerAdapter.OnItemClickListener {
@@ -24,7 +23,6 @@ public class NotesFragment extends Fragment implements
     private TextView noDataTextView;
     private Button button;
 
-    private UserNotesDao userNotesDao;
     private ClickNoteRecyclerAdapter clickNoteRecyclerAdapter;
 
     @Nullable
@@ -35,6 +33,7 @@ public class NotesFragment extends Fragment implements
         button = view.findViewById(R.id.btn_new_record);
         noDataTextView = view.findViewById(R.id.noDataTextView);
 
+        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         notesRecyclerView.setHasFixedSize(true);
@@ -48,8 +47,6 @@ public class NotesFragment extends Fragment implements
                 } else noDataTextView.setVisibility(View.VISIBLE);
             }
         });
-        /*userNotesDao.getAll(clickNoteRecyclerAdapter);*/
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,15 +57,6 @@ public class NotesFragment extends Fragment implements
 
         return view;
     }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /*userNotesDao = new UserNotesDao();*/
-        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
-    }
-
 
     @Override
     public void onItemClick(View view, int position) {
