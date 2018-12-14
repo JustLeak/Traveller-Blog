@@ -43,7 +43,7 @@ public class GenericTask<T> extends AsyncTask<DataSnapshot, Integer, ArrayList<T
             friendsRecyclerAdapter.update((ArrayList<Friend>) resultList);
         } else if (genericType.equals(UserNote.class)) {
             NotesRecyclerAdapter notesRecyclerAdapter = (NotesRecyclerAdapter) adapter;
-            notesRecyclerAdapter.update((ArrayList<UserNote>) resultList);
+            /*notesRecyclerAdapter.update((ArrayList<UserNote>) resultList);*/
         }
     }
 
