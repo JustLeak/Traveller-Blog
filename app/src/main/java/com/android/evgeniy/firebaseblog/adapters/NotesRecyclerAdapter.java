@@ -61,7 +61,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     private int findNoteIndexByKey(String key) {
-
         for (int i = 0; i < allNotes.size(); i++) {
             if (allNotes.get(i).getKey().equals(key)) {
                 return i;

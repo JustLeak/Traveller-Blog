@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
@@ -20,6 +21,7 @@ public class NotesFragment extends Fragment implements
 
     private View view;
     private RecyclerView notesRecyclerView;
+    private TextView noDataTextView;
     private Button button;
 
     private UserNotesDao userNotesDao;
@@ -31,12 +33,23 @@ public class NotesFragment extends Fragment implements
         view = inflater.inflate(R.layout.fragment_notes, container, false);
         notesRecyclerView = view.findViewById(R.id.items);
         button = view.findViewById(R.id.btn_new_record);
+        noDataTextView = view.findViewById(R.id.noDataTextView);
 
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         notesRecyclerView.setHasFixedSize(true);
 
+        notesRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (clickNoteRecyclerAdapter.getAllNotes().size() != 0) {
+                    noDataTextView.setVisibility(View.INVISIBLE);
+                } else noDataTextView.setVisibility(View.VISIBLE);
+            }
+        });
         /*userNotesDao.getAll(clickNoteRecyclerAdapter);*/
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +60,7 @@ public class NotesFragment extends Fragment implements
 
         return view;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -22,7 +22,7 @@
         android:id="@+id/noDataTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:fontFamily="@font/acme"
         android:textSize="40sp"
         android:textStyle="bold"
