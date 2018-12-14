@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.repositories.interfaces.IUserFriendsDao;
-import com.android.evgeniy.firebaseblog.tasks.GetFriendsTask;
+import com.android.evgeniy.firebaseblog.tasks.GenericTask;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +22,8 @@ public class UserFriendsDao implements IUserFriendsDao {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GetFriendsTask task = new GetFriendsTask(adapter);
-                task.execute(dataSnapshot);
+                GenericTask<Friend> task1 = new GenericTask<>(adapter, Friend.class);
+                task1.execute(dataSnapshot);
             }
 
             @Override
