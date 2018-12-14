@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.Location;
 import com.android.evgeniy.firebaseblog.models.UserNote;
-import com.android.evgeniy.firebaseblog.repositories.UserNotesDao;
+import com.android.evgeniy.firebaseblog.dataaccess.UserNotesDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

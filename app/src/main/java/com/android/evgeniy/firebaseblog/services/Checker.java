@@ -1,6 +1,7 @@
 package com.android.evgeniy.firebaseblog.services;
 
 import com.android.evgeniy.firebaseblog.models.UserDetails;
+import com.android.evgeniy.firebaseblog.services.api.IUserDetailsChecker;
 
 import java.util.HashMap;
 

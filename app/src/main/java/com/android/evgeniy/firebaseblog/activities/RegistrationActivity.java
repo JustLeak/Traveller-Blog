@@ -13,7 +13,8 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserDetails;
-import com.android.evgeniy.firebaseblog.repositories.UserDetailsDao;
+import com.android.evgeniy.firebaseblog.services.SearchMap;
+import com.android.evgeniy.firebaseblog.dataaccess.UserDetailsDao;
 import com.android.evgeniy.firebaseblog.services.Checker;
 import com.android.evgeniy.firebaseblog.services.UserDetailsSetter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,7 +64,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         if (task.isSuccessful()) {
                             UserDetailsDao detailsDao = new UserDetailsDao();
                             detailsDao.setOneByUid(userDetails, mAuth.getUid());
-
+                            SearchMap searchMap = new SearchMap(mAuth.getUid());
+                            searchMap.addMapItem(userDetails.getEmail());
                             Toast.makeText(RegistrationActivity.this, "Registration success.",
                                     Toast.LENGTH_SHORT).show();
 
