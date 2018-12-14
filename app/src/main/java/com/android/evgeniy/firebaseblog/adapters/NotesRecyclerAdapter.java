@@ -24,7 +24,7 @@ import java.util.List;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<UserNote> allNotes;
-    private List<ChildEventListener> listeners;
+    private List<NotesChildEventListener> listeners;
     private final WeakReference<LayoutInflater> inflater;
     private final FirebaseUser user;
 
@@ -60,8 +60,8 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             holder.getDate().setBackgroundColor(Color.GRAY);
             holder.getNote().setBackgroundColor(Color.WHITE);
         }else {
-            holder.getDate().setBackgroundColor(Color.YELLOW);
-            holder.getNote().setBackgroundColor(Color.BLUE);
+            holder.getDate().setBackgroundColor(Color.BLUE);
+            holder.getNote().setBackgroundColor(Color.YELLOW);
         }
     }
 

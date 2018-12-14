@@ -1,6 +1,8 @@
 package com.android.evgeniy.firebaseblog.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.constants.Settings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private FirebaseAuth mAuth;
+    private SharedPreferences mSettings;
 
     private TextInputLayout mUsernameLayout;
     private TextInputLayout mPasswordLayout;
@@ -34,6 +38,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        mSettings = getSharedPreferences(Settings.APP_SETTINGS, Context.MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -90,6 +96,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mSettings.contains(Settings.APP_SETTINGS_FRIENDNOTES)) {
+            boolean b = mSettings.getBoolean(Settings.APP_SETTINGS_FRIENDNOTES, true);
+            Toast.makeText(this, String.valueOf(b), Toast.LENGTH_SHORT).show();
+        }/* else {
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putBoolean(Settings.APP_SETTINGS_FRIENDNOTES, false);
+            editor.apply();
+        }*/
+    }
+
     public void SignIn() {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -128,7 +148,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             mUsernameLayout.setErrorEnabled(false);
             mPasswordLayout.setErrorEnabled(true);
             mPasswordLayout.setError(getResources().getString(R.string.password_error));
-        }else {
+        } else {
             mUsernameLayout.setErrorEnabled(false);
             mPasswordLayout.setErrorEnabled(false);
         }
