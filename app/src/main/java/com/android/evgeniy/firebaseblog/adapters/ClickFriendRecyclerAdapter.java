@@ -9,6 +9,11 @@ import com.android.evgeniy.firebaseblog.models.Friend;
 
 public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implements View.OnClickListener {
     private final OnItemClickListener friendClickListener;
+    private int position;
+
+    private void setPosition(int position) {
+        this.position = position;
+    }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -28,9 +33,16 @@ public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implement
     }
 
     @Override
-    public void onBindViewHolder(FriendViewHolder holder, int position) {
+    public void onBindViewHolder(FriendViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
         holder.itemView.setTag(position);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setPosition(position);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -41,5 +53,9 @@ public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implement
 
     public Friend getFriendByIndex(int index){
         return super.getFriendByIndex(index);
+    }
+
+    public Friend getContextMenuSelectedFriend(){
+        return super.getFriendByIndex(position);
     }
 }

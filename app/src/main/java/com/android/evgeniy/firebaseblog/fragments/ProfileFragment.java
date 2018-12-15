@@ -28,6 +28,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
     private UserDetails userDetails;
+    private String userId;
 
     @Nullable
     @Override
@@ -40,8 +41,13 @@ public class ProfileFragment extends Fragment {
         textGender = view.findViewById(R.id.textGender);
 
         mAuth = FirebaseAuth.getInstance();
+
+        if (getArguments() != null && getArguments().containsKey("userId")) {
+            userId = getArguments().getString("userId");
+        } else userId = mAuth.getUid();
+
         if (mAuth != null) {
-            myRef = FirebaseDatabase.getInstance().getReference(mAuth.getUid() + "/Details");
+            myRef = FirebaseDatabase.getInstance().getReference(userId + "/Details");
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
