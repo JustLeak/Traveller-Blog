@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
-import com.android.evgeniy.firebaseblog.adapters.listeners.NotesChildEventListener;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
-import com.android.evgeniy.firebaseblog.services.ChildEventListenersManager;
-import com.android.evgeniy.firebaseblog.services.NotesContainer;
+import com.android.evgeniy.firebaseblog.adapters.listeners.NoteListenersManager;
+import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,11 +22,12 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
     private final FirebaseUser user;
     private UserFriendsDao userFriendsDao;
+    private NoteListenersManager listenersManager;
 
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
-
+        listenersManager = new NoteListenersManager(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         userFriendsDao = new UserFriendsDao(user.getUid());
@@ -42,7 +42,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         for (String id : resultIdList) {
             notesPath = id + "/Notes";
             reference = FirebaseDatabase.getInstance().getReference().child(notesPath);
-            ((NotesChildEventListener) ChildEventListenersManager.getInstance().addChildEventListener(ChildEventListenersManager.ListenerType.NOTE, reference)).setAdapter(this);
+            listenersManager.addChildEventListener(reference);
         }
     }
 

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.services.NotesContainer;
+import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 
 public class NotesFragment extends Fragment implements
         ClickNoteRecyclerAdapter.OnItemClickListener {

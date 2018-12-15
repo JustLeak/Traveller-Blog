@@ -1,4 +1,4 @@
-package com.android.evgeniy.firebaseblog.services;
+package com.android.evgeniy.firebaseblog.dataaccess;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;
 
@@ -6,15 +6,10 @@ import java.util.ArrayList;
 
 public final class NotesContainer {
     private ArrayList<UserNote> notes;
-
     private static NotesContainer instance = null;
 
     private NotesContainer() {
         notes = new ArrayList<>();
-    }
-
-    public ArrayList<UserNote> getNotes() {
-        return notes;
     }
 
     public static NotesContainer getInstance() {
@@ -22,6 +17,10 @@ public final class NotesContainer {
             instance = new NotesContainer();
 
         return instance;
+    }
+
+    public ArrayList<UserNote> getNotes() {
+        return notes;
     }
 
     public void addNote(UserNote note) {

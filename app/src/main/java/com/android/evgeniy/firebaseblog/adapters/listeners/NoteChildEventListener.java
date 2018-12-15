@@ -5,15 +5,15 @@ import android.support.annotation.Nullable;
 
 import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
-import com.android.evgeniy.firebaseblog.services.NotesContainer;
+import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-public class NotesChildEventListener implements ChildEventListener {
+public class NoteChildEventListener implements ChildEventListener {
     private NotesRecyclerAdapter adapter;
 
-    public void setAdapter(NotesRecyclerAdapter adapter) {
+    public NoteChildEventListener(NotesRecyclerAdapter adapter) {
         this.adapter = adapter;
     }
 

@@ -1,28 +1,16 @@
 package com.android.evgeniy.firebaseblog.services;
 
-import com.android.evgeniy.firebaseblog.adapters.listeners.NotesChildEventListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class ChildEventListenersManager {
-    private ChildEventListenerCreator creator;
+public abstract class ChildEventListenersManager {
     private HashMap<DatabaseReference, ArrayList<ChildEventListener>> listenersMap;
 
-    private static ChildEventListenersManager instance = null;
-
-    private ChildEventListenersManager() {
+    public ChildEventListenersManager() {
         listenersMap = new HashMap<>();
-        creator = new ChildEventListenerCreator();
-    }
-
-    public static ChildEventListenersManager getInstance() {
-        if (instance == null)
-            instance = new ChildEventListenersManager();
-
-        return instance;
     }
 
     public void removeChildEventListener(ChildEventListener listener) {
@@ -33,7 +21,6 @@ public final class ChildEventListenersManager {
                     key.removeEventListener(existingListener);
                     listenersMap.get(key).remove(existingListener);
 
-
                     if (listenersMap.get(key).isEmpty()) {
                         listenersMap.remove(key);
                     }
@@ -42,36 +29,21 @@ public final class ChildEventListenersManager {
         }
     }
 
-    public ChildEventListener addChildEventListener(ListenerType type, DatabaseReference reference) {
-        ChildEventListener newListener = creator.createListener(type);
-        reference.addChildEventListener(newListener);
+    public ChildEventListener addChildEventListener(DatabaseReference reference) {
+        ChildEventListener listener = createListener(reference);
+        reference.addChildEventListener(listener);
 
         if (listenersMap.containsKey(reference)) {
-            listenersMap.get(reference).add(newListener);
+            listenersMap.get(reference).add(listener);
 
         } else {
             ArrayList<ChildEventListener> listeners = new ArrayList<>();
-            listeners.add(creator.createListener(type));
+            listeners.add(listener);
             listenersMap.put(reference, listeners);
         }
 
-        return newListener;
+        return listener;
     }
 
-    public enum ListenerType {
-        NOTE
-    }
-
-    private final class ChildEventListenerCreator {
-
-        private ChildEventListener createListener(ChildEventListenersManager.ListenerType type) {
-            ChildEventListener listener = null;
-
-            switch (type) {
-                case NOTE:
-                    listener = new NotesChildEventListener();
-            }
-            return listener;
-        }
-    }
+    public abstract ChildEventListener createListener(DatabaseReference reference);
 }
