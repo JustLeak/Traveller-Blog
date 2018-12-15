@@ -6,17 +6,9 @@ import java.util.ArrayList;
 
 public final class NotesContainer {
     private ArrayList<UserNote> notes;
-    private static NotesContainer instance = null;
 
-    private NotesContainer() {
+    public NotesContainer() {
         notes = new ArrayList<>();
-    }
-
-    public static NotesContainer getInstance() {
-        if (instance == null)
-            instance = new NotesContainer();
-
-        return instance;
     }
 
     public ArrayList<UserNote> getNotes() {

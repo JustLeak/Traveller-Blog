@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 
 public class NotesFragment extends Fragment implements
         ClickNoteRecyclerAdapter.OnItemClickListener {
@@ -43,7 +42,7 @@ public class NotesFragment extends Fragment implements
             @Override
             public void onChanged() {
                 super.onChanged();
-                if (NotesContainer.getInstance().getNotes().size() != 0) {
+                if (clickNoteRecyclerAdapter.getNotesContainer().getNotes().size() != 0) {
                     noDataTextView.setVisibility(View.INVISIBLE);
                 } else noDataTextView.setVisibility(View.VISIBLE);
             }
@@ -61,6 +60,8 @@ public class NotesFragment extends Fragment implements
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(view.getContext(), NotesContainer.getInstance().getNotes().get(position).getOwnerId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getOwnerId(), Toast.LENGTH_SHORT).show();
+
+
     }
 }

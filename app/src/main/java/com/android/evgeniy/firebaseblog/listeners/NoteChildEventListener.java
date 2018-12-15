@@ -1,11 +1,10 @@
-package com.android.evgeniy.firebaseblog.adapters.listeners;
+package com.android.evgeniy.firebaseblog.listeners;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
 import com.android.evgeniy.firebaseblog.models.UserNote;
-import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,19 +24,19 @@ public class NoteChildEventListener implements ChildEventListener {
             note.setKey(dataSnapshot.getKey());
         }
 
-        NotesContainer.getInstance().addNote(note);
+        adapter.getNotesContainer().addNote(note);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         UserNote userNote = dataSnapshot.getValue(UserNote.class);
-        adapter.notifyItemChanged(NotesContainer.getInstance().changeNote(userNote, dataSnapshot.getKey()));
+        adapter.notifyItemChanged(adapter.getNotesContainer().changeNote(userNote, dataSnapshot.getKey()));
     }
 
     @Override
     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-        adapter.notifyItemRemoved(NotesContainer.getInstance().deleteNote(dataSnapshot.getKey()));
+        adapter.notifyItemRemoved(adapter.getNotesContainer().deleteNote(dataSnapshot.getKey()));
     }
 
     @Override

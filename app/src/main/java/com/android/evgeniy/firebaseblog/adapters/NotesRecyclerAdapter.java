@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
-import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
-import com.android.evgeniy.firebaseblog.adapters.listeners.NoteListenersManager;
 import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
+import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+import com.android.evgeniy.firebaseblog.listeners.NoteListenersManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +23,16 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final FirebaseUser user;
     private UserFriendsDao userFriendsDao;
     private NoteListenersManager listenersManager;
+    private NotesContainer notesContainer;
+
+    public NotesContainer getNotesContainer() {
+        return notesContainer;
+    }
 
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
+        notesContainer = new NotesContainer();
         listenersManager = new NoteListenersManager(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -58,10 +64,10 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
-        holder.setNote(NotesContainer.getInstance().getNotes().get(position).getText());
-        holder.setDate(NotesContainer.getInstance().getNotes().get(position).getDate());
+        holder.setNote(notesContainer.getNotes().get(position).getText());
+        holder.setDate(notesContainer.getNotes().get(position).getDate());
 
-        if (NotesContainer.getInstance().getNotes().get(position).getOwnerId().equals(user.getUid())) {
+        if (notesContainer.getNotes().get(position).getOwnerId().equals(user.getUid())) {
             holder.getDate().setBackgroundColor(Color.GRAY);
             holder.getNote().setBackgroundColor(Color.WHITE);
         } else {
@@ -72,6 +78,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     @Override
     public int getItemCount() {
-        return NotesContainer.getInstance().getNotes().size();
+        return notesContainer.getNotes().size();
     }
 }
