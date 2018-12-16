@@ -107,12 +107,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         if (mSettings.contains(Settings.APP_SETTINGS_FRIENDNOTES)) {
             boolean b = mSettings.getBoolean(Settings.APP_SETTINGS_FRIENDNOTES, true);
-            Toast.makeText(this, String.valueOf(b), Toast.LENGTH_SHORT).show();
-        }/* else {
+        } else {
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putBoolean(Settings.APP_SETTINGS_FRIENDNOTES, false);
             editor.apply();
-        }*/
+        }
     }
 
     public void SignIn() {
