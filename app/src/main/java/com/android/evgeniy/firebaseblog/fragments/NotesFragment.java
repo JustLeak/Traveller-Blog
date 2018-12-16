@@ -36,7 +36,7 @@ public class NotesFragment extends Fragment implements
 
         clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
-        notesRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         notesRecyclerView.setHasFixedSize(true);
 
         notesRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
