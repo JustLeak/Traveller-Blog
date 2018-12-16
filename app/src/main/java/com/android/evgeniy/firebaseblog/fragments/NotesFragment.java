@@ -3,6 +3,7 @@ package com.android.evgeniy.firebaseblog.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class NotesFragment extends Fragment implements
 
         clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
-        notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        notesRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         notesRecyclerView.setHasFixedSize(true);
 
         notesRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
