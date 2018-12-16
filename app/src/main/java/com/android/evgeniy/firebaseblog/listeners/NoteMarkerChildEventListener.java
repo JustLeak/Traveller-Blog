@@ -34,26 +34,29 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         UserNote note = dataSnapshot.getValue(UserNote.class);
 
-        MarkerOptions options = new MarkerOptions();
-        Drawable drawable;
-        if (uId.equals(note.getOwnerId())) {
-            drawable = map.getResources().getDrawable(R.drawable.ic_note_green);
-        } else {
-            drawable = map.getResources().getDrawable(R.drawable.ic_note_red);
+        if (!map.isDetached()) {
+            MarkerOptions options = new MarkerOptions();
+            Drawable drawable;
+            if (uId.equals(note.getOwnerId())) {
+                drawable = map.getResources().getDrawable(R.drawable.ic_note_green);
+            } else {
+                drawable = map.getResources().getDrawable(R.drawable.ic_note_red);
+            }
+
+            Bitmap bitmap = BitmapCreator.getBitmap(drawable);
+            LatLng latLng = new LatLng(Double.valueOf(note.getLocation().getLat()), Double.valueOf(note.getLocation().getLng()));
+
+            options.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                    .position(latLng);
+
+            Marker marker = map.getmMap().addMarker(options);
+
+            marker.setTag(dataSnapshot.getKey());
+
+            note.setKey(dataSnapshot.getKey());
+
+            map.getMarkersContainer().addMarker(marker);
         }
-
-        Bitmap bitmap = BitmapCreator.getBitmap(drawable);
-        LatLng latLng = new LatLng(Double.valueOf(note.getLocation().getLat()), Double.valueOf(note.getLocation().getLng()));
-
-        options.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                .position(latLng);
-
-        Marker marker = map.getmMap().addMarker(options);
-
-        marker.setTag(dataSnapshot.getKey());
-        note.setKey(dataSnapshot.getKey());
-
-        map.getMarkersContainer().addMarker(marker);
     }
 
     @Override
