@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context=".activities.SignInActivity">
 
@@ -16,7 +16,7 @@
         android:layout_marginBottom="70sp"
         android:text="@string/authorization"
         android:textAlignment="center"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorTextBlack"
         android:textSize="40sp" />
 
     <LinearLayout
@@ -44,10 +44,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5sp"
                 android:ems="5"
-                android:fontFamily="@font/acme"
+                android:fontFamily="sans-serif"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/colorText"
+                android:textColorHint="@color/colorTextLight"
+                android:textColorLink="@color/colorPrimary"
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -77,10 +78,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5sp"
                 android:ems="5"
-                android:fontFamily="@font/acme"
+                android:fontFamily="sans-serif"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/colorText"
+                android:textColorHint="@color/colorTextLight"
+                android:textColorLink="@color/colorPrimary"
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -88,12 +90,15 @@
 
     <Button
         android:id="@+id/btn_sign_in"
+        style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="80sp"
         android:layout_marginEnd="80sp"
-        android:fontFamily="@font/acme"
+        android:fontFamily="sans-serif"
         android:text="@string/sign_in"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="20sp"
         android:visibility="visible" />
 
     <TextView
@@ -103,16 +108,19 @@
         android:layout_marginTop="50sp"
         android:text="@string/create_a_new_account"
         android:textAlignment="center"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_registration"
+        style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="80sp"
         android:layout_marginEnd="80sp"
-        android:fontFamily="@font/acme"
+        android:fontFamily="sans-serif"
         android:text="@string/registration"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="20sp"
         android:visibility="visible" />
 </LinearLayout>
