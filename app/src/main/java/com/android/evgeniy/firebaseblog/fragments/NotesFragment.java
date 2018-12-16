@@ -2,6 +2,7 @@ package com.android.evgeniy.firebaseblog.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ public class NotesFragment extends Fragment implements
     private View view;
     private RecyclerView notesRecyclerView;
     private TextView noDataTextView;
-    private Button button;
+    private FloatingActionButton button;
 
     private ClickNoteRecyclerAdapter clickNoteRecyclerAdapter;
 
