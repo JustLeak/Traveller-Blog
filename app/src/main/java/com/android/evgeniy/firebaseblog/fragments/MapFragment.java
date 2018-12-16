@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,6 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.dataaccess.MarkersContainer;
+import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+import com.android.evgeniy.firebaseblog.listeners.NoteMarkerListenersManager;
+import com.android.evgeniy.firebaseblog.services.BitmapCreator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -32,6 +35,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class MapFragment extends Fragment implements
         OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -48,6 +57,19 @@ public class MapFragment extends Fragment implements
     private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
 
+    private FirebaseUser firebaseUser;
+    private MarkersContainer markersContainer;
+    private NoteMarkerListenersManager listenersManager;
+    private UserFriendsDao userFriendsDao;
+
+    public GoogleMap getmMap() {
+        return mMap;
+    }
+
+    public MarkersContainer getMarkersContainer() {
+        return markersContainer;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +77,13 @@ public class MapFragment extends Fragment implements
         initMap();
         getLocationPermission();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        markersContainer = new MarkersContainer();
+        listenersManager = new NoteMarkerListenersManager(this);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+
+        userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+        userFriendsDao.getAllFriendsId(this);
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -66,18 +94,31 @@ public class MapFragment extends Fragment implements
                 }
                 for (Location location : locationResult.getLocations()) {
                     Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
-                    Bitmap bitmap = getBitmap(R.drawable.ic_note_green);
+
+                    /*Drawable drawable = getResources().getDrawable(R.drawable.ic_note_green);
+                    Bitmap bitmap = BitmapCreator.getBitmap(drawable);
 
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
-                    
+                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));*/
+
                 }
             }
         };
 
         Toast.makeText(getContext(), "Created", Toast.LENGTH_LONG).show();
         return view;
+    }
+
+    public void setListeners(ArrayList<String> resultIdList) {
+        String notesPath;
+        DatabaseReference reference;
+        resultIdList.add(firebaseUser.getUid());
+        for (String id : resultIdList) {
+            notesPath = id + "/Notes";
+            reference = FirebaseDatabase.getInstance().getReference().child(notesPath);
+            listenersManager.addChildEventListener(reference);
+        }
     }
 
     @Override
@@ -101,7 +142,9 @@ public class MapFragment extends Fragment implements
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    Bitmap bitmap = getBitmap(R.drawable.ic_note_green);
+
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_note_green);
+                    Bitmap bitmap = BitmapCreator.getBitmap(drawable);
 
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -194,16 +237,5 @@ public class MapFragment extends Fragment implements
                 Toast.makeText(getContext(), "Permissions are not granted.", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    private Bitmap getBitmap(int drawableRes) {
-        Drawable drawable = getResources().getDrawable(drawableRes);
-        Canvas canvas = new Canvas();
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 }

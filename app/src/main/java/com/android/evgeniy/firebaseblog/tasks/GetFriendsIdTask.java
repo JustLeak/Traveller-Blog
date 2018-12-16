@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
+import com.android.evgeniy.firebaseblog.fragments.MapFragment;
 import com.android.evgeniy.firebaseblog.models.Friend;
 import com.google.firebase.database.DataSnapshot;
 
@@ -12,9 +13,14 @@ import java.util.Collections;
 
 public class GetFriendsIdTask extends AsyncTask<DataSnapshot, Integer, ArrayList<String>> {
     private RecyclerView.Adapter adapter;
+    private MapFragment fragment;
 
     public GetFriendsIdTask(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
+    }
+
+    public GetFriendsIdTask(MapFragment mapFragment) {
+        this.fragment = mapFragment;
     }
 
     @Override
@@ -37,6 +43,9 @@ public class GetFriendsIdTask extends AsyncTask<DataSnapshot, Integer, ArrayList
         if (adapter instanceof NotesRecyclerAdapter) {
             NotesRecyclerAdapter notesRecyclerAdapter = (NotesRecyclerAdapter) adapter;
             notesRecyclerAdapter.setListeners(resultIdList);
+        } else {
+            fragment.setListeners(resultIdList);
         }
+
     }
 }

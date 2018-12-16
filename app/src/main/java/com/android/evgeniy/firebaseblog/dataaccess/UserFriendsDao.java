@@ -3,8 +3,9 @@ package com.android.evgeniy.firebaseblog.dataaccess;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.dataaccess.api.IUserFriendsDao;
+import com.android.evgeniy.firebaseblog.fragments.MapFragment;
+import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.tasks.GenericTask;
 import com.android.evgeniy.firebaseblog.tasks.GetFriendsIdTask;
 import com.google.firebase.database.DataSnapshot;
@@ -40,11 +41,26 @@ public class UserFriendsDao implements IUserFriendsDao {
         });
     }
 
-    public void getAllFriendsId(final RecyclerView.Adapter adapter){
+    public void getAllFriendsId(final RecyclerView.Adapter adapter) {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GetFriendsIdTask task = new GetFriendsIdTask(adapter);
+                task.execute(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getAllFriendsId(final MapFragment mapFragment) {
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GetFriendsIdTask task = new GetFriendsIdTask(mapFragment);
                 task.execute(dataSnapshot);
             }
 
