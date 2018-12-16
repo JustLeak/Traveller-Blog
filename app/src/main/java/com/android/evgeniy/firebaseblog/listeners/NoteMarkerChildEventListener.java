@@ -52,7 +52,7 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
 
             Marker marker = map.getmMap().addMarker(options);
 
-            marker.setTag(dataSnapshot.getKey());
+            marker.setTag(note);
 
             note.setKey(dataSnapshot.getKey());
             map.getMarkersContainer().addMarker(marker);
