@@ -29,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,8 @@ public class MapFragment extends Fragment implements
     private FusedLocationProviderClient mFusedLocationClient;
     private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
+
+    private Marker mLocMarker;
 
     private FirebaseUser firebaseUser;
     private MarkersContainer markersContainer;
@@ -91,11 +94,11 @@ public class MapFragment extends Fragment implements
                 for (Location location : locationResult.getLocations()) {
                     Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
 
-
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(location.getLatitude(), location.getLongitude())));
-
-
+                    if (mLocMarker != null)
+                        mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                    else {
+                        mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+                    }
                 }
             }
         };
@@ -137,10 +140,7 @@ public class MapFragment extends Fragment implements
             public void onSuccess(Location location) {
                 if (location != null) {
 
-
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(location.getLatitude(), location.getLongitude())));
-
+                    mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
 
                     moveCamera(location, DEFAULT_ZOOM);
                 }
@@ -207,7 +207,7 @@ public class MapFragment extends Fragment implements
 
         LocationRequest locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10000);
+                .setInterval(3000);
         mFusedLocationClient.requestLocationUpdates(locationRequest,
                 mLocationCallback, null);
     }
