@@ -1,8 +1,10 @@
 package com.android.evgeniy.firebaseblog.dataaccess;
 
 import com.android.evgeniy.firebaseblog.models.UserNote;
+import com.android.evgeniy.firebaseblog.services.NotesComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public final class NotesContainer {
     private ArrayList<UserNote> notes;
@@ -17,6 +19,7 @@ public final class NotesContainer {
 
     public void addNote(UserNote note) {
         notes.add(note);
+        Collections.sort(notes, new NotesComparator());
     }
 
     public int changeNote(UserNote newNote, String key) {
