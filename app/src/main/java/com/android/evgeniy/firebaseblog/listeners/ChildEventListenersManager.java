@@ -16,7 +16,6 @@ public abstract class ChildEventListenersManager {
     public void removeChildEventListener(ChildEventListener listener) {
         for (DatabaseReference key : listenersMap.keySet()) {
             for (ChildEventListener existingListener : listenersMap.get(key)) {
-
                 if (existingListener.equals(listener)) {
                     key.removeEventListener(existingListener);
                     listenersMap.get(key).remove(existingListener);

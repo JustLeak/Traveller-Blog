@@ -3,8 +3,6 @@ package com.android.evgeniy.firebaseblog.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +19,6 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.dataaccess.MarkersContainer;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
 import com.android.evgeniy.firebaseblog.listeners.NoteMarkerListenersManager;
-import com.android.evgeniy.firebaseblog.services.BitmapCreator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -31,7 +28,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -95,12 +91,10 @@ public class MapFragment extends Fragment implements
                 for (Location location : locationResult.getLocations()) {
                     Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
 
-                    /*Drawable drawable = getResources().getDrawable(R.drawable.ic_note_green);
-                    Bitmap bitmap = BitmapCreator.getBitmap(drawable);
 
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));*/
+                            .position(new LatLng(location.getLatitude(), location.getLongitude())));
+
 
                 }
             }
@@ -143,12 +137,10 @@ public class MapFragment extends Fragment implements
             public void onSuccess(Location location) {
                 if (location != null) {
 
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_note_green);
-                    Bitmap bitmap = BitmapCreator.getBitmap(drawable);
 
                     mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+                            .position(new LatLng(location.getLatitude(), location.getLongitude())));
+
 
                     moveCamera(location, DEFAULT_ZOOM);
                 }
