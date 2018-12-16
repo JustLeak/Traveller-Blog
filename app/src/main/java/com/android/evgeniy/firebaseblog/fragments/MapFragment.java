@@ -80,7 +80,7 @@ public class MapFragment extends Fragment implements
         listenersManager = new NoteMarkerListenersManager(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        mMap.setOnMarkerClickListener(this);
+
 
         userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
         userFriendsDao.getAllFriendsId(this);
@@ -128,6 +128,8 @@ public class MapFragment extends Fragment implements
             getLastLocation();
             startLocationUpdates();
         }
+
+        mMap.setOnMarkerClickListener(this);
     }
 
     private void getLastLocation() {
