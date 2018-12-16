@@ -13,7 +13,6 @@
         android:layout_height="0dp"
         android:divider="@android:drawable/divider_horizontal_bright"
         android:dividerHeight="4dp"
-        android:padding="5dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +48,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.986"
-        app:srcCompat="@drawable/ic_add_note"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_add_note" />
 
 </android.support.constraint.ConstraintLayout>
