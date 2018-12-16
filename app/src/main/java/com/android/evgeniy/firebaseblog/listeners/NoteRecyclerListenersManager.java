@@ -4,10 +4,10 @@ import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 
-public final class NoteListenersManager extends ChildEventListenersManager {
+public final class NoteRecyclerListenersManager extends ChildEventListenersManager {
     private NotesRecyclerAdapter adapter;
 
-    public NoteListenersManager(NotesRecyclerAdapter adapter) {
+    public NoteRecyclerListenersManager(NotesRecyclerAdapter adapter) {
         super();
         this.adapter = adapter;
     }
@@ -15,6 +15,6 @@ public final class NoteListenersManager extends ChildEventListenersManager {
     @Override
     public ChildEventListener createListener(DatabaseReference reference) {
 
-        return new NoteChildEventListener(adapter);
+        return new NoteRecyclerChildEventListener(adapter);
     }
 }

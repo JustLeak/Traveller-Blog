@@ -9,7 +9,7 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
-import com.android.evgeniy.firebaseblog.listeners.NoteListenersManager;
+import com.android.evgeniy.firebaseblog.listeners.NoteRecyclerListenersManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +22,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
     private final FirebaseUser user;
     private UserFriendsDao userFriendsDao;
-    private NoteListenersManager listenersManager;
+    private NoteRecyclerListenersManager listenersManager;
     private NotesContainer notesContainer;
 
     public NotesContainer getNotesContainer() {
@@ -33,7 +33,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         this.inflater = new WeakReference<>(inflater);
 
         notesContainer = new NotesContainer();
-        listenersManager = new NoteListenersManager(this);
+        listenersManager = new NoteRecyclerListenersManager(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         userFriendsDao = new UserFriendsDao(user.getUid());

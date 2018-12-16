@@ -9,10 +9,10 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-public class NoteChildEventListener implements ChildEventListener {
+public class NoteRecyclerChildEventListener implements ChildEventListener {
     private NotesRecyclerAdapter adapter;
 
-    public NoteChildEventListener(NotesRecyclerAdapter adapter) {
+    NoteRecyclerChildEventListener(NotesRecyclerAdapter adapter) {
         this.adapter = adapter;
     }
 

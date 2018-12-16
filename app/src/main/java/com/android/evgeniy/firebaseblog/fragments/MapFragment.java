@@ -56,6 +56,7 @@ public class MapFragment extends Fragment implements
         getLocationPermission();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
+
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -70,6 +71,7 @@ public class MapFragment extends Fragment implements
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
                             .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+                    
                 }
             }
         };
