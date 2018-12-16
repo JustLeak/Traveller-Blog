@@ -40,6 +40,6 @@ public class NoteInfoFragment extends Fragment {
         noteTv.setText(userNote.getText());
         dateTv.setText(userNote.getDate());
         timeTv.setText(userNote.getTime());
-        emailTv.setText(userNote.getOwnerId());
+        emailTv.setText(userNote.getEmail());
     }
 }

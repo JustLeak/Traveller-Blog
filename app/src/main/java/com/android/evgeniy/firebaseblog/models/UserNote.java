@@ -32,9 +32,10 @@ public class UserNote implements Parcelable {
     private String text;
     private Location location;
     private String ownerId;
+    private String email;
 
     private UserNote(Parcel in) {
-        String[] data = new String[7];
+        String[] data = new String[8];
         in.readStringArray(data);
         key = data[0];
         date = data[1];
@@ -44,6 +45,7 @@ public class UserNote implements Parcelable {
         location.setLat(data[4]);
         location.setLng(data[5]);
         ownerId = data[6];
+        email = data[7];
     }
 
     @Override
@@ -53,7 +55,7 @@ public class UserNote implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        String[] data = {key, date, time, text, location.getLat(), location.getLng(), ownerId};
+        String[] data = {key, date, time, text, location.getLat(), location.getLng(), ownerId, email};
         dest.writeStringArray(data);
     }
 }

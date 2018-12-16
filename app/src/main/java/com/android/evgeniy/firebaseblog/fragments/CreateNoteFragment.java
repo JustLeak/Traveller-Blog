@@ -94,6 +94,7 @@ public class CreateNoteFragment extends Fragment {
                         .ownerId(user.getUid())
                         .time(timeFormat.format(date))
                         .text(noteText.getText().toString())
+                        .email(user.getEmail())
                         .build();
 
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

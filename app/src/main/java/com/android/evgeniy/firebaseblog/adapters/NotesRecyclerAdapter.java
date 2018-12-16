@@ -65,7 +65,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         holder.setNote(notesContainer.getNotes().get(position).getText());
         holder.setDate(notesContainer.getNotes().get(position).getDate());
         holder.setTime(notesContainer.getNotes().get(position).getTime());
-        holder.setEmail(notesContainer.getNotes().get(position).getOwnerId());
+        holder.setEmail(notesContainer.getNotes().get(position).getEmail());
 
 
     }
