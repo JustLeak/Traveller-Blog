@@ -1,9 +1,14 @@
 package com.android.evgeniy.firebaseblog.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +17,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.dataaccess.UserNotesDao;
 import com.android.evgeniy.firebaseblog.models.Location;
 import com.android.evgeniy.firebaseblog.models.UserNote;
-import com.android.evgeniy.firebaseblog.dataaccess.UserNotesDao;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,6 +37,15 @@ public class CreateNoteFragment extends Fragment {
     private EditText noteText;
 
     private UserNotesDao userNotesDao;
+    private UserNote userNote;
+
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+    private boolean mLocationPermissionGranted = false;
+    private LocationCallback mLocationCallback;
 
     @Nullable
     @Override
@@ -39,6 +58,32 @@ public class CreateNoteFragment extends Fragment {
 
         userNotesDao = new UserNotesDao();
 
+        getLocationPermission();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    Toast.makeText(getContext(), "No result", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                for (android.location.Location location : locationResult.getLocations()) {
+                    Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
+
+                    userNote.setLocation(new Location(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
+
+                    userNotesDao.addOneByUid(userNote, user.getUid());
+                    showToast("Record added");
+                   /* if (mLocMarker != null)
+                        mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                    else {
+                        mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+                    }*/
+                }
+            }
+        };
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,17 +92,24 @@ public class CreateNoteFragment extends Fragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
-                UserNote userNote = UserNote.builder()
+                userNote = UserNote.builder()
                         .date(dateFormat.format(date))
                         .ownerId(user.getUid())
                         .time(timeFormat.format(date))
                         .text(noteText.getText().toString())
-                        .location(Location.builder().lat("LAT").lng("LNG").build())
                         .build();
 
-                userNotesDao.addOneByUid(userNote, user.getUid());
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = false;
+                    return;
+                }
 
-                showToast("Record added");
+                LocationRequest locationRequest = new LocationRequest()
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+                mFusedLocationClient.requestLocationUpdates(locationRequest,
+                        mLocationCallback, null);
             }
         });
         return view;
@@ -66,5 +118,43 @@ public class CreateNoteFragment extends Fragment {
     private void showToast(String s) {
         Toast.makeText(view.getContext(), s,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    private void getLocationPermission() {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        boolean[] isGrantedPermissions = {ContextCompat.checkSelfPermission(getContext().getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED,
+                ContextCompat.checkSelfPermission(getContext().getApplicationContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED};
+
+        for (boolean isGranted : isGrantedPermissions) {
+            if (!isGranted) {
+                mLocationPermissionGranted = false;
+
+                requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(getActivity(),
+                        permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE);
+                return;
+            }
+        }
+        mLocationPermissionGranted = true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        mLocationPermissionGranted = false;
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (permissions.length == 2 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+                Toast.makeText(getContext(), "Permissions granted.", Toast.LENGTH_LONG).show();
+            } else {
+                mLocationPermissionGranted = false;
+                Toast.makeText(getContext(), "Permissions are not granted.", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
