@@ -2,6 +2,7 @@ package com.android.evgeniy.firebaseblog.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_close, R.string.navigation_drawer_open);
 
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
