@@ -7,35 +7,35 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
-            android:title="Map" />
+            android:title="@string/map" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_add"
             android:icon="@drawable/ic_add_note"
-            android:title="Add" />
+            android:title="@string/add" />
         <item
             android:id="@+id/nav_friends"
-            android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="Friends" />
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/friends" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
-            android:title="Logout" />
+            android:title="@string/logout" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/nav_communicate"
                 android:icon="?attr/actionModeShareDrawable"
-                android:title="About us" />
+                android:title="@string/project_on_github" />
         </menu>
     </item>
 

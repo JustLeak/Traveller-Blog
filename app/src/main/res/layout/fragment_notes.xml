@@ -56,6 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.986"
-        app:srcCompat="@drawable/ic_add_note" />
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
 </android.support.constraint.ConstraintLayout>
