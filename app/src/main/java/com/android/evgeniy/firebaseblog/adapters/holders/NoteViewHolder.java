@@ -9,9 +9,19 @@ import com.android.evgeniy.firebaseblog.R;
 public class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView note;
     private TextView date;
+    private TextView time;
+    private TextView email;
 
     public TextView getNote() {
         return note;
+    }
+
+    public TextView getTime() {
+        return time;
+    }
+
+    public TextView getEmail() {
+        return email;
     }
 
     public TextView getDate() {
@@ -26,10 +36,20 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         this.date.setText(date);
     }
 
+    public void setTime(String time) {
+        this.time.setText(time);
+    }
+
+    public void setEmail(String email) {
+        this.email.setText(email);
+    }
+
     public NoteViewHolder(View itemView) {
         super(itemView);
 
         date = (TextView) itemView.findViewById(R.id.date);
         note = (TextView) itemView.findViewById(R.id.note);
+        time = (TextView) itemView.findViewById(R.id.time);
+        email = (TextView) itemView.findViewById(R.id.email);
     }
 }

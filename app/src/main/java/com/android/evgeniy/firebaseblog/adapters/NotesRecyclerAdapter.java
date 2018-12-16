@@ -66,14 +66,16 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         holder.setNote(notesContainer.getNotes().get(position).getText());
         holder.setDate(notesContainer.getNotes().get(position).getDate());
-
+        holder.setTime(notesContainer.getNotes().get(position).getTime());
+        holder.setEmail(notesContainer.getNotes().get(position).getOwnerId());
+/*
         if (notesContainer.getNotes().get(position).getOwnerId().equals(user.getUid())) {
             holder.getDate().setBackgroundColor(Color.GRAY);
             holder.getNote().setBackgroundColor(Color.WHITE);
         } else {
             holder.getDate().setBackgroundColor(Color.BLUE);
             holder.getNote().setBackgroundColor(Color.YELLOW);
-        }
+        }*/
     }
 
     @Override
