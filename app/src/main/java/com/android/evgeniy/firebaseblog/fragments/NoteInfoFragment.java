@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.models.UserNote;
 
 public class NoteInfoFragment extends Fragment {
 
@@ -16,6 +17,7 @@ public class NoteInfoFragment extends Fragment {
     private TextView dateTv;
     private TextView timeTv;
     private TextView emailTv;
+    private UserNote userNote;
 
     @Nullable
     @Override
@@ -27,11 +29,19 @@ public class NoteInfoFragment extends Fragment {
         timeTv = view.findViewById(R.id.time_tv);
         emailTv = view.findViewById(R.id.email_tv);
 
-
-
-
-
-
+        //emailTv.setText("hello");
+        if (getArguments() != null && getArguments().containsKey("userNote")) {
+            userNote = getArguments().getParcelable("userNote");
+            System.out.println(userNote.getText());
+            updateUI();
+        }
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    private void updateUI(){
+        noteTv.setText(userNote.getText());
+        dateTv.setText(userNote.getDate());
+        timeTv.setText(userNote.getTime());
+        emailTv.setText(userNote.getOwnerId());
     }
 }
