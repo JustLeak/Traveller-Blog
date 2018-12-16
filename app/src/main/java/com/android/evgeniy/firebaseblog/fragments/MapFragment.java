@@ -96,7 +96,9 @@ public class MapFragment extends Fragment implements
                     if (mLocMarker != null)
                         mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     else {
-                        mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+                        mLocMarker = mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                .zIndex(-1));
                     }
                 }
             }
@@ -141,7 +143,9 @@ public class MapFragment extends Fragment implements
             public void onSuccess(Location location) {
                 if (location != null) {
 
-                    mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+                    mLocMarker = mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                            .zIndex(-1));
 
                     moveCamera(location, DEFAULT_ZOOM);
                 }
