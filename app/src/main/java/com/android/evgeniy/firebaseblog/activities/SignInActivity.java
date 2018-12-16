@@ -45,7 +45,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mSettings = getSharedPreferences(Settings.APP_SETTINGS, Context.MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if (mAuth.getCurrentUser() != null)
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mUsernameLayout = findViewById(R.id.login_layout);
         mPasswordLayout = findViewById(R.id.password_layout);
