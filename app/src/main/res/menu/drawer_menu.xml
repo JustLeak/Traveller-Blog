@@ -34,7 +34,8 @@
         <menu>
             <item
                 android:id="@+id/nav_communicate"
-                android:title="VK https://vk.com/id157407689" />
+                android:icon="?attr/actionModeShareDrawable"
+                android:title="About us" />
         </menu>
     </item>
 

@@ -2,6 +2,7 @@ package com.android.evgeniy.firebaseblog.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -97,6 +98,10 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
             case R.id.nav_friends:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
+                break;
+            case R.id.nav_communicate:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vk.com/matyc777"));
+                startActivity(browserIntent);
                 break;
         }
 
