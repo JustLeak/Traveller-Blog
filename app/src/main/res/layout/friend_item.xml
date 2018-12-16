@@ -14,7 +14,7 @@
         android:layout_height="47dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorText"
+        android:background="@color/colorBackground"
         android:fontFamily="@font/acme"
         android:maxLength="100"
         android:padding="5dp"
