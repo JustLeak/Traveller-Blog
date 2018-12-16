@@ -50,7 +50,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             listenersManager.addChildEventListener(reference);
         }
     }
-    
+
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = this.inflater.get();
