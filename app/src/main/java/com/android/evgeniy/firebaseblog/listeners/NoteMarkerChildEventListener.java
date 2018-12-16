@@ -34,7 +34,7 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         UserNote note = dataSnapshot.getValue(UserNote.class);
 
-        if (!map.isDetached()) {
+        if (map.isVisible()) {
             MarkerOptions options = new MarkerOptions();
             Drawable drawable;
             if (uId.equals(note.getOwnerId())) {
