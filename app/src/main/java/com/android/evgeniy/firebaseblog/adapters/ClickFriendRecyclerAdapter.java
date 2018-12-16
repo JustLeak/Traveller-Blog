@@ -51,11 +51,11 @@ public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implement
         friendClickListener.onItemClick(v, position);
     }
 
-    public Friend getFriendByIndex(int index){
+    public Friend getFriendByIndex(int index) {
         return super.getFriendByIndex(index);
     }
 
-    public Friend getContextMenuSelectedFriend(){
+    public Friend getContextMenuSelectedFriend() {
         return super.getFriendByIndex(position);
     }
 }

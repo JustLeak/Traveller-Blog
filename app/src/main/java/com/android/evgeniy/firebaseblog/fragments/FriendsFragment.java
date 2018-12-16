@@ -15,13 +15,12 @@ import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickFriendRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdapter.OnItemClickListener{
+public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdapter.OnItemClickListener {
     private View view;
     private RecyclerView friendsList;
     private Button findButton;
@@ -91,12 +90,17 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
                 profileFragment.setArguments(arguments);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
                 return true;
+            case R.id.context_menu_item_notes_on_map:
+                MapFragment mapFragment = new MapFragment();
+                mapFragment.setArguments(arguments);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).commit();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    private void showToast(String str){
+    private void showToast(String str) {
         Toast.makeText(view.getContext(), str, Toast.LENGTH_SHORT).show();
     }
 }

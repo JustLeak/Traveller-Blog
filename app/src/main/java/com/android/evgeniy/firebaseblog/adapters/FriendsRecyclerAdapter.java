@@ -11,7 +11,7 @@ import com.android.evgeniy.firebaseblog.models.Friend;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolder>{
+public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     private ArrayList<Friend> friends;
     private final WeakReference<LayoutInflater> inflater;
 
@@ -48,12 +48,12 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
         return super.getItemViewType(position);
     }
 
-    public void update(ArrayList<Friend> friends){
+    public void update(ArrayList<Friend> friends) {
         this.friends = friends;
         this.notifyDataSetChanged();
     }
 
-    public Friend getFriendByIndex(int index){
+    public Friend getFriendByIndex(int index) {
         return friends.get(index);
     }
 }
