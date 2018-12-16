@@ -100,7 +100,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
                 break;
             case R.id.nav_communicate:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vk.com/matyc777"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vk.com/matyc"));
                 startActivity(browserIntent);
                 break;
         }
