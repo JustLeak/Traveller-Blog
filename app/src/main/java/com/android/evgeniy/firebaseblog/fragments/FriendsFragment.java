@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdapter.OnItemClickListener {
     private View view;
     private RecyclerView friendsList;
-    private Button findButton;
-    private TextView findEmailText;
+    private SearchView searchView;
 
     private UserFriendsDao userFriendsDao;
     private ClickFriendRecyclerAdapter clickFriendRecyclerAdapter;
@@ -35,9 +35,8 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_friends, container, false);
-        findButton = view.findViewById(R.id.add_friend_btn);
-        findEmailText = view.findViewById(R.id.email_find_text);
         friendsList = view.findViewById(R.id.friends);
+        searchView = view.findViewById(R.id.searchView);
 
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -46,11 +45,17 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
 
         userFriendsDao.getAll(clickFriendRecyclerAdapter);
 
-        findButton.setOnClickListener(new View.OnClickListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onQueryTextSubmit(String query) {
                 SearchMap searchMap = new SearchMap(user.getUid());
-                searchMap.findFriendByEmail(findEmailText.getText().toString().trim().toLowerCase(), view.getContext());
+                searchMap.findFriendByEmail(query.trim().toLowerCase(), view.getContext());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 
@@ -98,9 +103,5 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             default:
                 return super.onContextItemSelected(item);
         }
-    }
-
-    private void showToast(String str) {
-        Toast.makeText(view.getContext(), str, Toast.LENGTH_SHORT).show();
     }
 }
