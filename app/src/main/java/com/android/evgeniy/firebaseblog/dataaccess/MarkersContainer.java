@@ -11,7 +11,7 @@ public final class MarkersContainer {
         this.markers = new ArrayList<>();
     }
 
-    public void addMarker(Marker marker){
+    public void addMarker(Marker marker) {
         markers.add(marker);
     }
 }

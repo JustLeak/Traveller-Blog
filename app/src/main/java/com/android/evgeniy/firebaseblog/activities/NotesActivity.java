@@ -64,7 +64,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) hideKeyboard();
         return super.dispatchTouchEvent(ev);
     }
 

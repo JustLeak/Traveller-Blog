@@ -36,7 +36,7 @@ public class NoteInfoFragment extends Fragment {
         return view;
     }
 
-    private void updateUI(){
+    private void updateUI() {
         noteTv.setText(userNote.getText());
         dateTv.setText(userNote.getDate());
         timeTv.setText(userNote.getTime());

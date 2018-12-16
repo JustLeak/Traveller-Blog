@@ -11,14 +11,14 @@ import com.android.evgeniy.firebaseblog.R;
 public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private TextView email;
 
-    public void setEmail(String email) {
-        this.email.setText(email);
-    }
-
     public FriendViewHolder(View itemView) {
         super(itemView);
         email = itemView.findViewById(R.id.email);
         itemView.setOnCreateContextMenuListener(this);
+    }
+
+    public void setEmail(String email) {
+        this.email.setText(email);
     }
 
     @Override

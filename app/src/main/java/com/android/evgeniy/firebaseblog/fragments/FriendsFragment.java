@@ -9,15 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickFriendRecyclerAdapter;
-import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

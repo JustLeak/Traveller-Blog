@@ -2,8 +2,8 @@ package com.android.evgeniy.firebaseblog.tasks;
 
 import android.os.AsyncTask;
 
-import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+import com.android.evgeniy.firebaseblog.models.Friend;
 import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.google.firebase.database.DataSnapshot;
 

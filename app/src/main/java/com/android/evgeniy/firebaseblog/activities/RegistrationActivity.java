@@ -15,10 +15,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.models.UserDetails;
-import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.android.evgeniy.firebaseblog.dataaccess.UserDetailsDao;
+import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.android.evgeniy.firebaseblog.services.Checker;
+import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.android.evgeniy.firebaseblog.services.UserDetailsSetter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -104,7 +104,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) hideKeyboard();
         return super.dispatchTouchEvent(ev);
     }
 

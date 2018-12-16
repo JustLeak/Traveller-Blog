@@ -1,13 +1,13 @@
 package com.android.evgeniy.firebaseblog.dataaccess;
 
-import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.android.evgeniy.firebaseblog.dataaccess.api.IUserDetailsDao;
+import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UserDetailsDao implements IUserDetailsDao {
-    private DatabaseReference mRef;
     private final String childName = "/Details";
+    private DatabaseReference mRef;
 
     @Override
     public void setOneByUid(UserDetails userDetails, String uid) {

@@ -11,17 +11,13 @@ public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implement
     private final OnItemClickListener friendClickListener;
     private int position;
 
-    private void setPosition(int position) {
-        this.position = position;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
     public ClickFriendRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener) {
         super(inflater);
         friendClickListener = listener;
+    }
+
+    private void setPosition(int position) {
+        this.position = position;
     }
 
     @Override
@@ -57,5 +53,9 @@ public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implement
 
     public Friend getContextMenuSelectedFriend() {
         return super.getFriendByIndex(position);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

@@ -3,8 +3,8 @@ package com.android.evgeniy.firebaseblog.dataaccess;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.dataaccess.api.IUserNotesDao;
+import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.tasks.GetNotesTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +18,11 @@ public class UserNotesDao implements IUserNotesDao {
     private final DatabaseReference mRef;
     private final String childName = "/Notes";
     private final FirebaseUser user;
+
+    public UserNotesDao() {
+        this.user = FirebaseAuth.getInstance().getCurrentUser();
+        this.mRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + childName);
+    }
 
     @Override
     public void getAll(final RecyclerView.Adapter adapter) {
@@ -33,11 +38,6 @@ public class UserNotesDao implements IUserNotesDao {
 
             }
         });
-    }
-
-    public UserNotesDao() {
-        this.user = FirebaseAuth.getInstance().getCurrentUser();
-        this.mRef = FirebaseDatabase.getInstance().getReference().child(user.getUid() + childName);
     }
 
     @Override

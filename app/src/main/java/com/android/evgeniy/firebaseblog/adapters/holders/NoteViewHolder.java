@@ -12,38 +12,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView time;
     private TextView email;
 
-    public TextView getNote() {
-        return note;
-    }
-
-    public TextView getTime() {
-        return time;
-    }
-
-    public TextView getEmail() {
-        return email;
-    }
-
-    public TextView getDate() {
-        return date;
-    }
-
-    public void setNote(String note) {
-        this.note.setText(note);
-    }
-
-    public void setDate(String date) {
-        this.date.setText(date);
-    }
-
-    public void setTime(String time) {
-        this.time.setText(time);
-    }
-
-    public void setEmail(String email) {
-        this.email.setText(email);
-    }
-
     public NoteViewHolder(View itemView) {
         super(itemView);
 
@@ -51,5 +19,37 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         note = (TextView) itemView.findViewById(R.id.note);
         time = (TextView) itemView.findViewById(R.id.time);
         email = (TextView) itemView.findViewById(R.id.email);
+    }
+
+    public TextView getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note.setText(note);
+    }
+
+    public TextView getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time.setText(time);
+    }
+
+    public TextView getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.setText(email);
+    }
+
+    public TextView getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date.setText(date);
     }
 }

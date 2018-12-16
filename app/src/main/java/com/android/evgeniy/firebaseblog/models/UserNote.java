@@ -17,6 +17,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UserNote implements Parcelable {
+    public static final Parcelable.Creator<UserNote> CREATOR = new Parcelable.Creator<UserNote>() {
+        public UserNote createFromParcel(Parcel in) {
+            return new UserNote(in);
+        }
+
+        public UserNote[] newArray(int size) {
+            return new UserNote[size];
+        }
+    };
     private String key;
     private String date;
     private String time;
@@ -47,14 +56,4 @@ public class UserNote implements Parcelable {
         String[] data = {key, date, time, text, location.getLat(), location.getLng(), ownerId};
         dest.writeStringArray(data);
     }
-
-    public static final Parcelable.Creator<UserNote> CREATOR = new Parcelable.Creator<UserNote>() {
-        public UserNote createFromParcel(Parcel in) {
-            return new UserNote(in);
-        }
-
-        public UserNote[] newArray(int size) {
-            return new UserNote[size];
-        }
-    };
 }

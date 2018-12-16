@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import com.google.android.gms.maps.model.MarkerOptions;
-
 public final class BitmapCreator {
     public static Bitmap getBitmap(Drawable drawable) {
         Canvas canvas = new Canvas();

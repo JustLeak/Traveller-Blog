@@ -12,8 +12,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolder> {
-    private ArrayList<Friend> friends;
     private final WeakReference<LayoutInflater> inflater;
+    private ArrayList<Friend> friends;
 
     public FriendsRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);

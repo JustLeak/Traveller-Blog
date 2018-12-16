@@ -9,7 +9,6 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.fragments.MapFragment;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.services.BitmapCreator;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;

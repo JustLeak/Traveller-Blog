@@ -1,7 +1,5 @@
 package com.android.evgeniy.firebaseblog.listeners;
 
-import android.app.Fragment;
-
 import com.android.evgeniy.firebaseblog.fragments.MapFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;

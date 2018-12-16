@@ -9,10 +9,6 @@ import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 public class ClickNoteRecyclerAdapter extends NotesRecyclerAdapter implements View.OnClickListener {
     private final OnItemClickListener noteClickListener;
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
     public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener) {
         super(inflater);
         noteClickListener = listener;
@@ -36,5 +32,9 @@ public class ClickNoteRecyclerAdapter extends NotesRecyclerAdapter implements Vi
     public void onClick(View v) {
         Integer position = (Integer) v.getTag();
         noteClickListener.onItemClick(v, position);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

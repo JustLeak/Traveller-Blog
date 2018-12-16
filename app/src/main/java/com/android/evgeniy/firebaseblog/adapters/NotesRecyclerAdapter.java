@@ -1,8 +1,5 @@
 package com.android.evgeniy.firebaseblog.adapters;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -27,10 +24,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private NoteRecyclerListenersManager listenersManager;
     private NotesContainer notesContainer;
 
-    public NotesContainer getNotesContainer() {
-        return notesContainer;
-    }
-
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
@@ -43,6 +36,10 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     }
 
+    public NotesContainer getNotesContainer() {
+        return notesContainer;
+    }
+
     public void setListeners(ArrayList<String> resultIdList) {
         String notesPath;
         DatabaseReference reference;
@@ -53,8 +50,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             listenersManager.addChildEventListener(reference);
         }
     }
-
-
+    
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = this.inflater.get();
@@ -70,6 +66,8 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         holder.setDate(notesContainer.getNotes().get(position).getDate());
         holder.setTime(notesContainer.getNotes().get(position).getTime());
         holder.setEmail(notesContainer.getNotes().get(position).getOwnerId());
+
+
     }
 
     @Override

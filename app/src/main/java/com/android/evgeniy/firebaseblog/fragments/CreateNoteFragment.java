@@ -32,17 +32,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateNoteFragment extends Fragment {
-    private View view;
-    private Button button;
-    private EditText noteText;
-
-    private UserNotesDao userNotesDao;
-    private UserNote userNote;
-
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-
+    private View view;
+    private Button button;
+    private EditText noteText;
+    private UserNotesDao userNotesDao;
+    private UserNote userNote;
     private FusedLocationProviderClient mFusedLocationClient;
     private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
