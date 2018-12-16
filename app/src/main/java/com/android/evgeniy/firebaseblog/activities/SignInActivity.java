@@ -105,9 +105,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
 
-        if (mSettings.contains(Settings.APP_SETTINGS_FRIENDNOTES)) {
-            boolean b = mSettings.getBoolean(Settings.APP_SETTINGS_FRIENDNOTES, true);
-        } else {
+        if (!mSettings.contains(Settings.APP_SETTINGS_FRIENDNOTES)) {
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putBoolean(Settings.APP_SETTINGS_FRIENDNOTES, false);
             editor.apply();
