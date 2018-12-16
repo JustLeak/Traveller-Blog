@@ -119,7 +119,6 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:ems="5"
-                android:fontFamily="@font/acme"
                 android:hint="@string/name"
                 android:inputType="text"
                 android:textColor="@color/colorTextBlack"
