@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +20,7 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.dataaccess.MarkersContainer;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
 import com.android.evgeniy.firebaseblog.listeners.NoteMarkerListenersManager;
+import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -244,8 +246,13 @@ public class MapFragment extends Fragment implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.getTag() != null)
-            Toast.makeText(getContext(), marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+        if (marker.getTag() != null) {
+            Bundle arguments = new Bundle();
+            arguments.putParcelable("userNote",(UserNote) marker.getTag());
+            NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
+            noteInfoFragment.setArguments(arguments);
+            getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).commit();
+        }
         return false;
     }
 }
