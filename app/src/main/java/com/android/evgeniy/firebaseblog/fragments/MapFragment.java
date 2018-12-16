@@ -40,7 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class MapFragment extends Fragment implements
-        OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+        OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -229,5 +229,11 @@ public class MapFragment extends Fragment implements
                 Toast.makeText(getContext(), "Permissions are not granted.", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(getContext(), marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+        return false;
     }
 }
