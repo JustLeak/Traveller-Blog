@@ -25,6 +25,7 @@
 
     <Button
         android:id="@+id/add_friend_btn"
+        style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friends"
@@ -34,6 +35,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/add_friend_btn"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,13 +49,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="56dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/email_find_text"
         android:inputType="textEmailAddress"
+        android:textColorLink="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="42dp"
         android:layout_marginTop="102dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTextBlack"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="188dp" />
 
@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="157dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTextBlack"
         tools:layout_editor_absoluteX="45dp"
         tools:layout_editor_absoluteY="428dp" />
 
@@ -34,7 +34,7 @@
         android:layout_height="28dp"
         android:layout_alignStart="@+id/email_tv"
         android:layout_alignTop="@+id/time_tv"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTextBlack"
         tools:layout_editor_absoluteX="260dp"
         tools:layout_editor_absoluteY="110dp" />
 
@@ -46,7 +46,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="73dp"
         android:layout_marginEnd="5dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTextBlack"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="110dp" />
 </RelativeLayout>

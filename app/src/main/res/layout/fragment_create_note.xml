@@ -12,9 +12,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="33dp"
         android:layout_marginTop="54dp"
-        android:fontFamily="@font/acme"
+        android:fontFamily="sans-serif"
         android:text="New record:"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorTextBlack"
         android:textSize="35sp" />
 
     <EditText
@@ -27,18 +27,21 @@
         android:layout_marginTop="110dp"
         android:maxLength="100"
         android:textAlignment="gravity"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorTextBlack"
+        android:textColorLink="@color/colorPrimary"
         android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn_add_note"
-        android:layout_width="wrap_content"
+        style="@android:style/Widget.Button"
+        android:layout_width="113dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_new_note"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/acme"
-        android:text="Add" />
+        android:text="Add"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="20sp" />
 
 </RelativeLayout>

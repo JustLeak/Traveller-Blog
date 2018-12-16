@@ -16,7 +16,8 @@
         android:layout_margin="40dp"
         android:text="@string/registration"
         android:textAlignment="center"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorTextBlack"
+        android:textColorLink="@color/colorPrimary"
         android:textSize="40sp" />
 
     <LinearLayout
@@ -51,11 +52,12 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:ems="5"
-                    android:fontFamily="@font/acme"
+                    android:fontFamily="sans-serif"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/colorText"
-                    android:textColorHint="@color/colorText"
+                    android:textColor="@color/colorTextBlack"
+                    android:textColorHint="@color/colorTextLight"
+                    android:textColorLink="@color/colorPrimary"
                     android:textSize="20sp" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -86,11 +88,12 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:ems="5"
-                    android:fontFamily="@font/acme"
+                    android:fontFamily="sans-serif"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorText"
-                    android:textColorHint="@color/colorText"
+                    android:textColor="@color/colorTextBlack"
+                    android:textColorHint="@color/colorTextLight"
+                    android:textColorLink="@color/colorPrimary"
                     android:textSize="20sp" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -119,8 +122,9 @@
                 android:fontFamily="@font/acme"
                 android:hint="@string/name"
                 android:inputType="text"
-                android:textColor="@color/colorText"
-                android:textColorHint="@color/colorText"
+                android:textColor="@color/colorTextBlack"
+                android:textColorHint="@color/colorTextLight"
+                android:textColorLink="@color/colorPrimary"
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -136,11 +140,12 @@
                 android:layout_marginStart="5sp"
                 android:layout_marginEnd="5dp"
                 android:ems="5"
-                android:fontFamily="@font/acme"
+                android:fontFamily="sans-serif"
                 android:hint="@string/surname"
                 android:inputType="text"
-                android:textColor="@color/colorText"
-                android:textColorHint="@color/colorText"
+                android:textColor="@color/colorTextBlack"
+                android:textColorHint="@color/colorTextLight"
+                android:textColorLink="@color/colorPrimary"
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -156,11 +161,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:ems="5"
-                android:fontFamily="@font/acme"
+                android:fontFamily="sans-serif"
                 android:hint="@string/age"
                 android:inputType="number"
-                android:textColor="@color/colorText"
-                android:textColorHint="@color/colorText"
+                android:textColor="@color/colorTextBlack"
+                android:textColorHint="@color/colorTextLight"
+                android:textColorLink="@color/colorPrimary"
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -177,33 +183,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/acme"
+                android:buttonTint="@color/colorPrimary"
+                android:fontFamily="sans-serif"
                 android:text="@string/male"
-                android:textColor="@color/colorText"
-                android:textColorLink="@android:color/holo_red_dark" />
+                android:textColor="@color/colorTextBlack"
+                android:textColorLink="@color/colorTextLight" />
 
             <RadioButton
                 android:id="@+id/rb_female_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/acme"
+                android:buttonTint="@color/colorPrimary"
+                android:fontFamily="sans-serif"
                 android:text="@string/female"
-                android:textColor="@color/colorText"
-                android:textColorLink="@android:color/holo_red_dark" />
+                android:textColor="@color/colorTextBlack"
+                android:textColorLink="@color/colorTextLight" />
         </RadioGroup>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_create_acc"
+        style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="80sp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="80sp"
-        android:fontFamily="@font/acme"
+        android:fontFamily="sans-serif"
         android:text="@string/create_an_account"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="20sp"
         android:visibility="visible" />
 
 </LinearLayout>
