@@ -29,13 +29,11 @@ public class NoteInfoFragment extends Fragment {
         timeTv = view.findViewById(R.id.time_tv);
         emailTv = view.findViewById(R.id.email_tv);
 
-        //emailTv.setText("hello");
         if (getArguments() != null && getArguments().containsKey("userNote")) {
             userNote = getArguments().getParcelable("userNote");
-            System.out.println(userNote.getText());
             updateUI();
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     private void updateUI(){
