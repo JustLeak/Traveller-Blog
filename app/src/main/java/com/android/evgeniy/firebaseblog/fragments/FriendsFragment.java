@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,12 +37,13 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_friends, container, false);
         findButton = view.findViewById(R.id.add_friend_btn);
-        friendsList = view.findViewById(R.id.friends);
         findEmailText = view.findViewById(R.id.email_find_text);
+        friendsList = view.findViewById(R.id.friends);
 
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         friendsList.setHasFixedSize(false);
+        registerForContextMenu(friendsList);
 
         userFriendsDao.getAll(clickFriendRecyclerAdapter);
 
@@ -49,7 +51,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             @Override
             public void onClick(View v) {
                 SearchMap searchMap = new SearchMap(user.getUid());
-                searchMap.findFriendByEmail(findEmailText.getText().toString(), view.getContext());
+                searchMap.findFriendByEmail(findEmailText.getText().toString().trim().toLowerCase(), view.getContext());
             }
         });
 
@@ -59,6 +61,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userFriendsDao = new UserFriendsDao(user.getUid());
         clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
@@ -66,8 +69,31 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
 
     @Override
     public void onItemClick(View view, int position) {
-        Friend friend = clickFriendRecyclerAdapter.getFriendByIndex(position);
-        showToast(friend.getEmail() + " " + friend.getId());
+        Bundle arguments = new Bundle();
+        arguments.putString("userId", clickFriendRecyclerAdapter.getFriendByIndex(position).getId());
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setArguments(arguments);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Bundle arguments = new Bundle();
+        arguments.putString("userId", clickFriendRecyclerAdapter.getContextMenuSelectedFriend().getId());
+        switch (item.getItemId()) {
+            case R.id.context_menu_item_notes:
+                NotesFragment notesFragment = new NotesFragment();
+                notesFragment.setArguments(arguments);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, notesFragment).commit();
+                return true;
+            case R.id.context_menu_item_profile:
+                ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.setArguments(arguments);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void showToast(String str){

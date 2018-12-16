@@ -31,4 +31,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="no_data">No data</string>
+    <string name="email_find_text">Email</string>
+    <string name="add_friend_btn">Add</string>
+    <string name="notes">Notes</string>
 </resources>
