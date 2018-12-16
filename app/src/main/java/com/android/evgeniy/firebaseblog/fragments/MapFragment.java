@@ -80,6 +80,7 @@ public class MapFragment extends Fragment implements
         listenersManager = new NoteMarkerListenersManager(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        mMap.setOnMarkerClickListener(this);
 
         userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
         userFriendsDao.getAllFriendsId(this);
@@ -233,7 +234,8 @@ public class MapFragment extends Fragment implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getContext(), marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+        if (marker.getTag() != null)
+            Toast.makeText(getContext(), marker.getTag().toString(), Toast.LENGTH_SHORT).show();
         return false;
     }
 }

@@ -55,7 +55,6 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
             marker.setTag(dataSnapshot.getKey());
 
             note.setKey(dataSnapshot.getKey());
-            map.getmMap().setOnMarkerClickListener(map);
             map.getMarkersContainer().addMarker(marker);
         }
     }
