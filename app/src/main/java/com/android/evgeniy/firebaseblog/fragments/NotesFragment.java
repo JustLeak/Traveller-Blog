@@ -3,7 +3,6 @@ package com.android.evgeniy.firebaseblog.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
@@ -61,8 +59,10 @@ public class NotesFragment extends Fragment implements
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(view.getContext(), clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getOwnerId(), Toast.LENGTH_SHORT).show();
-
-
+        Bundle arguments = new Bundle();
+        arguments.putParcelable("userNote", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position));
+        NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
+        noteInfoFragment.setArguments(arguments);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).commit();
     }
 }
