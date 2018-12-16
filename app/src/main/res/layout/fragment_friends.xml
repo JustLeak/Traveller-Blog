@@ -53,8 +53,6 @@
         android:ems="10"
         android:hint="@string/email_find_text"
         android:inputType="textEmailAddress"
-        android:shadowColor="@color/colorPrimary"
-        android:textColorHighlight="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
