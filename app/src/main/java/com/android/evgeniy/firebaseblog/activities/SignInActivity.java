@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private FirebaseAuth mAuth;
@@ -44,6 +45,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mSettings = getSharedPreferences(Settings.APP_SETTINGS, Context.MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mUsernameLayout = findViewById(R.id.login_layout);
         mPasswordLayout = findViewById(R.id.password_layout);
@@ -158,7 +160,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) hideKeyboard();
         return super.dispatchTouchEvent(ev);
     }
 
