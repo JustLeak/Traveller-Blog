@@ -4,4 +4,6 @@
         android:title="@string/notes" />
     <item android:id="@+id/context_menu_item_profile"
         android:title="@string/profile" />
+    <item android:id="@+id/context_menu_item_notes_on_map"
+        android:title="@string/notes_on_map" />
 </menu>

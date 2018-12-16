@@ -34,4 +34,5 @@
     <string name="email_find_text">Email</string>
     <string name="add_friend_btn">Add</string>
     <string name="notes">Notes</string>
+    <string name="notes_on_map">Notes on map</string>
 </resources>

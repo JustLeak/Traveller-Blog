@@ -17,22 +17,52 @@ import com.google.firebase.database.ValueEventListener;
 public class SearchMap implements ISearchMap {
     private DatabaseReference reference;
     private Context viewContext;
+    private ValueEventListener myEmailListener;
+    private ValueEventListener searchMapListener;
 
     private String userId;
 
     public SearchMap(String userId) {
         viewContext = null;
         this.userId = userId;
-        reference = FirebaseDatabase.getInstance().getReference().child("/SearchMap");
     }
 
     @Override
     public void findFriendByEmail(final String email, Context viewContext) {
         this.viewContext = viewContext;
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference = FirebaseDatabase.getInstance().getReference().child(userId + "/Details" + "/email");
+        myEmailListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FriendSearchTask task = new FriendSearchTask(SearchMap.this, userId,email);
+                String myEmail = (String) dataSnapshot.getValue();
+                if (email.equals(myEmail)) {
+                    showToast("It is you(=");
+                } else findFriend(email);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        reference.addValueEventListener(myEmailListener);
+    }
+
+    @Override
+    public void addMapItem(String email) {
+        Friend friend = new Friend();
+        friend.setId(userId);
+        friend.setEmail(email);
+        reference.push().setValue(friend);
+    }
+
+    private void findFriend(final String email) {
+        reference.removeEventListener(myEmailListener);
+        reference = FirebaseDatabase.getInstance().getReference().child("/SearchMap");
+        searchMapListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FriendSearchTask task = new FriendSearchTask(SearchMap.this, userId, email);
                 task.execute(dataSnapshot);
             }
 
@@ -40,23 +70,11 @@ public class SearchMap implements ISearchMap {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+        reference.addValueEventListener(searchMapListener);
     }
 
-    @Override
-    public void addMapItem(String email){
-        Friend friend = new Friend();
-        friend.setId(userId);
-        friend.setEmail(email);
-        reference.push().setValue(friend);
-    }
-
-    public void showResult(Boolean result){
-        if(result) showToast("Added to your friends");
-        else showToast("User is not found");
-    }
-
-    private void showToast(String str) {
+    public void showToast(String str) {
         Toast.makeText(viewContext, str, Toast.LENGTH_SHORT).show();
     }
 }
