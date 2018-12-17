@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,19 +76,8 @@ public class MapFragment extends Fragment implements
         view = inflater.inflate(R.layout.fragment_map, container, false);
         initMap();
         getLocationPermission();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        markersContainer = new MarkersContainer();
-        listenersManager = new NoteMarkerListenersManager(this);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (getArguments() != null && getArguments().containsKey("userId")) {
-            ArrayList<String> listener = new ArrayList<>();
-            listener.add(getArguments().getString("userId"));
-            setListeners(listener);
-        } else {
-            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
-            userFriendsDao.getAllFriendsId(this);
-        }
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.map);
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -112,6 +102,24 @@ public class MapFragment extends Fragment implements
 
         Toast.makeText(getContext(), "Created", Toast.LENGTH_LONG).show();
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        markersContainer = new MarkersContainer();
+        listenersManager = new NoteMarkerListenersManager(this);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (getArguments() != null && getArguments().containsKey("userId")) {
+            ArrayList<String> listener = new ArrayList<>();
+            listener.add(getArguments().getString("userId"));
+            setListeners(listener);
+        } else {
+            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+            userFriendsDao.getAllFriendsId(this);
+        }
     }
 
     public void setListeners(ArrayList<String> resultIdList) {

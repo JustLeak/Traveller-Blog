@@ -3,6 +3,7 @@ package com.android.evgeniy.firebaseblog.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         view = inflater.inflate(R.layout.fragment_friends, container, false);
         friendsList = view.findViewById(R.id.friends);
         searchView = view.findViewById(R.id.searchView);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.friends);
 
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));

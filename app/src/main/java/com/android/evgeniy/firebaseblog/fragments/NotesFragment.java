@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
 
 public class NotesFragment extends Fragment implements
         ClickNoteRecyclerAdapter.OnItemClickListener {
-
     private View view;
     private RecyclerView notesRecyclerView;
     private TextView noDataTextView;
@@ -32,7 +32,8 @@ public class NotesFragment extends Fragment implements
         button = view.findViewById(R.id.btn_new_record);
         noDataTextView = view.findViewById(R.id.noDataTextView);
 
-        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.notes);
+
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         notesRecyclerView.setHasFixedSize(true);
@@ -55,6 +56,13 @@ public class NotesFragment extends Fragment implements
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
     }
 
     @Override

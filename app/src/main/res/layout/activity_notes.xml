@@ -20,7 +20,8 @@
             android:layout_height="56dp"
             android:background="@color/colorPrimary"
             android:elevation="8dp"
-            app:titleTextColor="@color/colorTextWhite" />
+            app:titleTextColor="@color/colorTextWhite"
+            app:subtitleTextColor="@color/colorTextWhite"/>
 
         <FrameLayout
             android:id="@+id/fragment_container"

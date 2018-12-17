@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class ProfileFragment extends Fragment {
         textAge = view.findViewById(R.id.textAge);
         textGender = view.findViewById(R.id.textGender);
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.profile);
         mAuth = FirebaseAuth.getInstance();
 
         if (getArguments() != null && getArguments().containsKey("userId")) {
