@@ -89,17 +89,17 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             case R.id.context_menu_item_notes:
                 NotesFragment notesFragment = new NotesFragment();
                 notesFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, notesFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, notesFragment).addToBackStack(null).commit();
                 return true;
             case R.id.context_menu_item_profile:
                 ProfileFragment profileFragment = new ProfileFragment();
                 profileFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).addToBackStack(null).commit();
                 return true;
             case R.id.context_menu_item_notes_on_map:
                 MapFragment mapFragment = new MapFragment();
                 mapFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
                 return true;
             default:
                 return super.onContextItemSelected(item);
