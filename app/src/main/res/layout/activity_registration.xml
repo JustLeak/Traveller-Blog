@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
+        android:elevation="2dp"
         android:text="@string/registration"
         android:textAlignment="center"
         android:textColor="@color/colorTextBlack"
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:elevation="2dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,7 +37,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
-                android:layout_marginTop="4sp"
+                android:layout_margin="2dp"
                 android:textAlignment="center"
                 app:srcCompat="@drawable/email" />
 
@@ -48,7 +50,7 @@
                     android:id="@+id/et_email_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:ems="5"
@@ -71,7 +73,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
-                android:layout_marginTop="4sp"
+                android:layout_margin="2dp"
                 android:textAlignment="center"
                 app:srcCompat="@drawable/password" />
 
@@ -84,7 +86,7 @@
                     android:id="@+id/et_password_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:ems="5"
@@ -105,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginTop="30dp"
+        android:elevation="2dp"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
@@ -136,7 +139,7 @@
                 android:id="@+id/et_surname_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5sp"
+                android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:ems="5"
                 android:fontFamily="sans-serif"
@@ -175,6 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:checkedButton="@+id/rb_male_reg"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -183,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorPrimary"
+                android:elevation="2dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/male"
                 android:textColor="@color/colorTextBlack"
@@ -194,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorPrimary"
+                android:elevation="2dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/female"
                 android:textColor="@color/colorTextBlack"
@@ -210,6 +216,7 @@
         android:layout_marginStart="80sp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="80sp"
+        android:elevation="4dp"
         android:fontFamily="sans-serif"
         android:text="@string/create_an_account"
         android:textColorLink="@color/colorPrimary"
