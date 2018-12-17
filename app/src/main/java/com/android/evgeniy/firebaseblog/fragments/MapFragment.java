@@ -79,6 +79,13 @@ public class MapFragment extends Fragment implements
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.map);
 
+        if (getArguments() != null && getArguments().containsKey("userId")) {
+            listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference()
+                    .child(getArguments().getString("userId") + "/Notes"));
+        } else {
+            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+            userFriendsDao.getAllFriendsId(this);
+        }
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -113,13 +120,6 @@ public class MapFragment extends Fragment implements
         listenersManager = new NoteMarkerListenersManager(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (getArguments() != null && getArguments().containsKey("userId")) {
-            listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference()
-                    .child(getArguments().getString("userId") + "/Notes"));
-        } else {
-            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
-            userFriendsDao.getAllFriendsId(this);
-        }
     }
 
     public void setListeners(ArrayList<String> resultIdList) {
