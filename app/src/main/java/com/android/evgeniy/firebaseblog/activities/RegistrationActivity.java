@@ -28,9 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-
     private UserDetails userDetails;
-    private Button createAccountButton;
     private FirebaseAuth mAuth;
     private String password;
 
@@ -39,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText firstName;
     private EditText lastName;
     private EditText age;
+    private Button createAccountButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

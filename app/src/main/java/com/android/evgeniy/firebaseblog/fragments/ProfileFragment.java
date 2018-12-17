@@ -20,21 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
-
+    private View view;
     private TextView textFirstName;
     private TextView textLastName;
     private TextView textEmail;
     private TextView textAge;
     private TextView textGender;
-    private FirebaseAuth mAuth;
-    private DatabaseReference myRef;
     private UserDetails userDetails;
-    private String userId;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         textFirstName = view.findViewById(R.id.textFirstName);
         textLastName = view.findViewById(R.id.textLastName);
         textEmail = view.findViewById(R.id.textEmail);
@@ -42,14 +39,15 @@ public class ProfileFragment extends Fragment {
         textGender = view.findViewById(R.id.textGender);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.profile);
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        String userId;
         if (getArguments() != null && getArguments().containsKey("userId")) {
             userId = getArguments().getString("userId");
         } else userId = mAuth.getUid();
 
         if (mAuth != null) {
-            myRef = FirebaseDatabase.getInstance().getReference(userId + "/Details");
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(userId + "/Details");
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override

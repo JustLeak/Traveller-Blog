@@ -41,8 +41,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
-public class MapFragment extends Fragment implements
-        OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnMarkerClickListener {
 
     public static final float DEFAULT_ZOOM = 15F;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -90,7 +91,7 @@ public class MapFragment extends Fragment implements
             userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
             userFriendsDao.getAllFriendsId(this);
         } else {
-            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+            UserFriendsDao userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
             userFriendsDao.getAllFriendsId(this);
         }
 
@@ -167,14 +168,11 @@ public class MapFragment extends Fragment implements
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
                             .zIndex(-1));
 
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoom));
-
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), MapFragment.DEFAULT_ZOOM));
                 }
             }
         });
     }
-
-
 
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -247,8 +245,6 @@ public class MapFragment extends Fragment implements
                 mLocationPermissionGranted = true;
                 getLastLocation();
                 startLocationUpdates();
-            } else {
-                mLocationPermissionGranted = false;
             }
         }
     }

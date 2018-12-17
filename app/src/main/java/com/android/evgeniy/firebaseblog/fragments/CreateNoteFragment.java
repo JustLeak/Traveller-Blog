@@ -36,13 +36,15 @@ public class CreateNoteFragment extends Fragment {
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
     private View view;
     private Button button;
     private EditText noteText;
+
     private UserNotesDao userNotesDao;
     private UserNote userNote;
+
     private FusedLocationProviderClient mFusedLocationClient;
-    private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
 
     @Nullable
@@ -71,11 +73,6 @@ public class CreateNoteFragment extends Fragment {
                     userNote.setLocation(new Location(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
                     userNotesDao.addOneByUid(userNote, user.getUid());
                     showToast("Record added");
-                   /* if (mLocMarker != null)
-                        mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-                    else {
-                        mLocMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
-                    }*/
                 }
             }
         };
@@ -98,7 +95,6 @@ public class CreateNoteFragment extends Fragment {
 
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = false;
                     return;
                 }
 
@@ -126,8 +122,6 @@ public class CreateNoteFragment extends Fragment {
 
         for (boolean isGranted : isGrantedPermissions) {
             if (!isGranted) {
-                mLocationPermissionGranted = false;
-
                 requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
                 ActivityCompat.requestPermissions(getActivity(),
                         permissions,
@@ -135,20 +129,14 @@ public class CreateNoteFragment extends Fragment {
                 return;
             }
         }
-        mLocationPermissionGranted = true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        mLocationPermissionGranted = false;
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (permissions.length == 2 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                     grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                mLocationPermissionGranted = true;
-            } else {
-                mLocationPermissionGranted = false;
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.android.evgeniy.firebaseblog.services;
 
-import com.android.evgeniy.firebaseblog.models.UserDetails;
 import com.android.evgeniy.firebaseblog.services.api.IUserDetailsChecker;
 
 import java.util.HashMap;
@@ -12,19 +11,6 @@ public class Checker implements IUserDetailsChecker {
     private HashMap<String, Boolean> resultMap = new HashMap<>();
 
     @Override
-    public boolean isCorrectUserDetails(UserDetails userDetails) {
-        if (userDetails.getAge() == null)
-            return false;
-        else if (userDetails.getEmail().isEmpty())
-            return false;
-        else if (userDetails.getGender().isEmpty())
-            return false;
-        else if (userDetails.getFirstName().isEmpty())
-            return false;
-        else return !userDetails.getLastName().isEmpty();
-    }
-
-    @Override
     public boolean isCorrectInputs(HashMap<String, String> inputs) {
         resultMap.clear();
         for (String key : inputs.keySet()) {
@@ -34,9 +20,5 @@ public class Checker implements IUserDetailsChecker {
                 resultMap.put(key, true);
         }
         return !resultMap.containsValue(false);
-    }
-
-    public boolean isEmptyResult() {
-        return resultMap.isEmpty();
     }
 }
