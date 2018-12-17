@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
-    private FirebaseUser user;
-    private UserFriendsDao userFriendsDao;
     private NoteRecyclerListenersManager listenersManager;
     private NotesContainer notesContainer;
 
@@ -29,16 +27,15 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
         notesContainer = new NotesContainer();
         listenersManager = new NoteRecyclerListenersManager(this);
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
-        userFriendsDao = new UserFriendsDao(user.getUid());
+        UserFriendsDao userFriendsDao = new UserFriendsDao(user.getUid());
         userFriendsDao.getAllFriendsId(this);
     }
 
     NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
         this.inflater = new WeakReference<>(inflater);
-
         notesContainer = new NotesContainer();
         listenersManager = new NoteRecyclerListenersManager(this);
         ArrayList<String> userId = new ArrayList<>();

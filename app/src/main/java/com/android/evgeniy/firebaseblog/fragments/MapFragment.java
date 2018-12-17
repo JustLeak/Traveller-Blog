@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.dataaccess.MarkersContainer;
@@ -91,11 +90,9 @@ public class MapFragment extends Fragment implements
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
-                    Toast.makeText(getContext(), "No result", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-                    Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
 
                     if (mLocMarker != null)
                         mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
@@ -107,8 +104,6 @@ public class MapFragment extends Fragment implements
                 }
             }
         };
-
-        Toast.makeText(getContext(), "Created", Toast.LENGTH_LONG).show();
         return view;
     }
 
@@ -136,7 +131,6 @@ public class MapFragment extends Fragment implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Toast.makeText(getContext(), "Map is ready", Toast.LENGTH_LONG).show();
 
         if (mLocationPermissionGranted) {
             getLastLocation();
@@ -242,10 +236,8 @@ public class MapFragment extends Fragment implements
                 mLocationPermissionGranted = true;
                 getLastLocation();
                 startLocationUpdates();
-                Toast.makeText(getContext(), "Permissions granted.", Toast.LENGTH_LONG).show();
             } else {
                 mLocationPermissionGranted = false;
-                Toast.makeText(getContext(), "Permissions are not granted.", Toast.LENGTH_LONG).show();
             }
         }
     }

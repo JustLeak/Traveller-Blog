@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.Marker;
 import java.util.ArrayList;
 
 public final class MarkersContainer {
-    ArrayList<Marker> markers;
+    private ArrayList<Marker> markers;
 
     public MarkersContainer() {
         this.markers = new ArrayList<>();

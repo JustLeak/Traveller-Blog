@@ -65,14 +65,10 @@ public class CreateNoteFragment extends Fragment {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
-                    Toast.makeText(getContext(), "No result", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (android.location.Location location : locationResult.getLocations()) {
-                    Toast.makeText(getContext(), "Requested", Toast.LENGTH_SHORT).show();
-
                     userNote.setLocation(new Location(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
-
                     userNotesDao.addOneByUid(userNote, user.getUid());
                     showToast("Record added");
                    /* if (mLocMarker != null)
@@ -151,10 +147,8 @@ public class CreateNoteFragment extends Fragment {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                     grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
-                Toast.makeText(getContext(), "Permissions granted.", Toast.LENGTH_LONG).show();
             } else {
                 mLocationPermissionGranted = false;
-                Toast.makeText(getContext(), "Permissions are not granted.", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -20,17 +20,12 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
         friends = new ArrayList<>();
     }
 
-    public void setFriends(ArrayList<Friend> friends) {
-        this.friends = friends;
-    }
-
     public ArrayList<Friend> getFriends() {
         return friends;
     }
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = this.inflater.get();
 
         if (inflater != null) {
@@ -46,11 +41,6 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
     @Override
     public int getItemCount() {
         return friends.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
     }
 
     public void update(ArrayList<Friend> friends) {
