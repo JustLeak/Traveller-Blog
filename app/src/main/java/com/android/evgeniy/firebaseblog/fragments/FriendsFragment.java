@@ -38,6 +38,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.friends);
 
+        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         friendsList.setHasFixedSize(false);
@@ -65,10 +66,8 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userFriendsDao = new UserFriendsDao(user.getUid());
-        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         arguments.putString("userId", clickFriendRecyclerAdapter.getFriendByIndex(position).getId());
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setArguments(arguments);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).addToBackStack(null).commit();
     }
 
     @Override
@@ -88,17 +87,17 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             case R.id.context_menu_item_notes:
                 NotesFragment notesFragment = new NotesFragment();
                 notesFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, notesFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, notesFragment).addToBackStack(null).commit();
                 return true;
             case R.id.context_menu_item_profile:
                 ProfileFragment profileFragment = new ProfileFragment();
                 profileFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).addToBackStack(null).commit();
                 return true;
             case R.id.context_menu_item_notes_on_map:
                 MapFragment mapFragment = new MapFragment();
                 mapFragment.setArguments(arguments);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
                 return true;
             default:
                 return super.onContextItemSelected(item);

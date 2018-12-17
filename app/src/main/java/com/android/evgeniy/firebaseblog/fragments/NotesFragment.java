@@ -60,7 +60,7 @@ public class NotesFragment extends Fragment implements
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -80,6 +80,6 @@ public class NotesFragment extends Fragment implements
         arguments.putParcelable("userNote", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position));
         NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
         noteInfoFragment.setArguments(arguments);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).addToBackStack(null).commit();
     }
 }

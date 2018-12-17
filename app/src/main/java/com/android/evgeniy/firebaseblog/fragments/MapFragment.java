@@ -257,7 +257,7 @@ public class MapFragment extends Fragment implements
             arguments.putParcelable("userNote", (UserNote) marker.getTag());
             NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
             noteInfoFragment.setArguments(arguments);
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).addToBackStack(null).commit();
         }
         return false;
     }
