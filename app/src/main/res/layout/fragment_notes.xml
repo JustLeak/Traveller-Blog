@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/note_item" />
 
-
     <TextView
         android:id="@+id/noDataTextView"
         android:layout_width="0dp"
@@ -34,7 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_new_record"
@@ -55,5 +53,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
 </android.support.constraint.ConstraintLayout>
