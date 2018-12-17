@@ -23,8 +23,8 @@ public class FriendViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add(Menu.NONE, R.id.context_menu_item_notes, Menu.NONE, "Notes");
-        menu.add(Menu.NONE, R.id.context_menu_item_profile, Menu.NONE, "Profile");
-        menu.add(Menu.NONE, R.id.context_menu_item_notes_on_map, Menu.NONE, "Notes on map");
+        menu.add(Menu.NONE, 0, Menu.NONE, "Notes");
+        menu.add(Menu.NONE, 1, Menu.NONE, "Profile");
+        menu.add(Menu.NONE, 2, Menu.NONE, "Notes on map");
     }
 }

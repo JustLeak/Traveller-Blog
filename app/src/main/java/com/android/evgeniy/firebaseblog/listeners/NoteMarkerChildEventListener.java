@@ -49,7 +49,7 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
             options.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     .position(latLng);
 
-            Marker marker = map.getmMap().addMarker(options);
+            Marker marker = map.getMap().addMarker(options);
 
             marker.setTag(note);
             marker.setTitle(note.getText());
