@@ -19,14 +19,15 @@ import com.android.evgeniy.firebaseblog.services.SearchMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdapter.OnItemClickListener {
+public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdapter.OnItemClickListener,
+        ClickFriendRecyclerAdapter.OnItemLongClickListener {
     private View view;
     private RecyclerView friendsList;
     private SearchView searchView;
 
     private UserFriendsDao userFriendsDao;
     private ClickFriendRecyclerAdapter clickFriendRecyclerAdapter;
-
+    private int position;
     private FirebaseUser user;
 
     @Nullable
@@ -35,6 +36,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         view = inflater.inflate(R.layout.fragment_friends, container, false);
         friendsList = view.findViewById(R.id.friends);
         searchView = view.findViewById(R.id.searchView);
+
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.friends);
 
@@ -68,13 +70,13 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         setHasOptionsMenu(true);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userFriendsDao = new UserFriendsDao(user.getUid());
-        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
+        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this, this);
     }
 
     @Override
     public void onItemClick(View view, int position) {
         Bundle arguments = new Bundle();
-        arguments.putString("userId", clickFriendRecyclerAdapter.getFriendByIndex(position).getId());
+        arguments.putString("userId", clickFriendRecyclerAdapter.getFriends().get(position).getId());
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setArguments(arguments);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
@@ -83,7 +85,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         Bundle arguments = new Bundle();
-        arguments.putString("userId", clickFriendRecyclerAdapter.getContextMenuSelectedFriend().getId());
+        arguments.putString("userId", clickFriendRecyclerAdapter.getFriends().get(position).getId());
         switch (item.getItemId()) {
             case R.id.context_menu_item_notes:
                 NotesFragment notesFragment = new NotesFragment();
@@ -103,5 +105,11 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(View view, int position) {
+        this.position = position;
+        return false;
     }
 }

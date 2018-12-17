@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
@@ -35,11 +34,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
         userFriendsDao = new UserFriendsDao(user.getUid());
         userFriendsDao.getAllFriendsId(this);
-
-    }
-
-    public NotesContainer getNotesContainer() {
-        return notesContainer;
     }
 
     NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
@@ -52,6 +46,10 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         setListeners(userId);
     }
 
+    public NotesContainer getNotesContainer() {
+        return notesContainer;
+    }
+
     public void setListeners(ArrayList<String> resultIdList) {
         String notesPath;
         DatabaseReference reference;
@@ -62,7 +60,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             listenersManager.addChildEventListener(reference);
         }
     }
-
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -79,8 +76,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         holder.setDate(notesContainer.getNotes().get(position).getDate());
         holder.setTime(notesContainer.getNotes().get(position).getTime());
         holder.setEmail(notesContainer.getNotes().get(position).getEmail());
-
-
     }
 
     @Override

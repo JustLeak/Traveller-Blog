@@ -54,7 +54,6 @@
             android:text="TextView"
             android:textColor="@color/colorTextBlack"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:autoSizeTextType="uniform"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

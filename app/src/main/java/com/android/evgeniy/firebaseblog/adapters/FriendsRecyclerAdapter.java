@@ -15,7 +15,7 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
     private final WeakReference<LayoutInflater> inflater;
     private ArrayList<Friend> friends;
 
-    public FriendsRecyclerAdapter(LayoutInflater inflater) {
+    FriendsRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
         friends = new ArrayList<>();
     }
@@ -24,8 +24,13 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
         this.friends = friends;
     }
 
+    public ArrayList<Friend> getFriends() {
+        return friends;
+    }
+
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = this.inflater.get();
 
         if (inflater != null) {
@@ -51,9 +56,5 @@ public class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendViewHolde
     public void update(ArrayList<Friend> friends) {
         this.friends = friends;
         this.notifyDataSetChanged();
-    }
-
-    public Friend getFriendByIndex(int index) {
-        return friends.get(index);
     }
 }
