@@ -77,29 +77,30 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_logout:
                 mAuth.signOut();
                 Intent intent = new Intent(this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
 
             case R.id.nav_add:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_map:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_friends:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_communicate:

@@ -37,9 +37,9 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         friendsList = view.findViewById(R.id.friends);
         searchView = view.findViewById(R.id.searchView);
 
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.friends);
 
+        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         friendsList.setHasFixedSize(false);
@@ -70,7 +70,6 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         setHasOptionsMenu(true);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userFriendsDao = new UserFriendsDao(user.getUid());
-        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this, this);
     }
 
     @Override
