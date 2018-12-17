@@ -14,6 +14,11 @@ public class ClickNoteRecyclerAdapter extends NotesRecyclerAdapter implements Vi
         noteClickListener = listener;
     }
 
+    public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener, String userId) {
+        super(inflater, userId);
+        noteClickListener = listener;
+    }
+
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         NoteViewHolder holder = super.onCreateViewHolder(parent, viewType);

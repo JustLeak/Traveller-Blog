@@ -25,14 +25,14 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private NoteRecyclerListenersManager listenersManager;
     private NotesContainer notesContainer;
 
-    public NotesRecyclerAdapter(LayoutInflater inflater) {
+    NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
         notesContainer = new NotesContainer();
         listenersManager = new NoteRecyclerListenersManager(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        listenersManager.createListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
+        listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
         userFriendsDao = new UserFriendsDao(user.getUid());
         userFriendsDao.getAllFriendsId(this);
 
@@ -42,14 +42,14 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return notesContainer;
     }
 
-    public NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
+    NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
         this.inflater = new WeakReference<>(inflater);
 
         notesContainer = new NotesContainer();
         listenersManager = new NoteRecyclerListenersManager(this);
-
-
-        setListeners((ArrayList<String>) Collections.singletonList(uId));
+        ArrayList<String> userId = new ArrayList<>();
+        userId.add(uId);
+        setListeners(userId);
     }
 
     public void setListeners(ArrayList<String> resultIdList) {

@@ -10,7 +10,7 @@ public class NotesComparator implements Comparator<UserNote> {
     @Override
     public int compare(UserNote a, UserNote b) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         try {
             if (dateFormat.parse(a.getDate()).getTime() < dateFormat.parse(b.getDate()).getTime()) {
                 return 1;

@@ -79,6 +79,7 @@ public class MapFragment extends Fragment implements
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.map);
 
+
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -113,9 +114,8 @@ public class MapFragment extends Fragment implements
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (getArguments() != null && getArguments().containsKey("userId")) {
-            ArrayList<String> listener = new ArrayList<>();
-            listener.add(getArguments().getString("userId"));
-            setListeners(listener);
+            listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference()
+                    .child(getArguments().getString("userId") + "/Notes"));
         } else {
             userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
             userFriendsDao.getAllFriendsId(this);

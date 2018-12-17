@@ -14,9 +14,13 @@ import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
+import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+
+import java.util.ArrayList;
 
 public class NotesFragment extends Fragment implements
         ClickNoteRecyclerAdapter.OnItemClickListener {
+
     private View view;
     private RecyclerView notesRecyclerView;
     private TextView noDataTextView;
@@ -33,6 +37,11 @@ public class NotesFragment extends Fragment implements
         noDataTextView = view.findViewById(R.id.noDataTextView);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.notes);
+        if (getArguments() != null && getArguments().containsKey("userId")) {
+            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this, getArguments().getString("userId"));
+        } else {
+            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+        }
 
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
