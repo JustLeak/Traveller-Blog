@@ -39,7 +39,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.friends);
 
-        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this);
+        clickFriendRecyclerAdapter = new ClickFriendRecyclerAdapter(getLayoutInflater(), this, this);
         friendsList.setAdapter(clickFriendRecyclerAdapter);
         friendsList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         friendsList.setHasFixedSize(false);
