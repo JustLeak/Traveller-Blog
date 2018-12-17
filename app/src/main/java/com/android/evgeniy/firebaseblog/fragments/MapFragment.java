@@ -40,26 +40,26 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class MapFragment extends Fragment implements
-        OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnMarkerClickListener {
 
     public static final float DEFAULT_ZOOM = 15F;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
     private View view;
 
     private GoogleMap map;
     private FusedLocationProviderClient mFusedLocationClient;
     private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
-
     private Marker mLocMarker;
 
     private FirebaseUser firebaseUser;
     private MarkersContainer markersContainer;
     private NoteMarkerListenersManager listenersManager;
-    private UserFriendsDao userFriendsDao;
 
     public GoogleMap getMap() {
         return map;
@@ -82,7 +82,7 @@ public class MapFragment extends Fragment implements
             listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference()
                     .child(getArguments().getString("userId") + "/Notes"));
         } else {
-            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+            UserFriendsDao userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
             userFriendsDao.getAllFriendsId(this);
         }
 
@@ -93,7 +93,6 @@ public class MapFragment extends Fragment implements
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-
                     if (mLocMarker != null)
                         mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     else {
@@ -155,14 +154,10 @@ public class MapFragment extends Fragment implements
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
                             .zIndex(-1));
 
-                    moveCamera(location, DEFAULT_ZOOM);
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), MapFragment.DEFAULT_ZOOM));
                 }
             }
         });
-    }
-
-    private void moveCamera(Location location, float zoom) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoom));
     }
 
     private void initMap() {
@@ -236,8 +231,6 @@ public class MapFragment extends Fragment implements
                 mLocationPermissionGranted = true;
                 getLastLocation();
                 startLocationUpdates();
-            } else {
-                mLocationPermissionGranted = false;
             }
         }
     }

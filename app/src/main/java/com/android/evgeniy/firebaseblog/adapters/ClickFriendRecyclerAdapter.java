@@ -6,7 +6,8 @@ import android.view.ViewGroup;
 
 import com.android.evgeniy.firebaseblog.adapters.holders.FriendViewHolder;
 
-public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implements View.OnClickListener, View.OnLongClickListener {
+public class ClickFriendRecyclerAdapter extends FriendsRecyclerAdapter implements View.OnClickListener,
+        View.OnLongClickListener {
     private final OnItemClickListener friendClickListener;
     private final OnItemLongClickListener friendLongClickListener;
 

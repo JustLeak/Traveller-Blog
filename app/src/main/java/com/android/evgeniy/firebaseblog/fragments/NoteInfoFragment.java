@@ -12,7 +12,7 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 
 public class NoteInfoFragment extends Fragment {
-
+    private View view;
     private TextView noteTv;
     private TextView dateTv;
     private TextView timeTv;
@@ -22,8 +22,7 @@ public class NoteInfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_noteinfo, container, false);
-
+        view = inflater.inflate(R.layout.fragment_noteinfo, container, false);
         noteTv = view.findViewById(R.id.note_tv);
         dateTv = view.findViewById(R.id.date_tv);
         timeTv = view.findViewById(R.id.time_tv);

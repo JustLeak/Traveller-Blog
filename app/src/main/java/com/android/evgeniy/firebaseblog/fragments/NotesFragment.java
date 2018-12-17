@@ -15,9 +15,7 @@ import android.widget.TextView;
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
 
-public class NotesFragment extends Fragment implements
-        ClickNoteRecyclerAdapter.OnItemClickListener {
-
+public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.OnItemClickListener {
     private View view;
     private RecyclerView notesRecyclerView;
     private TextView noDataTextView;

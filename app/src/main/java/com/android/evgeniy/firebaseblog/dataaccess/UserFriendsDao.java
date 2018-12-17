@@ -17,11 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 public class UserFriendsDao implements IUserFriendsDao {
     private final DatabaseReference mRef;
     private final String childName = "/Friends";
-    private final String userId;
-
 
     public UserFriendsDao(String userId) {
-        this.userId = userId;
         this.mRef = FirebaseDatabase.getInstance().getReference().child(userId + childName);
     }
 

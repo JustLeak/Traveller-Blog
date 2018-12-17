@@ -15,10 +15,10 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public NoteViewHolder(View itemView) {
         super(itemView);
 
-        date = (TextView) itemView.findViewById(R.id.date);
-        note = (TextView) itemView.findViewById(R.id.note);
-        time = (TextView) itemView.findViewById(R.id.time);
-        email = (TextView) itemView.findViewById(R.id.email);
+        date = itemView.findViewById(R.id.date);
+        note = itemView.findViewById(R.id.note);
+        time = itemView.findViewById(R.id.time);
+        email = itemView.findViewById(R.id.email);
     }
 
     public TextView getNote() {
