@@ -17,8 +17,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="56dp"
             android:background="@color/colorPrimary"
+            android:elevation="8dp"
             app:titleTextColor="@color/colorTextWhite" />
 
         <FrameLayout
@@ -29,6 +30,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
+        android:elevation="8dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

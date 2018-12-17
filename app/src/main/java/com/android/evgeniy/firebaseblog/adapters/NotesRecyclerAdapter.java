@@ -16,21 +16,23 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
-    private final FirebaseUser user;
+    private FirebaseUser user;
     private UserFriendsDao userFriendsDao;
     private NoteRecyclerListenersManager listenersManager;
     private NotesContainer notesContainer;
 
-    NotesRecyclerAdapter(LayoutInflater inflater) {
+    public NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
         notesContainer = new NotesContainer();
         listenersManager = new NoteRecyclerListenersManager(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        listenersManager.createListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
         userFriendsDao = new UserFriendsDao(user.getUid());
         userFriendsDao.getAllFriendsId(this);
 
@@ -40,16 +42,27 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return notesContainer;
     }
 
+    public NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
+        this.inflater = new WeakReference<>(inflater);
+
+        notesContainer = new NotesContainer();
+        listenersManager = new NoteRecyclerListenersManager(this);
+
+
+        setListeners((ArrayList<String>) Collections.singletonList(uId));
+    }
+
     public void setListeners(ArrayList<String> resultIdList) {
         String notesPath;
         DatabaseReference reference;
-        resultIdList.add(user.getUid());
+
         for (String id : resultIdList) {
             notesPath = id + "/Notes";
             reference = FirebaseDatabase.getInstance().getReference().child(notesPath);
             listenersManager.addChildEventListener(reference);
         }
     }
+
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
