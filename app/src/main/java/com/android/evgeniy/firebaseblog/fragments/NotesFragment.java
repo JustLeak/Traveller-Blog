@@ -74,9 +74,10 @@ public class NotesFragment extends Fragment implements
     @Override
     public void onItemClick(View view, int position) {
         Bundle arguments = new Bundle();
-        arguments.putParcelable("userNote", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position));
-        NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
-        noteInfoFragment.setArguments(arguments);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, noteInfoFragment).addToBackStack(null).commit();
+        arguments.putString("lat", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getLocation().getLat());
+        arguments.putString("lng", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getLocation().getLng());
+        MapFragment mapFragment = new MapFragment();
+        mapFragment.setArguments(arguments);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
     }
 }

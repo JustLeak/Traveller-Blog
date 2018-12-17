@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 public class MapFragment extends Fragment implements
@@ -55,6 +56,8 @@ public class MapFragment extends Fragment implements
     private LocationCallback mLocationCallback;
 
     private Marker mLocMarker;
+    private Double lat;
+    private Double lng;
 
     private FirebaseUser firebaseUser;
     private MarkersContainer markersContainer;
@@ -81,6 +84,11 @@ public class MapFragment extends Fragment implements
         if (getArguments() != null && getArguments().containsKey("userId")) {
             listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference()
                     .child(getArguments().getString("userId") + "/Notes"));
+        } else if (getArguments() != null && getArguments().containsKey("lat") && getArguments().containsKey("lng")) {
+            lat = Double.parseDouble(getArguments().getString("lat"));
+            lng = Double.parseDouble(getArguments().getString("lng"));
+            userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
+            userFriendsDao.getAllFriendsId(this);
         } else {
             userFriendsDao = new UserFriendsDao(firebaseUser.getUid());
             userFriendsDao.getAllFriendsId(this);
@@ -137,6 +145,10 @@ public class MapFragment extends Fragment implements
             startLocationUpdates();
         }
 
+        if (lat != null && lng != null){
+            System.out.println("2132313123");
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), DEFAULT_ZOOM));
+        }
         mMap.setOnMarkerClickListener(this);
     }
 
