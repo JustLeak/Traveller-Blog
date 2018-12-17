@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorBackground"
-    android:layout_marginBottom="6dp"
-    android:elevation="3dp">
+    android:layout_marginBottom="4dp"
+    android:elevation="2dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
