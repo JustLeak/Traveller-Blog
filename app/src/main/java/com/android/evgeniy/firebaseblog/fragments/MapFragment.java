@@ -49,7 +49,7 @@ public class MapFragment extends Fragment implements
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private View view;
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     private FusedLocationProviderClient mFusedLocationClient;
     private boolean mLocationPermissionGranted = false;
     private LocationCallback mLocationCallback;
@@ -61,8 +61,8 @@ public class MapFragment extends Fragment implements
     private NoteMarkerListenersManager listenersManager;
     private UserFriendsDao userFriendsDao;
 
-    public GoogleMap getmMap() {
-        return mMap;
+    public GoogleMap getMap() {
+        return map;
     }
 
     public MarkersContainer getMarkersContainer() {
@@ -97,7 +97,7 @@ public class MapFragment extends Fragment implements
                     if (mLocMarker != null)
                         mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     else {
-                        mLocMarker = mMap.addMarker(new MarkerOptions()
+                        mLocMarker = map.addMarker(new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
                                 .zIndex(-1));
                     }
@@ -130,14 +130,14 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        map = googleMap;
 
         if (mLocationPermissionGranted) {
             getLastLocation();
             startLocationUpdates();
         }
 
-        mMap.setOnMarkerClickListener(this);
+        map.setOnMarkerClickListener(this);
     }
 
     private void getLastLocation() {
@@ -151,7 +151,7 @@ public class MapFragment extends Fragment implements
             public void onSuccess(Location location) {
                 if (location != null) {
 
-                    mLocMarker = mMap.addMarker(new MarkerOptions()
+                    mLocMarker = map.addMarker(new MarkerOptions()
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
                             .zIndex(-1));
 
@@ -162,7 +162,7 @@ public class MapFragment extends Fragment implements
     }
 
     private void moveCamera(Location location, float zoom) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoom));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoom));
     }
 
     private void initMap() {
