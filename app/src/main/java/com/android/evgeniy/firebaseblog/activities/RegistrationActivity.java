@@ -68,12 +68,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             detailsDao.setOneByUid(userDetails, mAuth.getUid());
                             SearchMap searchMap = new SearchMap(mAuth.getUid());
                             searchMap.addMapItem(userDetails.getEmail());
-                            Snackbar.make(findViewById(android.R.id.content), "Registration success.", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "registration success.", Snackbar.LENGTH_SHORT).show();
 
                             mAuth.signInWithEmailAndPassword(userDetails.getEmail(), password);
                             startUserNotesActivity();
                         } else {
-                            Snackbar.make(findViewById(android.R.id.content), "Registration failed..", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "registration failed..", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });
