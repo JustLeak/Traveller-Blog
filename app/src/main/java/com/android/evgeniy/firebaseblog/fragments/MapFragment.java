@@ -165,9 +165,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             public void onSuccess(Location location) {
                 if (location != null) {
 
-                    mLocMarker = map.addMarker(new MarkerOptions()
-                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .zIndex(-1));
+                    if (mLocMarker != null)
+                        mLocMarker = map.addMarker(new MarkerOptions()
+                                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                .zIndex(-1));
+                    else {
+                        mLocMarker = map.addMarker(new MarkerOptions()
+                                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                .zIndex(-1));
+                    }
 
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), MapFragment.DEFAULT_ZOOM));
                 }
