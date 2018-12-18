@@ -10,7 +10,7 @@ public final class NotesContainer extends ArrayList<UserNote> {
 
     public void addNote(UserNote note) {
         super.add(note);
-        Collections.sort(super.subList(0, super.size() - 1), new NotesComparator());
+        Collections.sort(super.subList(0, super.size()), new NotesComparator());
     }
 
     public int changeNote(UserNote newNote, String key) {
