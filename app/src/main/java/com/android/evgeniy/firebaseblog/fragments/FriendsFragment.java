@@ -78,7 +78,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
         arguments.putString("userId", clickFriendRecyclerAdapter.getFriends().get(position).getId());
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setArguments(arguments);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).addToBackStack(null).commit();
     }
 
     @Override
