@@ -166,9 +166,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 if (location != null) {
 
                     if (mLocMarker != null)
-                        mLocMarker = map.addMarker(new MarkerOptions()
-                                .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                .zIndex(-1));
+                        mLocMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     else {
                         mLocMarker = map.addMarker(new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
