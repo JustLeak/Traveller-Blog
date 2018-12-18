@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -15,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.dataaccess.UserNotesDao;
@@ -72,7 +72,7 @@ public class CreateNoteFragment extends Fragment {
                 for (android.location.Location location : locationResult.getLocations()) {
                     userNote.setLocation(new Location(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
                     userNotesDao.addOneByUid(userNote, user.getUid());
-                    showToast("Record added");
+                    Snackbar.make(getView(), "Record added.", Snackbar.LENGTH_SHORT).show();
                 }
             }
         };
@@ -108,10 +108,6 @@ public class CreateNoteFragment extends Fragment {
         return view;
     }
 
-    private void showToast(String s) {
-        Toast.makeText(view.getContext(), s,
-                Toast.LENGTH_SHORT).show();
-    }
 
     private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,

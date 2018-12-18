@@ -6,41 +6,35 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.android.evgeniy.firebaseblog.R;
-import com.android.evgeniy.firebaseblog.fragments.MapFragment;
+import com.android.evgeniy.firebaseblog.listeners.managers.MapListenersManager;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.android.evgeniy.firebaseblog.services.BitmapCreator;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-import java.util.Objects;
-
 public final class NoteMarkerChildEventListener implements ChildEventListener {
-    private MapFragment map;
-    private String uId;
+    private MapListenersManager manager;
 
-
-    NoteMarkerChildEventListener(MapFragment map) {
-        this.map = map;
-        uId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+    public NoteMarkerChildEventListener(MapListenersManager manager) {
+        this.manager = manager;
     }
 
     @Override
     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         UserNote note = dataSnapshot.getValue(UserNote.class);
 
-        if (map.isVisible()) {
+        if (manager.getMap().isVisible()) {
             MarkerOptions options = new MarkerOptions();
             Drawable drawable;
-            if (uId.equals(note.getOwnerId())) {
-                drawable = map.getResources().getDrawable(R.drawable.ic_note_green);
+            if (manager.getuId().equals(note.getOwnerId())) {
+                drawable = manager.getMap().getResources().getDrawable(R.drawable.ic_note_primary_24dp);
             } else {
-                drawable = map.getResources().getDrawable(R.drawable.ic_note_red);
+                drawable = manager.getMap().getResources().getDrawable(R.drawable.ic_note_friend_24dp);
             }
 
             Bitmap bitmap = BitmapCreator.getBitmap(drawable);
@@ -49,13 +43,13 @@ public final class NoteMarkerChildEventListener implements ChildEventListener {
             options.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     .position(latLng);
 
-            Marker marker = map.getMap().addMarker(options);
+            Marker marker = manager.getMap().getMap().addMarker(options);
 
             marker.setTag(note);
             marker.setTitle(note.getText());
 
             note.setKey(dataSnapshot.getKey());
-            map.getMarkersContainer().addMarker(marker);
+            manager.getMap().getMarkersContainer().add(marker);
         }
     }
 

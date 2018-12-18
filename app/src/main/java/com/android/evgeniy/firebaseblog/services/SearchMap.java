@@ -28,7 +28,7 @@ public class SearchMap implements ISearchMap {
     }
 
     @Override
-    public void findFriendByEmail(final String email, Context viewContext) {
+    public void findFriendByEmail(final String email, final Context viewContext) {
         this.viewContext = viewContext;
         reference = FirebaseDatabase.getInstance().getReference().child(userId + "/Details" + "/email");
         myEmailListener = new ValueEventListener() {

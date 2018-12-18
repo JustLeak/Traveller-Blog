@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
-import com.android.evgeniy.firebaseblog.dataaccess.NotesContainer;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
-import com.android.evgeniy.firebaseblog.listeners.NoteRecyclerListenersManager;
+import com.android.evgeniy.firebaseblog.dataaccess.containers.NotesContainer;
+import com.android.evgeniy.firebaseblog.dataaccess.containers.UserDetailsContainer;
+import com.android.evgeniy.firebaseblog.listeners.managers.RecyclerListenersManager;
+import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -19,25 +21,35 @@ import java.util.ArrayList;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private final WeakReference<LayoutInflater> inflater;
-    private NoteRecyclerListenersManager listenersManager;
+    private RecyclerListenersManager listenersManager;
+
     private NotesContainer notesContainer;
+    private UserDetailsContainer usersContainer;
 
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
 
         notesContainer = new NotesContainer();
-        listenersManager = new NoteRecyclerListenersManager(this);
+        usersContainer = new UserDetailsContainer();
+
+        listenersManager = new RecyclerListenersManager(this);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        listenersManager.addChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
+        listenersManager.addNotesChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
+        listenersManager.addUserValueEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Details"));
+
         UserFriendsDao userFriendsDao = new UserFriendsDao(user.getUid());
         userFriendsDao.getAllFriendsId(this);
     }
 
     NotesRecyclerAdapter(LayoutInflater inflater, String uId) {
         this.inflater = new WeakReference<>(inflater);
+
         notesContainer = new NotesContainer();
-        listenersManager = new NoteRecyclerListenersManager(this);
+        usersContainer = new UserDetailsContainer();
+
+        listenersManager = new RecyclerListenersManager(this);
+
         ArrayList<String> userId = new ArrayList<>();
         userId.add(uId);
         setListeners(userId);
@@ -47,15 +59,24 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return notesContainer;
     }
 
+    public UserDetailsContainer getUsersContainer() {
+        return usersContainer;
+    }
+
     public void setListeners(ArrayList<String> resultIdList) {
-        String notesPath;
+        String path;
         DatabaseReference reference;
 
         for (String id : resultIdList) {
-            notesPath = id + "/Notes";
-            reference = FirebaseDatabase.getInstance().getReference().child(notesPath);
-            listenersManager.addChildEventListener(reference);
+            path = id + "/Details";
+            reference = FirebaseDatabase.getInstance().getReference().child(path);
+            listenersManager.addUserValueEventListener(reference);
+
+            path = id + "/Notes";
+            reference = FirebaseDatabase.getInstance().getReference().child(path);
+            listenersManager.addNotesChildEventListener(reference);
         }
+
     }
 
     @Override
@@ -69,14 +90,17 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
-        holder.setNote(notesContainer.getNotes().get(position).getText());
-        holder.setDate(notesContainer.getNotes().get(position).getDate());
-        holder.setTime(notesContainer.getNotes().get(position).getTime());
-        holder.setEmail(notesContainer.getNotes().get(position).getEmail());
+        UserNote note = notesContainer.get(position);
+        holder.setNote(note.getText());
+        holder.setDate(note.getDate());
+        holder.setTime(note.getTime());
+        holder.setEmail(note.getEmail());
+
+        holder.setName(usersContainer.getNameByEmail(note.getEmail()));
     }
 
     @Override
     public int getItemCount() {
-        return notesContainer.getNotes().size();
+        return notesContainer.size();
     }
 }

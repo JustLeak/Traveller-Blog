@@ -3,17 +3,17 @@ package com.android.evgeniy.firebaseblog.listeners;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.android.evgeniy.firebaseblog.adapters.NotesRecyclerAdapter;
+import com.android.evgeniy.firebaseblog.listeners.managers.RecyclerListenersManager;
 import com.android.evgeniy.firebaseblog.models.UserNote;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-public class NoteRecyclerChildEventListener implements ChildEventListener {
-    private NotesRecyclerAdapter adapter;
+public class NotesChildEventListener implements ChildEventListener {
+    private RecyclerListenersManager manager;
 
-    NoteRecyclerChildEventListener(NotesRecyclerAdapter adapter) {
-        this.adapter = adapter;
+    public NotesChildEventListener(RecyclerListenersManager manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -24,19 +24,19 @@ public class NoteRecyclerChildEventListener implements ChildEventListener {
             note.setKey(dataSnapshot.getKey());
         }
 
-        adapter.getNotesContainer().addNote(note);
-        adapter.notifyDataSetChanged();
+        manager.getAdapter().getNotesContainer().addNote(note);
+        manager.getAdapter().notifyDataSetChanged();
     }
 
     @Override
     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         UserNote userNote = dataSnapshot.getValue(UserNote.class);
-        adapter.notifyItemChanged(adapter.getNotesContainer().changeNote(userNote, dataSnapshot.getKey()));
+        manager.getAdapter().notifyItemChanged(manager.getAdapter().getNotesContainer().changeNote(userNote, dataSnapshot.getKey()));
     }
 
     @Override
     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-        adapter.notifyItemRemoved(adapter.getNotesContainer().deleteNote(dataSnapshot.getKey()));
+        manager.getAdapter().notifyItemRemoved(manager.getAdapter().getNotesContainer().deleteNote(dataSnapshot.getKey()));
     }
 
     @Override

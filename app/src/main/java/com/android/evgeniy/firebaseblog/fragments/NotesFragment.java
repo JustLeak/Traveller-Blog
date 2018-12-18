@@ -46,7 +46,7 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
             @Override
             public void onChanged() {
                 super.onChanged();
-                if (clickNoteRecyclerAdapter.getNotesContainer().getNotes().size() != 0) {
+                if (clickNoteRecyclerAdapter.getNotesContainer().size() != 0) {
                     noDataTextView.setVisibility(View.INVISIBLE);
                 } else noDataTextView.setVisibility(View.VISIBLE);
             }
@@ -72,8 +72,8 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     @Override
     public void onItemClick(View view, int position) {
         Bundle arguments = new Bundle();
-        arguments.putString("lat", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getLocation().getLat());
-        arguments.putString("lng", clickNoteRecyclerAdapter.getNotesContainer().getNotes().get(position).getLocation().getLng());
+        arguments.putString("lat", clickNoteRecyclerAdapter.getNotesContainer().get(position).getLocation().getLat());
+        arguments.putString("lng", clickNoteRecyclerAdapter.getNotesContainer().get(position).getLocation().getLng());
         MapFragment mapFragment = new MapFragment();
         mapFragment.setArguments(arguments);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.constants.Settings;
@@ -40,6 +40,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_sign_in);
 
         mSettings = getSharedPreferences(Settings.APP_SETTINGS, Context.MODE_PRIVATE);
@@ -81,8 +82,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_sign_in:
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Please, fill in all fields.",
-                            Toast.LENGTH_SHORT).show();
+
+                    Snackbar.make(v, "Please, fill in all fields.", Snackbar.LENGTH_SHORT).show();
+
                     if (email.isEmpty()) {
                         mUsernameLayout.setErrorEnabled(true);
                         mUsernameLayout.setError(getResources().getString(R.string.login_error));
@@ -118,13 +120,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignInActivity.this, "Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "Authentication success.", Snackbar.LENGTH_SHORT).show();
 
                             startUserNotesActivity();
                         } else {
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "Authentication failed.", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });

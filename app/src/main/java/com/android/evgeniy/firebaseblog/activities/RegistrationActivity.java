@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.dataaccess.UserDetailsDao;
@@ -68,14 +68,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             detailsDao.setOneByUid(userDetails, mAuth.getUid());
                             SearchMap searchMap = new SearchMap(mAuth.getUid());
                             searchMap.addMapItem(userDetails.getEmail());
-                            Toast.makeText(RegistrationActivity.this, "Registration success.",
-                                    Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "Registration success.", Snackbar.LENGTH_SHORT).show();
 
                             mAuth.signInWithEmailAndPassword(userDetails.getEmail(), password);
                             startUserNotesActivity();
                         } else {
-                            Toast.makeText(RegistrationActivity.this, "Registration failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "Registration failed..", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -96,7 +94,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             userDetails = UserDetailsSetter.set(inputs);
             Registration();
         } else {
-            Toast.makeText(RegistrationActivity.this, "Please, fill in all fields.", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(android.R.id.content), "Please, fill in all fields.", Snackbar.LENGTH_SHORT).show();
             addErrorsToFields(checker.getResultMap());
         }
     }

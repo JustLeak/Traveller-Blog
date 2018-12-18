@@ -11,6 +11,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView date;
     private TextView time;
     private TextView email;
+    private TextView name;
+
 
     public NoteViewHolder(View itemView) {
         super(itemView);
@@ -19,6 +21,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         note = itemView.findViewById(R.id.note);
         time = itemView.findViewById(R.id.time);
         email = itemView.findViewById(R.id.email);
+        name = itemView.findViewById(R.id.namesurname_tv);
     }
 
     public TextView getNote() {
@@ -51,5 +54,13 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     public void setDate(String date) {
         this.date.setText(date);
+    }
+
+    public TextView getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.setText(name);
     }
 }
