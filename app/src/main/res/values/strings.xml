@@ -32,4 +32,5 @@
     <string name="communicate">Communicate</string>
     <string name="project_on_github">Project on GitHub</string>
     <string name="add_note">Add note</string>
+    <string name="settings">Settings</string>
 </resources>

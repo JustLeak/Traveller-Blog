@@ -12,9 +12,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.fragments.CreateNoteFragment;
@@ -111,5 +113,17 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(getApplicationContext(),"ssss", Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item);
     }
 }

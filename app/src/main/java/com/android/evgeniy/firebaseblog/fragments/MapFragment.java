@@ -147,7 +147,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
 
         if (lat != null && lng != null){
-            System.out.println("2132313123");
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), DEFAULT_ZOOM));
         }
         map.setOnMarkerClickListener(this);
