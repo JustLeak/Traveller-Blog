@@ -37,7 +37,9 @@ public class NoteViewHolder extends RecyclerView.ViewHolder implements ItemTouch
     }
 
     @Override
-    public void onItemClear() { }
+    public void onItemClear() {
+        cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.colorMyNote));
+    }
 
     public TextView getNote() {
         return note;
