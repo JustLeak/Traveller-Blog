@@ -9,20 +9,23 @@ import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 public class ClickNoteRecyclerAdapter extends NotesRecyclerAdapter implements View.OnClickListener {
     private final OnItemClickListener noteClickListener;
 
-    public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener) {
+    public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener clickListener) {
         super(inflater);
-        noteClickListener = listener;
+        noteClickListener = clickListener;
+
     }
 
-    public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener listener, String userId) {
+    public ClickNoteRecyclerAdapter(LayoutInflater inflater, OnItemClickListener clickListener, String userId) {
         super(inflater, userId);
-        noteClickListener = listener;
+        noteClickListener = clickListener;
+
     }
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         NoteViewHolder holder = super.onCreateViewHolder(parent, viewType);
         holder.itemView.setOnClickListener(this);
+
 
         return holder;
     }

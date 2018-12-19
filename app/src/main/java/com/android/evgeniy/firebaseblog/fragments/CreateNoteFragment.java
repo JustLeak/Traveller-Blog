@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +52,6 @@ public class CreateNoteFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_note, container, false);
         button = view.findViewById(R.id.btn_add_note);
         noteText = view.findViewById(R.id.et_new_note);
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.add_note);
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

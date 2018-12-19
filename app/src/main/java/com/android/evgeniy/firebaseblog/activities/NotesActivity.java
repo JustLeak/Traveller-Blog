@@ -2,7 +2,6 @@ package com.android.evgeniy.firebaseblog.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,7 +45,10 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_close, R.string.navigation_drawer_open);
 
-        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorTextWhite));
+        toolbar.setSubtitle(getResources().getString(R.string.notes));
+
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -80,10 +82,12 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:
+                toolbar.setSubtitle(getResources().getString(R.string.profile));
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_home:
+                toolbar.setSubtitle(getResources().getString(R.string.notes));
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).addToBackStack(null).commit();
                 break;
 
@@ -95,14 +99,17 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.nav_add:
+                toolbar.setSubtitle(getResources().getString(R.string.add_note));
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNoteFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_map:
+                toolbar.setSubtitle(getResources().getString(R.string.map));
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
                 break;
 
             case R.id.nav_friends:
+                toolbar.setSubtitle(getResources().getString(R.string.friends));
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).addToBackStack(null).commit();
                 break;
 

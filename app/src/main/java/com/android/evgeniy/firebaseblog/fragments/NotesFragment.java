@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     private RecyclerView notesRecyclerView;
     private TextView noDataTextView;
     private FloatingActionButton button;
+    private CardView cardView;
 
     private ClickNoteRecyclerAdapter clickNoteRecyclerAdapter;
 
@@ -30,13 +31,7 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         notesRecyclerView = view.findViewById(R.id.items);
         button = view.findViewById(R.id.btn_new_record);
         noDataTextView = view.findViewById(R.id.noDataTextView);
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.notes);
-        if (getArguments() != null && getArguments().containsKey("userId")) {
-            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this, getArguments().getString("userId"));
-        } else {
-            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
-        }
+        cardView = view.findViewById(R.id.card_view);
 
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -59,14 +54,18 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
             }
         });
 
+
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+        if (getArguments() != null && getArguments().containsKey("userId")) {
+            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this, getArguments().getString("userId"));
+        } else {
+            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+        }
     }
 
     @Override
@@ -78,4 +77,5 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         mapFragment.setArguments(arguments);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
     }
+
 }
