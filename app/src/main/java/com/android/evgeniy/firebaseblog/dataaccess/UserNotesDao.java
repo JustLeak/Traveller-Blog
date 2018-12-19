@@ -25,6 +25,39 @@ public class UserNotesDao implements IUserNotesDao {
     }
 
     @Override
+    public void removeByReference(DatabaseReference reference) {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void removeByKey(String ownerId, String key) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(ownerId + childName + "/" + key);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot noteSnapshot : dataSnapshot.getChildren()) {
+                    noteSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
     public void getAll(final RecyclerView.Adapter adapter) {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

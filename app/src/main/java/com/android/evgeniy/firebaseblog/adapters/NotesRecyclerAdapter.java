@@ -8,6 +8,7 @@ import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.holders.NoteViewHolder;
 import com.android.evgeniy.firebaseblog.adapters.touchHelpers.ItemTouchHelperAdapter;
 import com.android.evgeniy.firebaseblog.dataaccess.UserFriendsDao;
+import com.android.evgeniy.firebaseblog.dataaccess.UserNotesDao;
 import com.android.evgeniy.firebaseblog.dataaccess.containers.NotesContainer;
 import com.android.evgeniy.firebaseblog.dataaccess.containers.UserDetailsContainer;
 import com.android.evgeniy.firebaseblog.listeners.managers.RecyclerListenersManager;
@@ -26,6 +27,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
 
     private NotesContainer notesContainer;
     private UserDetailsContainer usersContainer;
+
 
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
@@ -107,13 +109,14 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
 
     @Override
     public void onItemDismiss(int position) {
-        notesContainer.remove(position);
-        notifyItemRemoved(position);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(notesContainer.get(position).getOwnerId() + "/Notes/" + notesContainer.get(position).getKey());
+        UserNotesDao userNotesDao = new UserNotesDao();
+        userNotesDao.removeByReference(reference);
     }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        UserNote note =  notesContainer.remove(fromPosition);
+        UserNote note = notesContainer.remove(fromPosition);
         notesContainer.add(toPosition > fromPosition ? toPosition - 1 : toPosition, note);
         notifyItemMoved(fromPosition, toPosition);
     }

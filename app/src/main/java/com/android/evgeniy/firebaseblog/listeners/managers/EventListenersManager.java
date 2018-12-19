@@ -16,7 +16,7 @@ public abstract class EventListenersManager {
         valueListenersMap = new HashMap<>();
     }
 
-    protected void removeChildEventListener(ChildEventListener listener) {
+    public void removeChildEventListener(ChildEventListener listener) {
         for (DatabaseReference key : childListenersMap.keySet()) {
             for (ChildEventListener existingListener : childListenersMap.get(key)) {
                 if (existingListener.equals(listener)) {
@@ -29,6 +29,10 @@ public abstract class EventListenersManager {
                 }
             }
         }
+    }
+
+    public void removeChildEventListener(DatabaseReference reference) {
+        childListenersMap.remove(reference);
     }
 
     protected ChildEventListener addChildEventListener(DatabaseReference reference, ChildEventListener listener) {
@@ -46,7 +50,7 @@ public abstract class EventListenersManager {
         return listener;
     }
 
-    protected void removeValueEventListener(ValueEventListener listener) {
+    public void removeValueEventListener(ValueEventListener listener) {
         for (DatabaseReference key : valueListenersMap.keySet()) {
             for (ValueEventListener existingListener : valueListenersMap.get(key)) {
                 if (existingListener.equals(listener)) {

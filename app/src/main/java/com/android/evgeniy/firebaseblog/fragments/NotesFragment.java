@@ -51,7 +51,6 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         notesRecyclerView.setHasFixedSize(true);
 
 
-
         notesRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
