@@ -46,6 +46,5 @@ public class GetFriendsIdTask extends AsyncTask<DataSnapshot, Integer, ArrayList
         } else {
             fragment.setListeners(resultIdList);
         }
-
     }
 }

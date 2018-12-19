@@ -24,6 +24,6 @@ public class UserValueEventListener implements ValueEventListener {
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+       
     }
 }

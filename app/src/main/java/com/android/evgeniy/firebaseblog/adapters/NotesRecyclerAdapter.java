@@ -28,6 +28,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
     private NotesContainer notesContainer;
     private UserDetailsContainer usersContainer;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     NotesRecyclerAdapter(LayoutInflater inflater) {
         this.inflater = new WeakReference<>(inflater);
@@ -36,7 +37,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
         usersContainer = new UserDetailsContainer();
 
         listenersManager = new RecyclerListenersManager(this);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         listenersManager.addNotesChildEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Notes"));
         listenersManager.addUserValueEventListener(FirebaseDatabase.getInstance().getReference().child(user.getUid() + "/Details"));
@@ -79,7 +79,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
             reference = FirebaseDatabase.getInstance().getReference().child(path);
             listenersManager.addNotesChildEventListener(reference);
         }
-
     }
 
     @Override
@@ -100,6 +99,10 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
         holder.setEmail(note.getEmail());
 
         holder.setName(usersContainer.getNameByEmail(note.getEmail()));
+
+        if (note.getOwnerId().equals(user.getUid())) {
+            holder.getCardView().setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorMyNote));
+        } else holder.getCardView().setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorBackground));
     }
 
     @Override
