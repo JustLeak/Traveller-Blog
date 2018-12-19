@@ -17,9 +17,11 @@ import com.google.firebase.database.ValueEventListener;
 public class UserFriendsDao implements IUserFriendsDao {
     private final DatabaseReference mRef;
     private final String childName = "/Friends";
+    private String userId;
 
     public UserFriendsDao(String userId) {
         this.mRef = FirebaseDatabase.getInstance().getReference().child(userId + childName);
+        this.userId = userId;
     }
 
     @Override
@@ -59,6 +61,21 @@ public class UserFriendsDao implements IUserFriendsDao {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GetFriendsIdTask task = new GetFriendsIdTask(mapFragment);
                 task.execute(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void deleteFriendByKey(String key){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(userId + childName + "/" + key);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
             }
 
             @Override

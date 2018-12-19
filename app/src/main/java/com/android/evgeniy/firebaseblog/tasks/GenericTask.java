@@ -27,7 +27,9 @@ public class GenericTask<T> extends AsyncTask<DataSnapshot, Integer, ArrayList<T
     protected ArrayList<T> doInBackground(DataSnapshot... snapshots) {
         ArrayList<T> friends = new ArrayList<>();
         for (DataSnapshot dataS : snapshots[0].getChildren()) {
-            friends.add(dataS.getValue(genericType));
+            Friend friend =(Friend) dataS.getValue(genericType);
+            friend.setKey(dataS.getKey());
+            friends.add((T)friend);
         }
         Collections.reverse(friends);
 

@@ -31,10 +31,7 @@ public class FriendSearchTask extends AsyncTask<DataSnapshot, Integer, String> {
             friend = dataS.getValue(Friend.class);
             map.put(friend.getEmail(), friend.getId());
         }
-
-        if (map.containsKey(email)) {
-            return email.concat(" is already on your friend list.");
-        } else if (map.get(email) != null) {
+        if (map.get(email) != null) {
             Friend newFriend = new Friend();
             newFriend.setEmail(email);
             newFriend.setId(map.get(email));

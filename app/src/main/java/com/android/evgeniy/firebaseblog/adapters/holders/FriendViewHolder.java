@@ -26,5 +26,6 @@ public class FriendViewHolder extends RecyclerView.ViewHolder implements View.On
         menu.add(Menu.NONE, 0, Menu.NONE, "Notes");
         menu.add(Menu.NONE, 1, Menu.NONE, "Profile");
         menu.add(Menu.NONE, 2, Menu.NONE, "Notes on map");
+        menu.add(Menu.NONE, 3, Menu.NONE, "Delete");
     }
 }

@@ -16,4 +16,5 @@ import lombok.ToString;
 public class Friend {
     String email;
     String id;
+    String key;
 }

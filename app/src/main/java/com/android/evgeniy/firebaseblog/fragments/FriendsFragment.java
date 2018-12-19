@@ -2,6 +2,7 @@ package com.android.evgeniy.firebaseblog.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,7 +50,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
             @Override
             public boolean onQueryTextSubmit(String query) {
                 SearchMap searchMap = new SearchMap(user.getUid());
-                searchMap.findFriendByEmail(query.trim().toLowerCase(), view.getContext());
+                searchMap.findFriendByEmail(query.trim().toLowerCase(), view.getContext(), clickFriendRecyclerAdapter.getFriends());
                 return false;
             }
 
@@ -98,6 +99,9 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
                 MapFragment mapFragment = new MapFragment();
                 mapFragment.setArguments(arguments);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
+            case 3:
+                userFriendsDao.deleteFriendByKey(clickFriendRecyclerAdapter.getFriends().get(position).getKey());
+                break;
         }
         return super.onContextItemSelected(item);
     }

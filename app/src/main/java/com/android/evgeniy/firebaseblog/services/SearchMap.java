@@ -13,12 +13,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SearchMap implements ISearchMap {
     private DatabaseReference reference;
     private Context viewContext;
     private ValueEventListener myEmailListener;
     private ValueEventListener searchMapListener;
+    private ArrayList<Friend> friends;
 
     private String userId;
 
@@ -28,7 +32,8 @@ public class SearchMap implements ISearchMap {
     }
 
     @Override
-    public void findFriendByEmail(final String email, final Context viewContext) {
+    public void findFriendByEmail(final String email, final Context viewContext, ArrayList<Friend> friends) {
+        this.friends = friends;
         this.viewContext = viewContext;
         reference = FirebaseDatabase.getInstance().getReference().child(userId + "/Details" + "/email");
         myEmailListener = new ValueEventListener() {
@@ -37,7 +42,8 @@ public class SearchMap implements ISearchMap {
                 String myEmail = (String) dataSnapshot.getValue();
                 if (email.equals(myEmail)) {
                     showToast("It is you(=");
-                } else findFriend(email);
+                } else if (isInFriendList(email)) showToast(email.concat(" is already on your friend list."));
+                else findFriend(email);
             }
 
             @Override
@@ -46,6 +52,13 @@ public class SearchMap implements ISearchMap {
             }
         };
         reference.addValueEventListener(myEmailListener);
+    }
+
+    private Boolean isInFriendList(String email) {
+        for (Friend friend : friends) {
+            if (friend.getEmail().equals(email)) return true;
+        }
+        return false;
     }
 
     @Override
