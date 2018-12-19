@@ -141,13 +141,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         map = googleMap;
 
         if (mLocationPermissionGranted) {
-            getLastLocation();
+            if (getArguments() != null)
+                if (getArguments().containsKey("lat") && getArguments().containsKey("lng")) {
+
+                    lat = Double.valueOf(getArguments().get("lat").toString());
+                    lng = Double.valueOf(getArguments().get("lng").toString());
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), DEFAULT_ZOOM));
+
+                } else
+                    getLastLocation();
+
             startLocationUpdates();
         }
 
-        if (lat != null && lng != null) {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), DEFAULT_ZOOM));
-        }
+
         map.setOnMarkerClickListener(this);
     }
 

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
 import com.android.evgeniy.firebaseblog.adapters.ClickNoteRecyclerAdapter;
+import com.android.evgeniy.firebaseblog.adapters.touchHelpers.SimpleItemTouchHelperCallback;
 
 public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.OnItemClickListener {
     private View view;
@@ -21,6 +23,7 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     private TextView noDataTextView;
     private FloatingActionButton button;
     private CardView cardView;
+    private ItemTouchHelper mItemTouchHelper;
 
     private ClickNoteRecyclerAdapter clickNoteRecyclerAdapter;
 
@@ -33,9 +36,21 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         noDataTextView = view.findViewById(R.id.noDataTextView);
         cardView = view.findViewById(R.id.card_view);
 
+        if (getArguments() != null) {
+            if (getArguments().containsKey("userId")) {
+                clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this, getArguments().getString("userId"));
+            } else {
+                clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+            }
+        } else {
+            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
+        }
+
         notesRecyclerView.setAdapter(clickNoteRecyclerAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         notesRecyclerView.setHasFixedSize(true);
+
+
 
         notesRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -46,6 +61,11 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
                 } else noDataTextView.setVisibility(View.VISIBLE);
             }
         });
+
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(clickNoteRecyclerAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(notesRecyclerView);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +81,7 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null && getArguments().containsKey("userId")) {
-            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this, getArguments().getString("userId"));
-        } else {
-            clickNoteRecyclerAdapter = new ClickNoteRecyclerAdapter(getLayoutInflater(), this);
-        }
+
     }
 
     @Override

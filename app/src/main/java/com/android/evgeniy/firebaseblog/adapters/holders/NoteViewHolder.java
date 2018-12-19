@@ -1,18 +1,21 @@
 package com.android.evgeniy.firebaseblog.adapters.holders;
 
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.android.evgeniy.firebaseblog.R;
+import com.android.evgeniy.firebaseblog.adapters.touchHelpers.ItemTouchHelperViewHolder;
 
-public class NoteViewHolder extends RecyclerView.ViewHolder {
+public class NoteViewHolder extends RecyclerView.ViewHolder  implements ItemTouchHelperViewHolder {
     private TextView note;
     private TextView date;
     private TextView time;
     private TextView email;
     private TextView name;
-
+    private CardView cardView;
 
     public NoteViewHolder(View itemView) {
         super(itemView);
@@ -22,6 +25,19 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         time = itemView.findViewById(R.id.time);
         email = itemView.findViewById(R.id.email);
         name = itemView.findViewById(R.id.namesurname_tv);
+        cardView = itemView.findViewById(R.id.card_view);
+    }
+
+    @Override
+    public void onItemSelected() {
+        /*cardView.setBackgroundColor(itemView.getResources().getColor(R.color.colorPrimary));*/
+        /*itemView.setBackgroundColor(itemView.getResources().getColor(R.color.colorTextLight));*/
+    }
+
+    @Override
+    public void onItemClear() {
+       /* cardView.setBackgroundColor(itemView.getResources().getColor(R.color.colorBackground));*/
+       /* itemView.setBackgroundColor(itemView.getResources().getColor(R.color.colorBackground));*/
     }
 
     public TextView getNote() {
