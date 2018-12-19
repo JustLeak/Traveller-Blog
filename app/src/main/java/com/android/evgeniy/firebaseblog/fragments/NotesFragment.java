@@ -78,12 +78,6 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public void onItemClick(View view, int position) {
         Bundle arguments = new Bundle();
         arguments.putString("lat", clickNoteRecyclerAdapter.getNotesContainer().get(position).getLocation().getLat());
@@ -92,5 +86,4 @@ public class NotesFragment extends Fragment implements ClickNoteRecyclerAdapter.
         mapFragment.setArguments(arguments);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
     }
-
 }

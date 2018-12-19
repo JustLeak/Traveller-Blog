@@ -79,7 +79,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> i
             reference = FirebaseDatabase.getInstance().getReference().child(path);
             listenersManager.addNotesChildEventListener(reference);
         }
-
     }
 
     @Override

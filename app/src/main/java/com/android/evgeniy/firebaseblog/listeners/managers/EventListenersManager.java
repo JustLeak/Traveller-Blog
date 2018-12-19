@@ -79,4 +79,8 @@ public abstract class EventListenersManager {
 
         return listener;
     }
+
+    public void removeValueEventListener(DatabaseReference reference) {
+        childListenersMap.remove(reference);
+    }
 }
