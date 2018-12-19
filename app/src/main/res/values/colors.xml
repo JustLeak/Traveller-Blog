@@ -9,4 +9,7 @@
     <color name="colorTextBlack">#000000</color>
     <color name="colorTextLight">#9e9e9e</color>
     <color name="colorTextGrey">#424242</color>
+
+    <color name="colorMyNote">#f2f5a9</color>
+    <color name="colorMyNoteSelected">#e7ec65</color>
 </resources>

@@ -27,17 +27,17 @@ public class NoteViewHolder extends RecyclerView.ViewHolder implements ItemTouch
         cardView = itemView.findViewById(R.id.card_view);
     }
 
-    @Override
-    public void onItemSelected() {
-        /*cardView.setBackgroundColor(itemView.getResources().getColor(R.color.colorPrimary));*/
-        /*itemView.setBackgroundColor(itemView.getResources().getColor(R.color.colorTextLight));*/
+    public CardView getCardView() {
+        return cardView;
     }
 
     @Override
-    public void onItemClear() {
-        /* cardView.setBackgroundColor(itemView.getResources().getColor(R.color.colorBackground));*/
-        /* itemView.setBackgroundColor(itemView.getResources().getColor(R.color.colorBackground));*/
+    public void onItemSelected() {
+        cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.colorMyNoteSelected));
     }
+
+    @Override
+    public void onItemClear() { }
 
     public TextView getNote() {
         return note;
