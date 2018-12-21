@@ -99,6 +99,7 @@ public class FriendsFragment extends Fragment implements ClickFriendRecyclerAdap
                 MapFragment mapFragment = new MapFragment();
                 mapFragment.setArguments(arguments);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment).addToBackStack(null).commit();
+                break;
             case 3:
                 userFriendsDao.deleteFriendByKey(clickFriendRecyclerAdapter.getFriends().get(position).getKey());
                 break;

@@ -109,6 +109,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                         mLocMarker = map.addMarker(new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
                                 .zIndex(-1));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM));
                     }
                 }
             }
@@ -177,7 +178,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                 .zIndex(-1));
                     }
 
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), MapFragment.DEFAULT_ZOOM));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM));
                 }
             }
         });
